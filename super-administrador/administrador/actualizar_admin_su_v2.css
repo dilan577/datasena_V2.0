@@ -142,6 +142,7 @@ footer {
     font-size: 0.9em;
     margin-top: 50px;
 }
+
 .barra-gov,
 .barra-gov-bottom {
   background-color: #0c14ef;
@@ -171,6 +172,7 @@ footer {
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
 }
+
 .botones-finales {
     display: flex;
     justify-content: center;  /* Centra horizontalmente */
