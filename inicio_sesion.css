@@ -74,8 +74,8 @@
 /* Fondo y animaciones */
 body {
   margin: 0;
-  padding: 30PX;
-  background: var(--white);
+  padding: 0;
+  background: linear-gradient(135deg, #007BFF, #ffffff); /* Azul a blanco */
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -97,16 +97,7 @@ h2{
 }
 
 
-/* Fondo de puntos pequeños */
-.dot-background {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-image: radial-gradient(white 1px, transparent 1px);
-  background-size: 30px 30px;
-  z-index: 0;
-  opacity: 0.4;
-}
+
 
 /* Burbujas animadas */
 .bubbles {
