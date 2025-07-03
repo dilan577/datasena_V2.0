@@ -53,6 +53,8 @@ button.btn {
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    width: 150px;
+    margin: 0 auto;
 }
 
 button.btn:hover {
