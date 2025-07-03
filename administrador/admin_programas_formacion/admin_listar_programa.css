@@ -1,0 +1,138 @@
+/* Reset básico */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to right, #a8d2fa, #e2ebf7);
+}
+
+/* Barra .gov */
+.barra-gov {
+    background-color: #0c14ef;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gov-logo {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Encabezado */
+header {
+    text-align: center;
+    font-size: 2em;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.6);
+    font-weight: bold;
+    color: #0d3c77;
+}
+
+/* Logo central */
+.img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100px;
+    padding-top: 10px;
+}
+
+/* Contenedor principal */
+.form-container {
+    max-width: 800px;
+    background-color: rgba(255, 255, 255, 0.85);
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.2);
+    flex-grow: 1;
+    width: 90%;
+}
+
+/* Título */
+h2 {
+    text-align: center;
+    color: #0d3c77;
+}
+
+/* Formularios */
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #0d3c77;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #000;
+    margin-bottom: 10px;
+    font-size: 1em;
+    background-color: #fff;
+    color: #000;
+}
+
+/* Botones */
+.logout-btn {
+    background-color: #0d6efd;
+    color: white;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.logout-btn:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-2px);
+}
+
+/* Mensaje de error */
+.mensaje-error {
+    background-color: #ffe1e1;
+    color: #a30000;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Tarjeta de resultados */
+.empresa-card {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    margin-top: 20px;
+}
+
+.empresa-card p {
+    margin: 10px 0;
+    color: #333;
+    line-height: 1.4;
+}
+
+/* Footer */
+footer {
+    background-color: #0d3c77;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    margin-top: auto;
+}

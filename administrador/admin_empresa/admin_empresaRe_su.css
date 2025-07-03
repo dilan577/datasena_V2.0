@@ -1,0 +1,134 @@
+/* Fondo general */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    background: linear-gradient(to bottom right, #a8d2fa, #e2ebf7);
+    background-attachment: fixed;
+    color: #111;
+}
+
+/* Títulos */
+h1, h2, h3 {
+    text-align: center;
+    color: #2b4a74; /* Azul más fuerte */
+}
+
+/* Contenedor principal */
+.forma-container {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 1000px;
+    margin: 40px auto;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+/* Grid de columnas */
+.forma-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.forma-grid > div {
+    flex: 1 1 300px;
+}
+
+/* Fila de campo */
+.forma-row {
+    margin-bottom: 18px;
+}
+
+/* Etiquetas */
+label {
+    display: block;
+    margin-bottom: 6px;
+    color: #2b4a74;
+    font-weight: 500;
+}
+
+/* Inputs y selects */
+input,
+select,
+.md-input {
+    width: 90%;
+    padding: 12px;
+    border: 2px solid #000000; /* Borde negro */
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: #ffffff;
+    color: #333;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); /* Opcional para darle profundidad */
+    transition: border-color 0.3s ease;
+}
+
+input:focus,
+select:focus,
+.md-input:focus {
+    outline: none;
+    border-color: #2b4a74; /* Al enfocar, azul oscuro */
+}
+
+/* Mensajes */
+.mensaje-error {
+    color: #c0392b;
+    font-size: 0.9em;
+    margin-top: 4px;
+}
+
+.mensaje-exito {
+    background-color: #e0f7ec;
+    color: #2e7d32;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Botones */
+.logout-buttons-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.logout-btn {
+    padding: 10px 24px;
+    background-color: #00c875;
+    color: white;
+    border: 2px solid #000000; /* Añade borde negro */
+    border-radius: 8px;
+    font-weight: bold;
+    margin: 10px 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.logout-btn:hover {
+    background-color: #00a761;
+    transform: translateY(-2px);
+    border-color: #000000; /* Mantiene el borde negro al pasar el mouse */
+}
+
+/* Pie de página */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #2b4a74;
+    color: white;
+    margin-top: 40px;
+}
+
+/* Logo */
+img.img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .forma-grid {
+        flex-direction: column;
+    }
+}

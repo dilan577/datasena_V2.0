@@ -1,0 +1,122 @@
+/* Fondo general */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #a8d2fa, #e2ebf7); /* Azul claro degradado */
+    background-attachment: fixed;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Encabezado */
+header {
+    text-align: center;
+    font-size: 2em;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.6);
+    font-weight: bold;
+    color: #0d3c77;
+}
+
+/* Logo */
+.img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100px;
+    padding-top: 10px;
+}
+
+/* Contenedor principal */
+.form-container {
+    max-width: 800px;
+    background-color: rgba(255, 255, 255, 0.85);
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.2);
+    flex-grow: 1;
+}
+
+/* Título */
+h2 {
+    text-align: center;
+    color: #0d3c77;
+}
+
+/* Estilo de formularios y controles */
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #0d3c77;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #000; /* Borde negro */
+    margin-bottom: 10px;
+    font-size: 1em;
+    background-color: #fff;
+    color: #000;
+}
+
+/* Estilo de botones */
+.logout-btn {
+    background-color: #0d6efd;
+    color: white;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.logout-btn:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-2px);
+}
+
+/* Mensaje de éxito */
+.mensaje-exito {
+    background-color: #d4fcd7;
+    color: #046d3f;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Card de empresa */
+.empresa-card {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    margin-top: 20px;
+}
+
+.empresa-card p {
+    margin: 10px 0;
+    color: #333;
+    line-height: 1.4;
+}
+
+/* Footer */
+footer {
+    background-color: #0d3c77;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    margin-top: auto;
+}

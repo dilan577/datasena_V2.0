@@ -1,0 +1,154 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #a8d2fa, #e2ebf7);
+    color: #0d3c77;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Barra GOV */
+.barra-gov {
+    background-color: #0c14ef;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gov-logo {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Encabezado */
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.6);
+    font-size: 24px;
+    font-weight: bold;
+    color: #0d3c77;
+}
+
+.search-box {
+    text-align: center;
+    padding: 20px;
+}
+
+.search-box input {
+    padding: 10px;
+    width: 280px;
+    border: 2px solid black;
+    border-radius: 6px;
+    font-size: 1em;
+    margin-top: 10px; /* separación del label */
+}
+
+.search-box label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.search-box button {
+    background-color: #0078c0;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    margin-top: 12px; /* separación del input */
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+/* Detalles */
+.empresa-detalle {
+    background-color: white;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 700px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.empresa-detalle ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.empresa-detalle li {
+    margin-bottom: 10px;
+}
+
+/* Estado */
+.form-estado {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.form-estado select {
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 6px;
+    font-size: 1em;
+}
+
+/* Botones */
+.botones {
+    margin-top: 15px;
+}
+
+.botones button {
+    background-color: #4a90e2;
+    color: white;
+    padding: 10px 20px;
+    margin: 8px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.botones button:hover {
+    background-color: #337ccf;
+}
+
+/* Mensajes */
+.mensaje {
+    text-align: center;
+    font-weight: bold;
+    margin: 20px auto;
+    padding: 12px;
+    max-width: 600px;
+    background-color: rgba(255,255,255,0.6);
+    border-radius: 8px;
+}
+
+
+.mensaje.exito {
+    color: green;
+}
+
+.mensaje.error {
+    color: red;
+}
+
+.mensaje.info {
+    color: #0d3c77;
+}
+
+/* Footer */
+footer {
+    background-color: #0d3c77;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    margin-top: auto;
+}

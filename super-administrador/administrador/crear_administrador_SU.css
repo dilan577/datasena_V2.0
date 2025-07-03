@@ -1,0 +1,148 @@
+/* General */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #a8d2fa, #e2ebf7);
+    color: #111;
+}
+
+/* Encabezado */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2.4em;
+    color: #0d3c77;
+}
+
+.img {
+    display: block;
+    margin: 12px auto;
+    max-width: 100px;
+}
+
+/* Contenedor principal */
+.forma-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Título */
+.forma-container h3 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.6em;
+    color: #0d3c77;
+}
+
+/* Grid de dos columnas */
+.forma-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.forma-grid > div {
+    flex: 1 1 45%;
+}
+
+/* Campos del formulario */
+.forma-row {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #0d3c77;
+}
+
+/* Inputs y selects con borde negro */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+    width: 100%;
+    max-width: 380px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 2px solid #000;
+    background-color: #ffffff;
+    color: #111;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+/* Botones */
+.buttons-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+button {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 10px 12px;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.back_crear {
+    background-color: #4a90e2;
+    color: #fff;
+}
+
+.back_crear:hover {
+    background-color: #337ccf;
+    transform: translateY(-2px);
+}
+
+.logout-btn {
+    background-color: #666;
+    color: #fff;
+}
+
+.logout-btn:hover {
+    background-color: #4a4a4a;
+    transform: translateY(-2px);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #0d3c77;
+    color: white;
+    font-size: 0.9em;
+    margin-top: 40px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .forma-grid {
+        flex-direction: column;
+    }
+}
+.barra-gov,
+.barra-gov-bottom {
+  background-color: #0c14ef;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gov-logo {
+  height: 50px;
+  max-height: 50px;
+  width: auto;
+  object-fit: contain;
+}

@@ -1,0 +1,151 @@
+/* Fondo general */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #a8d2fa, #e2ebf7);
+    background-attachment: fixed;
+    color: #0d3c77;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Texto .gov.co */
+.gov-text {
+    text-align: center;
+    color: #0d3c77;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin: 20px 0 10px 0;
+}
+
+/* Encabezado */
+header {
+    text-align: center;
+    font-size: 2.5em;
+    color: #0d3c77;
+    margin-top: 10px;
+}
+
+/* Logo */
+.img {
+    display: block;
+    margin: 10px auto;
+    max-width: 100px;
+}
+
+/* Contenedor principal */
+.forma-container {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 1000px;
+    margin: 20px auto;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Título */
+h4 {
+    text-align: center;
+    color: #0d3c77;
+    margin-bottom: 20px;
+}
+
+/* Formulario */
+.forma-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    margin-bottom: 20px;
+}
+
+.forma-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.forma-row label {
+    color: #0d3c77;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.forma-row input,
+.forma-row select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #000; /* Borde negro */
+    background-color: #ffffff;
+    color: #333;
+    font-size: 1em;
+}
+
+/* Botones */
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.registrar {
+    background-color: #4a90e2;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.registrar:hover {
+    background-color: #337ccf;
+    transform: translateY(-2px);
+}
+
+/* Footer */
+footer {
+    background-color: #0d3c77;
+    padding: 20px;
+    text-align: center;
+    color: #f0f0f0;
+    font-size: 0.9em;
+    margin-top: auto;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .forma-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .buttons-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .registrar {
+        width: 100%;
+    }
+}
+.barra-gov,
+.barra-gov-bottom {
+  background-color: #0c14ef;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gov-logo {
+  height: 50px;
+  max-height: 50px;
+  width: auto;
+  object-fit: contain;
+}
