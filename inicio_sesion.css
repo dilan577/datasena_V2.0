@@ -30,12 +30,14 @@ body {
   align-items: center;
   font-family: 'Poppins', sans-serif;
   overflow: hidden;
+  background: url('img/SIUUUU.PNG') no-repeat center center fixed;
+  background-size: cover;
 }
 
 /* Contenedor principal */
 .login-box {
   position: relative;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(209, 207, 207, 0.425);
   backdrop-filter: blur(var(--blur));
   border-radius: 20px;
   padding: 50px 35px 40px;

@@ -16,7 +16,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to right, #ffffff, #e2ebf7);
+  background: linear-gradient(to right, #ffffff, #a6a8aa);
   position: relative;
   overflow-x: hidden;
 }
