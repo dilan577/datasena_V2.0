@@ -1,29 +1,29 @@
 :root {
-  /* Colores */
-  --color-fondo: linear-gradient(135deg, #a1c4fd, #c2e9fb);
-  --color-input-bg: rgba(255, 255, 255, 0.6);
-  --color-texto: #333;
-  --color-texto-secundario: #666;
-  --color-placeholder: #999;
-  --color-link: #667eea;
+  /* Paleta SENA Sofía Plus */
+  --color-primary: #4caf50;         /* verde principal */
+  --color-primary-dark: #388e3c;    /* verde oscuro hover */
+  --color-secondary: #00796b;       /* teal SENA */
+  --bg-gradient: linear-gradient(135deg, #a1c4fd, #c2e9fb); /* fondo suave */
 
-  /* Botón */
-  --color-btn-bg: linear-gradient(90deg, #667eea, #764ba2);
-  --color-btn-hover-shadow: rgba(102, 126, 234, 0.5);
+  /* UI */
+  --input-bg: rgba(255, 255, 255, 0.6);
+  --text-color: #333;
+  --text-muted: #666;
+  --link-color: var(--color-secondary);
+  --btn-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  --form-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  --focus-shadow: rgba(76, 175, 80, 0.4);
 
   /* Diseño */
   --border-radius: 10px;
   --blur: 18px;
-  --sombra: 0 8px 25px rgba(0, 0, 0, 0.1);
-  --sombra-boton: 0 4px 15px rgba(102, 126, 234, 0.3);
-  --sombra-interna: inset 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
 /* Fondo */
 body {
   margin: 0;
   padding: 0;
-  background: var(--color-fondo);
+  background: var(--bg-gradient);
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -32,7 +32,7 @@ body {
   overflow: hidden;
 }
 
-/* Caja de login */
+/* Contenedor principal */
 .login-box {
   position: relative;
   background: rgba(255, 255, 255, 0.2);
@@ -41,13 +41,13 @@ body {
   padding: 50px 35px 40px;
   width: 100%;
   max-width: 360px;
-  box-shadow: var(--sombra);
-  color: var(--color-texto);
+  box-shadow: var(--form-shadow);
+  color: var(--text-color);
   overflow: hidden;
   z-index: 1;
 }
 
-/* Burbujas */
+/* Burbujas animadas */
 .bubbles {
   position: absolute;
   width: 100%;
@@ -98,7 +98,7 @@ body {
   text-align: center;
   margin-bottom: 25px;
   font-weight: 600;
-  color: var(--color-texto);
+  color: var(--text-color);
   z-index: 1;
   position: relative;
 }
@@ -117,26 +117,34 @@ body {
   padding: 0 40px;
   border-radius: var(--border-radius);
   border: none;
-  background: var(--color-input-bg);
-  color: var(--color-texto);
+  background: var(--input-bg);
+  color: var(--text-color);
   font-size: 1rem;
-  box-shadow: var(--sombra-interna);
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.05);
   box-sizing: border-box;
 }
 
+.input-group input:focus,
+.input-group select:focus {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 6px var(--focus-shadow);
+  outline: none;
+}
+
+/* Iconos */
 .input-group i {
   position: absolute;
   top: 50%;
   left: 12px;
   transform: translateY(-50%);
-  color: var(--color-texto-secundario);
+  color: var(--text-muted);
 }
 
 .input-group .toggle-password {
   right: 12px;
   left: auto;
   cursor: pointer;
-  color: var(--color-texto-secundario);
+  color: var(--text-muted);
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -149,7 +157,7 @@ body {
   align-items: center;
   font-size: 0.9rem;
   margin-bottom: 20px;
-  color: #444;
+  color: var(--text-muted);
   z-index: 1;
   position: relative;
   flex-wrap: wrap;
@@ -157,7 +165,7 @@ body {
 }
 
 .extras a {
-  color: var(--color-link);
+  color: var(--link-color);
   text-decoration: none;
 }
 
@@ -171,20 +179,21 @@ button {
   padding: 12px;
   border: none;
   border-radius: var(--border-radius);
-  background: var(--color-btn-bg);
+  background: var(--color-primary);
   color: #fff;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: var(--sombra-boton);
-  transition: transform 0.2s, box-shadow 0.3s;
+  box-shadow: var(--btn-shadow);
+  transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
   z-index: 1;
   position: relative;
 }
 
 button:hover {
+  background: var(--color-primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px var(--color-btn-hover-shadow);
+  box-shadow: 0 6px 20px var(--focus-shadow);
 }
 
 /* Footer */
@@ -192,12 +201,12 @@ button:hover {
   margin-top: 20px;
   text-align: center;
   font-size: 0.8rem;
-  color: var(--color-texto-secundario);
+  color: var(--text-muted);
   z-index: 1;
   position: relative;
 }
 
-/* Responsive */
+/* RESPONSIVE */
 @media (max-width: 480px) {
   .login-box {
     padding: 40px 20px 30px;
