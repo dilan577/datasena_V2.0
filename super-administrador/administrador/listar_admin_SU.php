@@ -52,7 +52,7 @@ $conexion->close();
     <meta charset="UTF-8">
     <title>Listar Administrador</title>
     <link rel="stylesheet" href="listar_admin_SU_v2.css">
-    <link rel="icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
 </head>
 <body>
 <div class="barra-gov">

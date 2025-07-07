@@ -77,7 +77,7 @@ $conexion->close();
     <meta charset="UTF-8">
     <title>Visualizar / Actualizar Administrador</title>
     <link rel="stylesheet" href="../../super-administrador/administrador/actualizar_admin_su_v2.css">
-    <link rel="icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
 </head>
 <body>
 <div class="barra-gov">

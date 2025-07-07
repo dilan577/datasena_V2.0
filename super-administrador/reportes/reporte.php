@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Reportar Elemento</title>
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
     <link rel="stylesheet" href="reporte.css">
 </head>
 <body>
@@ -75,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <div class="acciones-extra">
-            <button onclick="window.location.href='menu_su.php'">⬅️ Regresar</button>
+            <button onclick="window.location.href='../super_menu.html'">⬅️ Regresar</button>
         </div>
     </div>
 
