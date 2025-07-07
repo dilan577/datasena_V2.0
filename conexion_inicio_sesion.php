@@ -3,7 +3,7 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
-        $conexion = new PDO("mysql:host=localhost;dbname=datasena_db", "root", "123456");
+        $conexion = new PDO("mysql:host=localhost;dbname=datasena_db", "root", "");
         $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $rol = $_POST['rol'] ?? '';

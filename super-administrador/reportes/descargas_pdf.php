@@ -1,6 +1,6 @@
 <?php
 require('fpdf/fpdf.php');
-$pdo = new PDO("mysql:host=localhost;dbname=datasena_db", "root", "123456");
+$pdo = new PDO("mysql:host=localhost;dbname=datasena_db", "root", "");
 
 $id = $_GET['id'] ?? 0;
 $stmt = $pdo->prepare("SELECT * FROM reportes WHERE id = ?");

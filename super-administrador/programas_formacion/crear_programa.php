@@ -1,7 +1,7 @@
 <?php
 $mensaje = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $conexion = new mysqli("localhost", "root", "123456", "datasena_db");
+    $conexion = new mysqli("localhost", "root", "", "datasena_db");
     if ($conexion->connect_error) {
         die("❌ Error de conexión: " . $conexion->connect_error);
     }

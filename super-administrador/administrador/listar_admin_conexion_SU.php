@@ -1,7 +1,7 @@
 <?php
 // get_admin.php
 try {
-    $conexion = new PDO("mysql:host=localhost;dbname=datasenn_db", "root", "123456");
+    $conexion = new PDO("mysql:host=localhost;dbname=datasenn_db", "root", "");
     $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo json_encode(['error' => 'Error de conexión']);
