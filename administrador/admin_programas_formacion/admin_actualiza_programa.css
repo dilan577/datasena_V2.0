@@ -1,4 +1,4 @@
-/* === Estilo: Visualizar / Actualizar Administrador === */
+/* === Estilo: Visualizar / Actualizar Programa === */
 
 /* Fondo general */
 body {
@@ -38,7 +38,7 @@ header {
 }
 
 /* Título */
-h2 {
+h2, h3 {
     text-align: center;
     margin-bottom: 20px;
     color: #0d3c77;
@@ -77,7 +77,8 @@ select:focus {
 }
 
 /* Botones */
-.logout-btn {
+.logout-btn,
+.buscar-form {
     background-color: #4a90e2;
     color: white;
     padding: 10px 20px;
@@ -90,7 +91,8 @@ select:focus {
     transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.logout-btn:hover {
+.logout-btn:hover,
+.buscar-form:hover {
     background-color: #337ccf;
     transform: translateY(-2px);
 }
@@ -142,6 +144,8 @@ footer {
     font-size: 0.9em;
     margin-top: 50px;
 }
+
+/* Barras gov */
 .barra-gov,
 .barra-gov-bottom {
   background-color: #0c14ef;
@@ -159,24 +163,31 @@ footer {
   object-fit: contain;
 }
 
-.buscar-form {
+/* Tabla de resultados */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
     background-color: #4a90e2;
     color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1em;
-    font-weight: bold;
-    margin-top: 10px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
 }
+
+/* Contenedor botones finales */
 .botones-finales {
     display: flex;
-    justify-content: center;  /* Centra horizontalmente */
-    gap: 40px;                /* Separación entre botones */
-    margin-top: 30px;         /* Espacio con el campo anterior */
-    grid-column: 1 / -1;      /* Abarca todo el ancho del grid */
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+    grid-column: 1 / -1;
 }
 
 .botones-finales .logout-btn {

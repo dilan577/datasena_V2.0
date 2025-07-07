@@ -1,17 +1,18 @@
 <?php
-$conexion = new mysqli("localhost", "root", "", "datasena_db");
+$conexion = new mysqli("localhost", "root", "123456", "datasena_db");
 if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
 }
 
 $admin = null;
+$todos = [];
 $mensaje = "";
 $mensaje_tipo = "";
 
-// Actualización del estado
+// Actualizar estado
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_estado'])) {
-    $numero_documento = $_POST['numero_documento'];
-    $nuevo_estado = $_POST['nuevo_estado'];
+    $numero_documento = $_POST['numero_documento'] ?? '';
+    $nuevo_estado = $_POST['nuevo_estado'] ?? '';
 
     if (!empty($numero_documento) && !empty($nuevo_estado)) {
         $stmt = $conexion->prepare("UPDATE admin SET estado_habilitacion = ? WHERE numero_documento = ?");
@@ -27,8 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_estado']))
     }
 }
 
-// Búsqueda
-if (isset($_GET['numero_documento'])) {
+// Búsqueda individual
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['numero_documento']) && !isset($_GET['mostrar_todos'])) {
     $numero_documento = $_GET['numero_documento'];
     $stmt = $conexion->prepare("SELECT * FROM admin WHERE numero_documento = ?");
     $stmt->bind_param("s", $numero_documento);
@@ -36,11 +37,28 @@ if (isset($_GET['numero_documento'])) {
     $result = $stmt->get_result();
     $admin = $result->fetch_assoc();
     $stmt->close();
+    if (!$admin) {
+        $mensaje = "❌ Administrador no encontrado.";
+        $mensaje_tipo = "error";
+    }
+}
+
+// Mostrar todos
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['mostrar_todos'])) {
+    $sql = "SELECT * FROM admin";
+    $result = $conexion->query($sql);
+    if ($result && $result->num_rows > 0) {
+        while ($fila = $result->fetch_assoc()) {
+            $todos[] = $fila;
+        }
+    } else {
+        $mensaje = "❌ No hay administradores registrados.";
+        $mensaje_tipo = "error";
+    }
 }
 
 $conexion->close();
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -61,8 +79,12 @@ $conexion->close();
         <div class="search-box">
             <form method="get">
                 <label for="buscar_doc">Número de Documento:</label>
-                <input type="text" id="buscar_doc" name="numero_documento" required>
+                <input type="text" id="buscar_doc" name="numero_documento">
                 <button type="submit">Buscar</button>
+                <button type="submit" name="mostrar_todos">Mostrar Todos</button>
+                <button type="button" class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
+
+                
             </form>
         </div>
 
@@ -70,6 +92,7 @@ $conexion->close();
             <div class="mensaje <?= $mensaje_tipo ?>"><?= htmlspecialchars($mensaje) ?></div>
         <?php endif; ?>
 
+        <!-- Individual -->
         <?php if ($admin): ?>
             <section class="empresa-detalle">
                 <h2>Datos del Administrador</h2>
@@ -78,6 +101,7 @@ $conexion->close();
                     <li><strong>Documento:</strong> <?= htmlspecialchars($admin['numero_documento']) ?></li>
                     <li><strong>Correo:</strong> <?= htmlspecialchars($admin['correo_electronico']) ?></li>
                     <li><strong>Nickname:</strong> <?= htmlspecialchars($admin['nickname']) ?></li>
+                    <li><strong>Fecha de creación:</strong> <?= htmlspecialchars($admin['fecha_creacion']) ?></li>
                     <li><strong>Estado actual:</strong> <?= $admin['estado_habilitacion'] === 'Activo' ? '✅ Habilitado' : '❌ Inhabilitado' ?></li>
                 </ul>
 
@@ -91,15 +115,46 @@ $conexion->close();
                     </select>
                     <div class="botones">
                         <button type="submit" name="actualizar_estado">Actualizar</button>
-                        <button type="button" onclick="location.href='../super_menu.html'">Regresar</button>
                     </div>
                 </form>
             </section>
-        <?php elseif (isset($_GET['numero_documento'])): ?>
-            <p class="mensaje error">❌ Administrador no encontrado.</p>
-        <?php else: ?>
-            <p class="mensaje info">🧭 Ingrese un número de documento para buscar un administrador.</p>
         <?php endif; ?>
+
+        <!-- Todos -->
+        <?php if (!empty($todos)): ?>
+            <h3>📋 Administradores Registrados</h3>
+            <div style="overflow-x:auto;">
+                <table border="1" cellpadding="6" cellspacing="0" style="width:100%; border-collapse:collapse; background: #fff;">
+                    <thead style="background-color: #0078c0; color: white;">
+                        <tr>
+                            <th>Tipo Doc</th>
+                            <th>Documento</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Correo</th>
+                            <th>Nickname</th>
+                            <th>Estado</th>
+                            <th>Fecha Creación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($todos as $a): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($a['tipo_documento']) ?></td>
+                                <td><?= htmlspecialchars($a['numero_documento']) ?></td>
+                                <td><?= htmlspecialchars($a['nombres']) ?></td>
+                                <td><?= htmlspecialchars($a['apellidos']) ?></td>
+                                <td><?= htmlspecialchars($a['correo_electronico']) ?></td>
+                                <td><?= htmlspecialchars($a['nickname']) ?></td>
+                                <td><?= htmlspecialchars($a['estado_habilitacion']) ?></td>
+                                <td><?= htmlspecialchars($a['fecha_creacion']) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php endif; ?>
+        
     </main>
 
     <footer>

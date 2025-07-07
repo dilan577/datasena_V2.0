@@ -1,7 +1,7 @@
 <?php
 $mensaje = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $conexion = new mysqli("localhost", "root", "", "datasena_db");
+    $conexion = new mysqli("localhost", "root", "123456", "datasena_db");
     if ($conexion->connect_error) {
         die("❌ Error de conexión: " . $conexion->connect_error);
     }
@@ -68,8 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crear Programa</title>
   <link rel="icon" href="../../../img/Logotipo_Datasena.png" type="image/x-icon">
-  <link rel="stylesheet" href="admin_crear_programa.css">
-
+  <link rel="stylesheet" href="../../administrador/admin_programas_formacion/admin_crear_programa.css">
 </head>
 <body>
 <div class="barra-gov">
@@ -117,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <div class="buttons-container">
         <button type="submit" class="registrar">Crear Programa</button>
-        <button type="button" class="registrar" onclick="window.location.href='../../../SU_admin/menu_SU_admin/super_menu.html'">Regresar</button>
+        <button type="button" class="registrar" onclick="window.location.href='../admin_menu.html'">Regresar</button>
       </div>
     </div>
   </form>

@@ -1,69 +1,44 @@
 <?php
-// Conexión
-$conexion = new mysqli("localhost", "root", "", "datasenn_db");
+$conexion = new mysqli("localhost", "root", "123456", "datasena_db");
 if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
 }
 
-// Datos por defecto
-$empresas = [
-    'id' => '',
-    'tipo_documento' => '',
-    'numero_identidad' => '',
-    'nickname' => '',
-    'telefono' => '',
-    'correo' => '',
-    'direccion' => '',
-    'actividad_economica' => ''
-];
-
+$empresa = null;
+$todas_empresas = [];
 $mensaje = "";
 
-// Actualizar empresas
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && !empty($_POST['id'])) {
-    $id = $_POST['id'];
-    $tipo_documento = $_POST['tipo_documento'];
-    $numero_identidad = $_POST['numero_identidad'];
-    $nickname = $_POST['nickname'];
-    $telefono = $_POST['telefono'];
-    $correo = $_POST['correo'];
-    $direccion = $_POST['direccion'];
-    $actividad_economica = $_POST['actividad_economica'];
-
-    $stmt = $conexion->prepare("UPDATE empresas SET tipo_documento=?, numero_identidad=?, nickname=?, telefono=?, correo=?, direccion=?, actividad_economica=? WHERE id=?");
-    $stmt->bind_param("sssssssi", $tipo_documento, $numero_identidad, $nickname, $telefono, $correo, $direccion, $actividad_economica, $id);
-
-    if ($stmt->execute()) {
-        $mensaje = "Empresa actualizada correctamente.";
-    } else {
-        $mensaje = "Error al actualizar la empresa.";
-    }
-
-    $stmt->close();
-}
-
-// Buscar empresas por número de identidad o nickname
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && empty($_POST['id']) && isset($_POST['dato_busqueda'])) {
-    $dato = $_POST['dato_busqueda'];
+// Buscar empresa
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buscar'])) {
+    $dato = trim($_POST['dato_busqueda']);
 
     $sql = "SELECT * FROM empresas WHERE numero_identidad = ? OR nickname = ?";
     $stmt = $conexion->prepare($sql);
-
-    if (!$stmt) {
-        die("Error al preparar la consulta: " . $conexion->error);
-    }
-
     $stmt->bind_param("ss", $dato, $dato);
     $stmt->execute();
     $resultado = $stmt->get_result();
 
     if ($resultado->num_rows > 0) {
-        $empresas = $resultado->fetch_assoc();
+        $empresa = $resultado->fetch_assoc();
     } else {
-        $mensaje = "No se encontró empresa con ese número de identidad o nickname.";
+        $mensaje = "⚠️ No se encontró empresa con ese número de identidad o nickname.";
     }
 
     $stmt->close();
+}
+
+// Mostrar todas las empresas
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mostrar_todos'])) {
+    $sql = "SELECT * FROM empresas";
+    $resultado = $conexion->query($sql);
+
+    if ($resultado->num_rows > 0) {
+        while ($fila = $resultado->fetch_assoc()) {
+            $todas_empresas[] = $fila;
+        }
+    } else {
+        $mensaje = "⚠️ No hay empresas registradas.";
+    }
 }
 
 $conexion->close();
@@ -73,50 +48,90 @@ $conexion->close();
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="../img/Logotipo_Datasena.png" type="image/x-icon">
     <title>Listar Empresa</title>
     <link rel="stylesheet" href="../../administrador/admin_empresa/admin_listar_empresa_su_v2.css">
+    <link rel="icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
 </head>
 <body>
-<header>DATASENA</header>
-<img src="../img/logo-sena.png" alt="Logo SENA" class="img">
-
-<div class="form-container">
-    <h2>Listar Empresa</h2>
-
-    <?php if ($mensaje): ?>
-        <p class="mensaje-exito">✅ <?= htmlspecialchars($mensaje) ?></p>
-    <?php endif; ?>
-
-    <!-- Buscar empresas -->
-    <form action="actualizar_empresa_su.php" method="post">
-        <label for="buscar_dato">Buscar empresa:</label>
-        <input type="text" id="buscar_dato" name="dato_busqueda" placeholder="Número de identidad o nickname" required>
-        <button class="logout-btn" type="submit">🔍 Buscar</button>
-    </form>
-
-    <hr>
-
-    <?php if (!empty($empresas['id'])): ?>
-        <!-- Datos de empresa -->
-        <div class="empresa-card">
-            <p><strong>Tipo de documento:</strong> <?= htmlspecialchars($empresas['tipo_documento']) ?></p>
-            <p><strong>Número de identidad:</strong> <?= htmlspecialchars($empresas['numero_identidad']) ?></p>
-            <p><strong>Nombre:</strong> <?= htmlspecialchars($empresas['nickname']) ?></p>
-            <p><strong>Teléfono:</strong> <?= htmlspecialchars($empresas['telefono']) ?></p>
-            <p><strong>Correo:</strong> <?= htmlspecialchars($empresas['correo']) ?></p>
-            <p><strong>Dirección:</strong> <?= htmlspecialchars($empresas['direccion']) ?></p>
-            <p><strong>Actividad Económica:</strong> <?= htmlspecialchars($empresas['actividad_economica']) ?></p>
-        </div>
-    <?php endif; ?>
-
-    <div class="back_visual">
-        <button class="logout-btn" onclick="window.location.href='../super_menu.html'">⬅ Regresar</button>
+    <div class="barra-gov">
+        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
     </div>
-</div>
+
+    <header>DATASENA</header>
+    <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
+
+    <div class="form-container">
+        <h2>Listar Empresa</h2>
+
+        <?php if (!empty($mensaje)): ?>
+            <p class="mensaje-error"><?= htmlspecialchars($mensaje) ?></p>
+        <?php endif; ?>
+
+        <form action="admin_listar_empresa_su.php" method="post" style="display:flex; gap: 10px; flex-wrap:wrap;">
+            <label for="buscar_dato">Buscar empresa:</label>
+            <input type="text" id="buscar_dato" name="dato_busqueda" placeholder="Número de identidad o nickname" required>
+            <button class="logout-btn" type="submit" name="buscar">🔍 Buscar</button>
+            <button class="logout-btn" type="submit" name="mostrar_todos" onclick="document.getElementById('buscar_dato').removeAttribute('required')">📋 Mostrar Todos</button>
+            <button class="logout-btn" onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
+        </form>
+        <hr>
+        <?php if (!empty($empresa)): ?>
+            <div class="empresa-card">
+                <p><strong>Tipo de documento:</strong> <?= htmlspecialchars($empresa['tipo_documento']) ?></p>
+                <p><strong>Número de identidad:</strong> <?= htmlspecialchars($empresa['numero_identidad']) ?></p>
+                <p><strong>Nombre:</strong> <?= htmlspecialchars($empresa['nickname']) ?></p>
+                <p><strong>Teléfono:</strong> <?= htmlspecialchars($empresa['telefono']) ?></p>
+                <p><strong>Correo:</strong> <?= htmlspecialchars($empresa['correo']) ?></p>
+                <p><strong>Dirección:</strong> <?= htmlspecialchars($empresa['direccion']) ?></p>
+                <p><strong>Actividad Económica:</strong> <?= htmlspecialchars($empresa['actividad_economica']) ?></p>
+            </div>
+        <?php endif; ?>
+
+        <?php if (!empty($todas_empresas)): ?>
+            <h3>📋 Empresas registradas</h3>
+            <div style="overflow-x:auto;">
+                <table border="1" cellpadding="6" cellspacing="0" style="width:100%; border-collapse:collapse; background:#fff;">
+                    <thead style="background:#0078c0; color:white;">
+                        <tr>
+                            <th>ID</th>
+                            <th>Tipo Doc</th>
+                            <th>Identidad</th>
+                            <th>Nombre</th>
+                            <th>Teléfono</th>
+                            <th>Correo</th>
+                            <th>Dirección</th>
+                            <th>Actividad Económica</th>
+                            <th>Estado</th>
+                            <th>Fecha Registro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($todas_empresas as $e): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($e['id']) ?></td>
+                                <td><?= htmlspecialchars($e['tipo_documento']) ?></td>
+                                <td><?= htmlspecialchars($e['numero_identidad']) ?></td>
+                                <td><?= htmlspecialchars($e['nickname']) ?></td>
+                                <td><?= htmlspecialchars($e['telefono']) ?></td>
+                                <td><?= htmlspecialchars($e['correo']) ?></td>
+                                <td><?= htmlspecialchars($e['direccion']) ?></td>
+                                <td><?= htmlspecialchars($e['actividad_economica']) ?></td>
+                                <td><?= htmlspecialchars($e['estado']) ?></td>
+                                <td><?= htmlspecialchars($e['fecha_registro']) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php endif; ?>
+    </div>
 
     <footer>
         <a>&copy; Todos los derechos reservados al SENA</a>
     </footer>
+
+    <div class="barra-gov">
+        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+    </div>
 </body>
 </html>

@@ -20,26 +20,41 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $datos['contrasena'] = trim($_POST['contrasena'] ?? '');
     $datos['confirmar_contrasena'] = trim($_POST['confirmar_contrasena'] ?? '');
 
+    // Validación de correo electrónico
     if (!empty($datos['correo']) && !filter_var($datos['correo'], FILTER_VALIDATE_EMAIL)) {
         $errores['correo'] = "Correo electrónico no válido.";
     }
 
+    // Validación de teléfono (10 dígitos)
     if (!empty($datos['telefono']) && !preg_match('/^\d{10}$/', $datos['telefono'])) {
         $errores['telefono'] = "Debe tener exactamente 10 dígitos.";
     }
 
-    if (empty($datos['contrasena'])) {
-        $errores['contrasena'] = "La contraseña es obligatoria.";
-    } elseif (strlen($datos['contrasena']) < 6) {
-        $errores['contrasena'] = "Debe tener al menos 6 caracteres.";
+    // Validación de número de documento (8 a 12 dígitos)
+    if (!empty($datos['numero_identidad']) && !preg_match('/^\d{8,12}$/', $datos['numero_identidad'])) {
+        $errores['numero_identidad'] = "Debe tener entre 8 y 12 dígitos numéricos.";
     }
 
+    // Validación de nickname (letras, números y espacios)
+    if (!empty($datos['nickname']) && !preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ]+$/u', $datos['nickname'])) {
+        $errores['nickname'] = "Solo se permiten letras, números y espacios.";
+    }
+
+    // Validación de contraseña segura
+    if (empty($datos['contrasena'])) {
+        $errores['contrasena'] = "La contraseña es obligatoria.";
+    } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#+_\-])[A-Za-z\d@$!%*?&#+_\-]{8,}$/', $datos['contrasena'])) {
+        $errores['contrasena'] = "Debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial.";
+    }
+
+    // Confirmación de contraseña
     if (empty($datos['confirmar_contrasena'])) {
         $errores['confirmar_contrasena'] = "Por favor confirme su contraseña.";
     } elseif ($datos['contrasena'] !== $datos['confirmar_contrasena']) {
         $errores['confirmar_contrasena'] = "Las contraseñas no coinciden.";
     }
 
+    // Si todo está bien, insertar en base de datos
     if (empty($errores)) {
         try {
             $conexion = new PDO("mysql:host=localhost;dbname=datasena_db;charset=utf8", "root", "");
@@ -61,6 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
             $stmt->bindValue(':contrasena', $contrasenaHash);
             $stmt->execute();
+
             $exito = "Empresa registrada exitosamente.";
             $datos = [];
 
@@ -69,6 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">

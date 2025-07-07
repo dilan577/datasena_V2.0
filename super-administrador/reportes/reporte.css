@@ -64,3 +64,19 @@ button:hover {
 .descargas {
     margin-top: 10px;
 }
+.acciones-extra {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.descargas label {
+    font-weight: bold;
+}
+
+.descargas select {
+    border: 1px solid black;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+}

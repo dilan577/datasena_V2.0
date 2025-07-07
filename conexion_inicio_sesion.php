@@ -1,58 +1,73 @@
 <?php
 session_start();
 
-// Conexión a la base de datos
-$conexion = new mysqli("localhost", "root", "", "datasenn_db");
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    try {
+        $conexion = new PDO("mysql:host=localhost;dbname=datasena_db", "root", "123456");
+        $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-if ($conexion->connect_error) {
-    die("Error de conexión: " . $conexion->connect_error);
-}
+        $rol = $_POST['rol'] ?? '';
+        $usuario = $_POST['usuario'] ?? '';
+        $password = $_POST['password'] ?? '';
 
-// Obtener datos del formulario
-$usuario = trim($_POST['usuario']);
-$password = trim($_POST['password']);
-$rol = $_POST['rol'];
+        if ($rol === 'super') {
+            $stmt = $conexion->prepare("SELECT * FROM inicio_super_admin WHERE usuario = :usuario LIMIT 1");
+            $stmt->bindParam(':usuario', $usuario);
+            $stmt->execute();
+            $superadmin = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Validar que los campos no estén vacíos
-if (empty($usuario) || empty($password) || empty($rol)) {
-    echo "<script>alert('Todos los campos son obligatorios');window.history.back();</script>";
-    exit();
-}
+            if ($superadmin && $password === $superadmin['contrasena']) {
+                $_SESSION['rol'] = 'super';
+                $_SESSION['usuario'] = $usuario;
+                header("Location: super-administrador/super_menu.html");
+                exit;
+            } else {
+                echo "<script>alert('❌ Usuario o contraseña incorrectos (superadmin)'); window.history.back();</script>";
+                exit;
+            }
 
-// Determinar la tabla y redirección según el rol
-switch ($rol) {
-    case 'super':
-        $tabla = "super_administrador";
-        $redirect = "SU_admin/menu_SU_admin/";
-        break;
-    case 'admin':
-        $tabla = "admin";
-        $redirect = "admin/menu_admin/";
-        break;
-    case 'empresa':
-        $tabla = "empresas";
-        $redirect = "empresa/menu_empresa/";
-        break;
-    default:
-        echo "<script>alert('Rol inválido');window.history.back();</script>";
-        exit();
-}
+        } elseif ($rol === 'admin') {
+            $stmt = $conexion->prepare("SELECT * FROM admin WHERE nickname = :nickname LIMIT 1");
+            $stmt->bindParam(':nickname', $usuario);
+            $stmt->execute();
+            $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Consulta para verificar usuario
-$stmt = $conexion->prepare("SELECT * FROM $tabla WHERE usuario = ? AND contraseña = ?");
-$stmt->bind_param("ss", $usuario, $password);
-$stmt->execute();
-$resultado = $stmt->get_result();
+            if ($admin && $password === $admin['contrasena']) {
+                $_SESSION['rol'] = 'admin';
+                $_SESSION['usuario_id'] = $admin['id'];
+                $_SESSION['nickname'] = $admin['nickname'];
+                header("Location: administrador/admin_menu.html");
+                exit;
+            } else {
+                echo "<script>alert('❌ Usuario o contraseña incorrectos (admin)'); window.history.back();</script>";
+                exit;
+            }
 
-if ($resultado->num_rows === 1) {
-    // Usuario encontrado
-    $_SESSION['usuario'] = $usuario;
-    $_SESSION['rol'] = $rol;
-    header("Location: $redirect");
-    exit();
-} else {
-    // Usuario o contraseña incorrectos
-    echo "<script>alert('Usuario o contraseña incorrectos');window.history.back();</script>";
-    exit();
+        } elseif ($rol === 'empresa') {
+            $stmt = $conexion->prepare("SELECT * FROM empresas WHERE nickname = :nickname LIMIT 1");
+            $stmt->bindParam(':nickname', $usuario);
+            $stmt->execute();
+            $empresa = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($empresa && $password === $empresa['contrasena']) {
+                $_SESSION['rol'] = 'empresa';
+                $_SESSION['usuario_id'] = $empresa['id'];
+                $_SESSION['nickname'] = $empresa['nickname'];
+                header("Location: empresa/empresa_menu.html");
+                exit;
+            } else {
+                echo "<script>alert('❌ Usuario o contraseña incorrectos (empresa)'); window.history.back();</script>";
+                exit;
+            }
+
+        } else {
+            echo "<script>alert('⚠️ Rol no válido'); window.history.back();</script>";
+            exit;
+        }
+
+    } catch (PDOException $e) {
+        echo "❌ Error de conexión: " . $e->getMessage();
+        exit;
+    }
 }
 ?>

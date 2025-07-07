@@ -1,22 +1,19 @@
 <?php
-$conexion = new mysqli("localhost", "root", "", "datasena_db");
+$conexion = new mysqli("localhost", "root", "123456", "datasena_db");
 if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
 }
 
 $empresa = null;
+$todas_empresas = [];
 $mensaje = "";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dato_busqueda'])) {
+// Buscar empresa
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buscar'])) {
     $dato = trim($_POST['dato_busqueda']);
 
     $sql = "SELECT * FROM empresas WHERE numero_identidad = ? OR nickname = ?";
     $stmt = $conexion->prepare($sql);
-
-    if (!$stmt) {
-        die("Error al preparar la consulta: " . $conexion->error);
-    }
-
     $stmt->bind_param("ss", $dato, $dato);
     $stmt->execute();
     $resultado = $stmt->get_result();
@@ -29,6 +26,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dato_busqueda'])) {
 
     $stmt->close();
 }
+
+// Mostrar todas las empresas
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mostrar_todos'])) {
+    $sql = "SELECT * FROM empresas";
+    $resultado = $conexion->query($sql);
+
+    if ($resultado->num_rows > 0) {
+        while ($fila = $resultado->fetch_assoc()) {
+            $todas_empresas[] = $fila;
+        }
+    } else {
+        $mensaje = "⚠️ No hay empresas registradas.";
+    }
+}
+
 $conexion->close();
 ?>
 
@@ -55,15 +67,15 @@ $conexion->close();
             <p class="mensaje-error"><?= htmlspecialchars($mensaje) ?></p>
         <?php endif; ?>
 
-        <form action="listar_empresa_su.php" method="post">
+        <form action="listar_empresa_su.php" method="post" style="display:flex; gap: 10px; flex-wrap:wrap;">
             <label for="buscar_dato">Buscar empresa:</label>
             <input type="text" id="buscar_dato" name="dato_busqueda" placeholder="Número de identidad o nickname" required>
-            <button class="logout-btn" type="submit">🔍 Buscar</button>
+            <button class="logout-btn" type="submit" name="buscar">🔍 Buscar</button>
+            <button class="logout-btn" type="submit" name="mostrar_todos" onclick="document.getElementById('buscar_dato').removeAttribute('required')">📋 Mostrar Todos</button>
+            <button class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
         </form>
-
         <hr>
-
-        <?php if ($empresa): ?>
+        <?php if (!empty($empresa)): ?>
             <div class="empresa-card">
                 <p><strong>Tipo de documento:</strong> <?= htmlspecialchars($empresa['tipo_documento']) ?></p>
                 <p><strong>Número de identidad:</strong> <?= htmlspecialchars($empresa['numero_identidad']) ?></p>
@@ -75,9 +87,43 @@ $conexion->close();
             </div>
         <?php endif; ?>
 
-        <div class="back_visual" style="margin-top: 20px;">
-            <button class="logout-btn" onclick="window.location.href='../super_menu.html'">⬅ Regresar</button>
-        </div>
+        <?php if (!empty($todas_empresas)): ?>
+            <h3>📋 Empresas registradas</h3>
+            <div style="overflow-x:auto;">
+                <table border="1" cellpadding="6" cellspacing="0" style="width:100%; border-collapse:collapse; background:#fff;">
+                    <thead style="background:#0078c0; color:white;">
+                        <tr>
+                            <th>ID</th>
+                            <th>Tipo Doc</th>
+                            <th>Identidad</th>
+                            <th>Nombre</th>
+                            <th>Teléfono</th>
+                            <th>Correo</th>
+                            <th>Dirección</th>
+                            <th>Actividad Económica</th>
+                            <th>Estado</th>
+                            <th>Fecha Registro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($todas_empresas as $e): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($e['id']) ?></td>
+                                <td><?= htmlspecialchars($e['tipo_documento']) ?></td>
+                                <td><?= htmlspecialchars($e['numero_identidad']) ?></td>
+                                <td><?= htmlspecialchars($e['nickname']) ?></td>
+                                <td><?= htmlspecialchars($e['telefono']) ?></td>
+                                <td><?= htmlspecialchars($e['correo']) ?></td>
+                                <td><?= htmlspecialchars($e['direccion']) ?></td>
+                                <td><?= htmlspecialchars($e['actividad_economica']) ?></td>
+                                <td><?= htmlspecialchars($e['estado']) ?></td>
+                                <td><?= htmlspecialchars($e['fecha_registro']) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php endif; ?>
     </div>
 
     <footer>

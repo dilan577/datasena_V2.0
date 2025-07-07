@@ -1,7 +1,7 @@
 <?php
 $mensaje = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $conexion = new mysqli("localhost", "root", "", "datasena_db");
+    $conexion = new mysqli("localhost", "root", "123456", "datasena_db");
     if ($conexion->connect_error) {
         die("❌ Error de conexión: " . $conexion->connect_error);
     }
@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <div class="buttons-container">
         <button type="submit" class="registrar">Crear Programa</button>
-        <button type="button" class="registrar" onclick="window.location.href='../../../SU_admin/menu_SU_admin/super_menu.html'">Regresar</button>
+        <button type="button" class="registrar" onclick="window.location.href='../super_menu.html'">Regresar</button>
       </div>
     </div>
   </form>

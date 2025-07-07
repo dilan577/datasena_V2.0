@@ -1,13 +1,15 @@
-/* Reset básico */
+/* === Estilo: Listar Programas === */
+
+/* Fondo general */
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
     overflow-x: hidden;
     font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #a8d2fa, #e2ebf7);
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to right, #a8d2fa, #e2ebf7);
 }
 
 /* Barra .gov */
@@ -19,7 +21,6 @@ html, body {
     align-items: center;
     justify-content: center;
 }
-
 .gov-logo {
     height: 50px;
     width: auto;
@@ -30,8 +31,8 @@ html, body {
 header {
     text-align: center;
     font-size: 2em;
-    padding: 15px;
-    background-color: rgba(255, 255, 255, 0.6);
+    padding: 20px;
+    background-color: rgba(0, 42, 82, 0.5);
     font-weight: bold;
     color: #0d3c77;
 }
@@ -39,20 +40,18 @@ header {
 /* Logo central */
 .img {
     display: block;
-    margin: 0 auto;
-    max-width: 100px;
-    padding-top: 10px;
+    margin: 10px auto;
+    max-width: 80px;
 }
 
 /* Contenedor principal */
 .form-container {
-    max-width: 800px;
-    background-color: rgba(255, 255, 255, 0.85);
-    margin: 40px auto;
+    max-width: 1000px;
+    margin: 30px auto;
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0,0,0,0.2);
-    flex-grow: 1;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     width: 90%;
 }
 
@@ -60,34 +59,24 @@ header {
 h2 {
     text-align: center;
     color: #0d3c77;
-}
-
-/* Formularios */
-form {
     margin-bottom: 20px;
 }
 
-label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: bold;
-    color: #0d3c77;
-}
-
+/* Input de búsqueda */
 input[type="text"] {
     width: 100%;
     padding: 12px;
-    border-radius: 8px;
-    border: 2px solid #000;
-    margin-bottom: 10px;
     font-size: 1em;
+    border: 2px solid #000;
+    border-radius: 8px;
     background-color: #fff;
     color: #000;
+    box-sizing: border-box;
 }
 
 /* Botones */
 .logout-btn {
-    background-color: #0d6efd;
+    background-color: #4a90e2;
     color: white;
     padding: 10px 24px;
     border: none;
@@ -95,11 +84,35 @@ input[type="text"] {
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+}
+.logout-btn:hover {
+    background-color: #337ccf;
+    transform: translateY(-2px);
 }
 
-.logout-btn:hover {
-    background-color: #0b5ed7;
-    transform: translateY(-2px);
+/* Tabla de resultados */
+.user-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.user-list th,
+.user-list td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: center;
+    font-size: 0.95em;
+}
+.user-list th {
+    background-color: #0d3c77;
+    color: white;
+}
+.user-list tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
 
 /* Mensaje de error */
@@ -113,26 +126,30 @@ input[type="text"] {
     font-weight: bold;
 }
 
-/* Tarjeta de resultados */
-.empresa-card {
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.2);
-    margin-top: 20px;
-}
-
-.empresa-card p {
-    margin: 10px 0;
-    color: #333;
-    line-height: 1.4;
-}
-
 /* Footer */
 footer {
     background-color: #0d3c77;
-    color: white;
-    padding: 15px;
+    padding: 20px;
     text-align: center;
+    color: white;
+    font-size: 0.9em;
     margin-top: auto;
+}
+.programa-card {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.15);
+    margin-top: 20px;
+    max-width: 600px;
+    margin-left: 0; /* Alineado a la izquierda */
+    margin-right: auto;
+    text-align: left; /* Asegura que el texto quede a la izquierda */
+}
+
+.programa-card p {
+    margin: 10px 0;
+    color: #000000; /* Letra negra */
+    font-weight: 300;
+    font-size: 1.0em;
 }

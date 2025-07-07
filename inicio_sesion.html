@@ -20,79 +20,60 @@
     <div class="bubble" style="width: 40px; height: 40px; left: 70%; animation-delay: 5s;"></div>
   </div>
 
-<form class="login-box" onsubmit="redirigir(event)">
-  <div class="logo">
-    <img src="img/logo-sena.png" alt="Logo SENA">
-  </div>
-  <h2>Iniciar sesión</h2>
+  <form class="login-box" action="conexion_inicio_sesion.php" method="POST">
+    <div class="logo">
+      <img src="img/logo-sena.png" alt="Logo SENA">
+    </div>
+    <h2>Iniciar sesión</h2>
 
-  <div class="input-group">
-    <i class="fas fa-user-shield"></i>
-    <select id="rol" name="rol" required>
-      <option value="" disabled selected>Selecciona tu rol</option>
-      <option value="super">Superadministrador</option>
-      <option value="admin">Administrador</option>
-      <option value="empresa">Empresa</option>
-    </select>
-  </div>
+    <div class="input-group">
+      <i class="fas fa-user-shield"></i>
+      <select name="rol" id="rol" required>
+        <option value="" disabled selected>Selecciona tu rol</option>
+        <option value="super">Superadministrador</option>
+        <option value="admin">Administrador</option>
+        <option value="empresa">Empresa</option>
+      </select>
+    </div>
 
-  <div class="input-group">
-    <i class="fas fa-user"></i>
-    <input type="text" name="usuario" placeholder="Usuario" required>
-  </div>
+    <div class="input-group">
+      <i class="fas fa-user"></i>
+      <input type="text" name="usuario" placeholder="Usuario" required>
+    </div>
 
-  <div class="input-group">
-    <i class="fas fa-lock"></i>
-    <input type="password" name="password" placeholder="Contraseña" id="password" required>
-    <i class="fas fa-eye toggle-password" onclick="togglePassword()"></i>
-  </div>
+    <div class="input-group">
+      <i class="fas fa-lock"></i>
+      <input type="password" name="password" placeholder="Contraseña" id="password" required>
+      <i class="fas fa-eye toggle-password" onclick="togglePassword()"></i>
+    </div>
 
-  <div class="extras">
-    <label><input type="checkbox" name="recordar"> Mantener sesión</label>
-    <a href="#">Olvidé mi contraseña</a>
-  </div>
+    <div class="extras">
+      <label><input type="checkbox" name="recordar"> Mantener sesión</label>
+      <a href="#">Olvidé mi contraseña</a>
+    </div>
 
-  <button type="submit">Ingresar</button>
+    <button type="submit">Ingresar</button>
 
-  <div class="footer">
-    &copy; Todos los derechos reservados al SENA
-  </div>
-</form>
+    <div class="footer">
+      &copy; Todos los derechos reservados al SENA
+    </div>
+  </form>
 
-<script>
-  function togglePassword() {
-    const input = document.getElementById('password');
-    const icon = document.querySelector('.toggle-password');
-    if (input.type === 'password') {
-      input.type = 'text';
-      icon.classList.remove('fa-eye');
-      icon.classList.add('fa-eye-slash');
-    } else {
-      input.type = 'password';
-      icon.classList.remove('fa-eye-slash');
-      icon.classList.add('fa-eye');
+  <script>
+    function togglePassword() {
+      const input = document.getElementById('password');
+      const icon = document.querySelector('.toggle-password');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      }
     }
-  }
-
-  function redirigir(event) {
-    event.preventDefault(); // Evita el envío del formulario
-    const rol = document.getElementById('rol').value;
-
-    switch (rol) {
-      case 'super':
-        window.location.href = 'super-administrador/super_menu.html';
-        break;
-      case 'admin':
-        window.location.href = 'administrador/admin_menu.html';
-        break;
-      case 'empresa':
-        window.location.href = 'empresa/empresa_menu.html';
-        break;
-      default:
-        alert('Selecciona un rol válido.');
-    }
-  }
-</script>
+  </script>
 
 </body>
 </html>

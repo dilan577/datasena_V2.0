@@ -1,0 +1,245 @@
+/* -----------------------------------
+   RESET BÁSICO Y ESTRUCTURA GENERAL
+----------------------------------- */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to right, #a8d2fa, #e2ebf7);
+}
+
+/* -----------------------------------
+   BARRA .GOV
+----------------------------------- */
+.barra-gov {
+    background-color: #0c14ef;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gov-logo {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* -----------------------------------
+   ENCABEZADO Y LOGO
+----------------------------------- */
+header {
+    text-align: center;
+    font-size: 2em;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.6);
+    font-weight: bold;
+    color: #0d3c77;
+}
+
+.img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100px;
+    padding-top: 10px;
+}
+
+/* -----------------------------------
+   CONTENEDOR PRINCIPAL
+----------------------------------- */
+.form-container {
+    max-width: 800px;
+    width: 90%;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+    flex-grow: 1;
+}
+
+/* -----------------------------------
+   TÍTULOS Y ETIQUETAS
+----------------------------------- */
+h2 {
+    text-align: center;
+    color: #0d3c77;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #0d3c77;
+}
+
+/* -----------------------------------
+   CAMPOS DE TEXTO
+----------------------------------- */
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 2px solid #000;
+    font-size: 1em;
+    background-color: #fff;
+    color: #000;
+}
+
+/* -----------------------------------
+   BOTONES
+----------------------------------- */
+.logout-btn {
+    background-color: #0d6efd;
+    color: white;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin-top: 10px;
+}
+
+.logout-btn:hover {
+    background-color: #0b5ed7;
+    transform: translateY(-2px);
+}
+
+/* Botón de descarga personalizado (si lo usas por separado) */
+.descargas button {
+    background-color: #198754;
+}
+
+.descargas button:hover {
+    background-color: #157347;
+}
+
+/* -----------------------------------
+   MENSAJES
+----------------------------------- */
+.mensaje-error {
+    background-color: #ffe1e1;
+    color: #a30000;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.mensaje {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* -----------------------------------
+   TARJETA DE EMPRESA
+----------------------------------- */
+.empresa-card {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
+.empresa-card p {
+    margin: 10px 0;
+    color: #333;
+    line-height: 1.4;
+}
+
+/* -----------------------------------
+   PIE DE PÁGINA
+----------------------------------- */
+footer {
+    background-color: #0d3c77;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    margin-top: auto;
+}
+.empresa-card {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+
+.empresa-card p {
+    margin: 8px 0;
+    color: #333;
+    line-height: 1.5;
+}
+
+.empresa-card a.logout-btn {
+    margin-right: 10px;
+    display: inline-block;
+}
+.radio-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.radio-option {
+    border: 2px solid #0d3c77;
+    border-radius: 10px;
+    padding: 12px;
+    flex: 1;
+    text-align: center;
+    min-width: 150px;
+    transition: all 0.3s ease;
+    background-color: #f0f4ff;
+    cursor: pointer;
+    position: relative;
+}
+
+.radio-option:hover {
+    background-color: #d8e6ff;
+    transform: translateY(-2px);
+}
+
+.radio-option input {
+    display: none;
+}
+
+.label-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+    color: #0d3c77;
+}
+
+.label-text .icon {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+
+/* Selección activa */
+.radio-option input:checked + .label-text {
+    background-color: #0d6efd;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.radio-option input:checked + .label-text .icon {
+    color: #fff;
+}
