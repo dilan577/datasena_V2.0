@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crear Programa</title>
-  <link rel="icon" href="../../../img/Logotipo_Datasena.png" type="image/x-icon">
+  <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
   <link rel="stylesheet" href="../../administrador/admin_programas_formacion/admin_crear_programa.css">
 </head>
 <body>

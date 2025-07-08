@@ -1,5 +1,5 @@
 <?php
-$conexion = new mysqli("localhost", "root", "123456", "datasena_db");
+$conexion = new mysqli("localhost", "root", "", "datasena_db");
 if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
 }
@@ -43,11 +43,11 @@ $conexion->close();
 </head>
 <body>
     <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+        <img src="../../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
     </div>
 
     <header>DATASENA - Ver Reportes</header>
-    <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
+    <img src="../../../img/logo-sena.png" alt="Logo SENA" class="img">
 
     <div class="form-container">
         <h2>📁 Buscar Reportes por Tipo</h2>
@@ -69,7 +69,7 @@ $conexion->close();
                 </label>
             </div>
             <button class="logout-btn" type="submit">🔍 Buscar</button>
-            <button class="logout-btn" type="button" onclick="window.location.href='menu_su.php'">↩️ Regresar</button>
+            <button class="logout-btn" type="button" onclick="window.location.href='../../super_menu.html'">↩️ Regresar</button>
         </form>
 
         <?php if (!empty($mensaje)): ?>
@@ -96,7 +96,7 @@ $conexion->close();
     </footer>
 
     <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+        <img src="../../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
     </div>
 </body>
 </html>

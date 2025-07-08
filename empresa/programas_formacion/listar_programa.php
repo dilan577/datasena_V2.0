@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
     <meta charset="UTF-8">
     <title>Listar Programas</title>
     <link rel="stylesheet" href="listar_programa.css">
-    <link rel="icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
 </head>
 <body>
     <div class="barra-gov">
@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['search'])) {
         <?php endif; ?>
 
         <div class="back_visual" style="margin-top: 20px;">
-            <button class="logout-btn" onclick="window.location.href='../super_menu.html'">⬅ Regresar</button>
+            <button class="logout-btn" onclick="window.location.href='../empresa_menu.html'">⬅ Regresar</button>
         </div>
     </div>
 

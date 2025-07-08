@@ -92,6 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Registro de Empresa</title>
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../super-administrador/empresa/empresaRe_su.css">
 </head>
@@ -100,7 +101,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
 </div>
 
-<h2>DATASENA</h2>
 <h1>DATASENA</h1>
 <img src="../../img/logo-sena.png" alt="Logo" class="img" />
 

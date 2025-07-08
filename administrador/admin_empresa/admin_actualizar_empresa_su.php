@@ -110,7 +110,7 @@ $conexion->close();
 <head>
     <meta charset="UTF-8">
     <title>Visualizar / Actualizar Empresas</title>
-    <link rel="icon" href="../img/Logotipo_Datasena.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
     <link rel="stylesheet" href="../../administrador/admin_empresa/admin_actualizar_empresa_su_v2.css">
 </head>
 <body>

@@ -68,6 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Diagnóstico Empresarial</title>
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
     <link rel="stylesheet" href="diagnostico_empresarial.css">
 
     <!-- Select2 -->

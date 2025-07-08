@@ -79,7 +79,7 @@ CREATE TABLE `diagnostico_empresarial` (
   `beneficios` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
   `fecha_creacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +88,7 @@ CREATE TABLE `diagnostico_empresarial` (
 
 LOCK TABLES `diagnostico_empresarial` WRITE;
 /*!40000 ALTER TABLE `diagnostico_empresarial` DISABLE KEYS */;
-INSERT INTO `diagnostico_empresarial` VALUES (1,'assa','123098123','Agroindustria','Microempresa (1-10)','ase',900,3,'Aprendices SENA','Sí','Sí','Redes sociales','Sí','Sí','base de datos','Sí','Sí','Sí','2025-07-03 17:35:15'),(2,'assa','123098123','Agroindustria','Microempresa (1-10)','ase',900,3,'Aprendices SENA','Sí','Sí','Redes sociales','Sí','Sí','base de datos','Sí','Sí','Sí','2025-07-03 17:38:42'),(3,'assa','123098123','Agroindustria','Microempresa (1-10)','ase',900,3,'Aprendices SENA','Sí','Sí','Redes sociales','Sí','Sí','base de datos','Sí','Sí','Sí','2025-07-03 17:40:04'),(4,'assa','123098123','Agroindustria','Microempresa (1-10)','ase',900,3,'Aprendices SENA','Sí','Sí','Redes sociales','Sí','Sí','base de datos','Sí','Sí','Sí','2025-07-03 17:41:17'),(5,'assa','123456','Tecnología','Microempresa (1-10)','ase',123,123,'Fijo','Sí','Sí','Redes sociales','Sí','Sí','base de datos','Sí','Sí','Sí','2025-07-03 17:41:45'),(6,'assa','123456','Tecnología','Microempresa (1-10)','ase',123,123,'Fijo','Sí','Sí','Redes sociales','Sí','Sí','base de datos','Sí','Sí','Sí','2025-07-03 17:44:41');
+INSERT INTO `diagnostico_empresarial` VALUES (1,'assa','123098123','Agroindustria','Microempresa (1-10)','ase',900,3,'Aprendices SENA','Sí','Sí','Redes sociales','Sí','Sí','base de datos','Sí','Sí','Sí','2025-07-03 17:35:15'),(2,'assa','123098123','Agroindustria','Microempresa (1-10)','ase',900,3,'Aprendices SENA','Sí','Sí','Redes sociales','Sí','Sí','base de datos','Sí','Sí','Sí','2025-07-03 17:38:42'),(3,'assa','123098123','Agroindustria','Microempresa (1-10)','ase',900,3,'Aprendices SENA','Sí','Sí','Redes sociales','Sí','Sí','base de datos','Sí','Sí','Sí','2025-07-03 17:40:04'),(4,'assa','123098123','Agroindustria','Microempresa (1-10)','ase',900,3,'Aprendices SENA','Sí','Sí','Redes sociales','Sí','Sí','base de datos','Sí','Sí','Sí','2025-07-03 17:41:17'),(5,'assa','123456','Tecnología','Microempresa (1-10)','ase',123,123,'Fijo','Sí','Sí','Redes sociales','Sí','Sí','base de datos','Sí','Sí','Sí','2025-07-03 17:41:45'),(6,'assa','123456','Tecnología','Microempresa (1-10)','ase',123,123,'Fijo','Sí','Sí','Redes sociales','Sí','Sí','base de datos','Sí','Sí','Sí','2025-07-03 17:44:41'),(7,'rer44','2342342','Servicios','Microempresa (1-10)','qsed324',234,234,'Fijo','Sí','Sí','Redes sociales','Sí','Sí','Textiles, Logística','Sí','Sí','Sí','2025-07-06 04:32:14'),(8,'rer44','2342342','Servicios','Microempresa (1-10)','qsed324',234,234,'Fijo','Sí','Sí','Redes sociales','Sí','Sí','Textiles, Logística','Sí','Sí','Sí','2025-07-06 04:32:33'),(9,'assa','123456','Agroindustria','Microempresa (1-10)','qsed324',234,234,'Fijo','Sí','Sí','Redes sociales','Sí','Sí','Soporte técnico','Sí','Sí','Sí','2025-07-06 04:32:56'),(10,'assa','123456','Agroindustria','Microempresa (1-10)','qsed324',234,234,'Fijo','Sí','Sí','Redes sociales','Sí','Sí','Soporte técnico','Sí','Sí','Sí','2025-07-06 04:37:10'),(11,'123','123','Agroindustria','Microempresa (1-10)','123',123,123,'Fijo','Sí','Sí','Redes sociales','Sí','Sí','Programación','Sí','Sí','Sí','2025-07-06 04:37:43'),(12,'123','123','Agroindustria','Microempresa (1-10)','123',123,123,'Fijo','Sí','Sí','Redes sociales','Sí','Sí','Mecánica','Sí','Sí','Sí','2025-07-06 04:38:37');
 /*!40000 ALTER TABLE `diagnostico_empresarial` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,8 +123,33 @@ CREATE TABLE `empresas` (
 
 LOCK TABLES `empresas` WRITE;
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
-INSERT INTO `empresas` VALUES (1,'Registro Mercantil','1010101010','las hijas de eva','1010101011','yo@gmail.com','nose','cositas',1,'$2y$10$qXTxRA0YbxRhLDTRmg7Ij./D3MgH.fMr0PJO1wQZmctI0W/ymCG3a','2025-07-03 05:34:20','Inactivo'),(2,'NIT','1020304050','DIAN','1020304050','pele@gmail.com','en todas partes','lavado de dinero',1,'$2y$10$ozyvj5xEhQSBbhIWQnuJ1OkY8wES.NbFV2AAXEv3G8AfSVh5ZrnDW','2025-07-03 15:28:02','Activo');
+INSERT INTO `empresas` VALUES (1,'RUT','1010101999','las hijas de eva','1010101999','yo99@gmail.com','noseewq','cositas',1,'$2y$10$qXTxRA0YbxRhLDTRmg7Ij./D3MgH.fMr0PJO1wQZmctI0W/ymCG3a','2025-07-03 05:34:20','Activo'),(2,'NIT','1020304050','DIAN','1020304050','pele@gmail.com','en todas partes','lavado de dinero',1,'$2y$10$ozyvj5xEhQSBbhIWQnuJ1OkY8wES.NbFV2AAXEv3G8AfSVh5ZrnDW','2025-07-03 15:28:02','Activo');
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `inicio_super_admin`
+--
+
+DROP TABLE IF EXISTS `inicio_super_admin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `inicio_super_admin` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `usuario` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contrasena` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `inicio_super_admin`
+--
+
+LOCK TABLES `inicio_super_admin` WRITE;
+/*!40000 ALTER TABLE `inicio_super_admin` DISABLE KEYS */;
+INSERT INTO `inicio_super_admin` VALUES (1,'superadmin','123');
+/*!40000 ALTER TABLE `inicio_super_admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -171,7 +196,7 @@ CREATE TABLE `reportes` (
   `observacion` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `fecha_reporte` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,6 +205,7 @@ CREATE TABLE `reportes` (
 
 LOCK TABLES `reportes` WRITE;
 /*!40000 ALTER TABLE `reportes` DISABLE KEYS */;
+INSERT INTO `reportes` VALUES (1,'empresa',1,'dsdsdsdsdsd','2025-07-06 03:48:46'),(2,'programa',2,'wwww','2025-07-06 04:00:11'),(3,'empresa',2,'sdsdsd','2025-07-06 04:00:58'),(4,'programa',2,'iyfgiyjgb','2025-07-06 04:04:27');
 /*!40000 ALTER TABLE `reportes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -192,4 +218,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-07-03 14:00:16
+-- Dump completed on 2025-07-07  0:10:24
