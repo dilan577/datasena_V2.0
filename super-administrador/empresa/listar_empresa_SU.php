@@ -49,8 +49,8 @@ $conexion->close();
 <head>
     <meta charset="UTF-8">
     <title>Listar Empresa</title>
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
     <link rel="stylesheet" href="listar_empresa_su.css">
-    <link rel="icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
 </head>
 <body>
     <div class="barra-gov">

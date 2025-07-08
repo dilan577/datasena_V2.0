@@ -65,6 +65,7 @@ $conexion->close();
 <head>
     <meta charset="UTF-8">
     <title>Habilitar/Inhabilitar Empresa</title>
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
     <link rel="stylesheet" href="habilitar_inhabilitar.css">
 </head>
 <body>

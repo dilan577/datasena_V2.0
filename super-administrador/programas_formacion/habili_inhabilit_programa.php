@@ -60,15 +60,12 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && !isset($_GET['mostrar_todos']) &
 $conexion->close();
 ?>
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Habilitar/Inhabilitar Programa</title>
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
     <link rel="stylesheet" href="habili_inhabilit_programa.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>

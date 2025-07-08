@@ -44,8 +44,8 @@ $conexion = null;
 <head>
     <meta charset="UTF-8" />
     <title>Listar Programas</title>
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
     <link rel="stylesheet" href="listar_programa.css" />
-    <link rel="icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon" />
 </head>
 <body>
     <div class="barra-gov">
