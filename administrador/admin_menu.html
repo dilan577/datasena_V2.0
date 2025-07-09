@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Super administrador</title>
-    <link rel="icon" href="../img/Logotipo_Datasena.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../img/Logotipo_Datasena.png" type="image/x-icon">
     <link rel="stylesheet" href="admin_menu.menu.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -47,6 +47,13 @@
                 <a href="../administrador/admin_programas_formacion/admin_actualiza_programa.php">Actualizar programa</a>
                 <a href="../administrador/admin_programas_formacion/admin_listar_programa.php">Listar programa</a>
                 <a href="../administrador/admin_programas_formacion/admin_habili_inhabilit_programa.php">Habilitar/Inhabilitar programa</a>
+            </div>
+        </div>
+        <div class="dropdown-container">
+            <button class="top-btn" onclick="toggleDropdown('reporteMenu')">Reportes</button>
+            <div id="reporteMenu" class="submenu">
+                <a href="../administrador/admin_reportes/admin_reporte.php">Crear reporte</a>
+                <a href="../administrador/admin_reportes/admin_listar_reporte/admin_listar_reporte.php">Listar reportes</a>
             </div>
         </div>
     </div>

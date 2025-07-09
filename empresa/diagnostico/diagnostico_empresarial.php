@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "datasena_db");
+$conn = new mysqli("localhost", "root", "123456", "datasena_db");
 if ($conn->connect_error) {
     die("❌ Error de conexión: " . $conn->connect_error);
 }
@@ -34,12 +34,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $condiciones = [];
 
     // Diccionario de sinónimos por perfil
-    $sinonimos = [
-        'Textiles' => ['textil', 'moda', 'confección', 'costura', 'tejido'],
-        'Programación' => ['programador', 'software', 'desarrollador', 'sistemas', 'aplicaciones', 'tecnología'],
-        'Mecánica' => ['mecánica', 'mecánico', 'automotriz', 'motor', 'ingeniería mecánica'],
-        // Puedes seguir agregando más perfiles y sinónimos
-    ];
+$sinonimos = [
+    'Textiles' => [
+        'textil', 'moda', 'confección', 'costura', 'tejido', 'hilado', 'diseño de modas',
+        'industria textil', 'patronaje', 'bordado', 'sastrería', 'trazado', 'telares'
+    ],
+    'Programación' => [
+        'programador', 'software', 'desarrollador', 'sistemas', 'aplicaciones', 'tecnología',
+        'informática', 'bases de datos', 'código', 'algoritmos', 'web', 'backend', 'frontend',
+        'desarrollo de software', 'programación web', 'devops', 'inteligencia artificial'
+    ],
+    'Mecánica' => [
+        'mecánica', 'mecánico', 'automotriz', 'motor', 'ingeniería mecánica', 'mantenimiento',
+        'mecatrónica', 'ensamble', 'soldadura', 'torno', 'cambio de aceite', 'frenos',
+        'transmisión', 'sistemas mecánicos'
+    ],
+    'Logística' => [
+        'logística', 'almacenamiento', 'distribución', 'inventario', 'cadena de suministro',
+        'transporte', 'bodega', 'carga', 'descarga', 'paquetería', 'gestión logística',
+        'envío', 'movilización'
+    ],
+    'Contabilidad' => [
+        'contabilidad', 'finanzas', 'impuestos', 'balances', 'facturación', 'libros contables',
+        'caja menor', 'presupuesto', 'registro contable', 'auditoría', 'informes financieros',
+        'asientos contables'
+    ],
+    'Electricidad' => [
+        'electricidad', 'eléctrico', 'circuitos', 'voltaje', 'corriente', 'instalaciones eléctricas',
+        'tableros', 'bombillos', 'mantenimiento eléctrico', 'automatización', 'electrónica',
+        'cableado'
+    ],
+    'Diseño gráfico' => [
+        'diseño gráfico', 'gráfico', 'creatividad', 'publicidad', 'photoshop', 'ilustrador',
+        'branding', 'logos', 'colores', 'maquetación', 'editorial', 'carteles',
+        'composición visual', 'contenido digital'
+    ],
+    'Soporte técnico' => [
+        'soporte técnico', 'reparación', 'hardware', 'software', 'tecnología', 'mantenimiento de equipos',
+        'sistemas', 'redes', 'ayuda informática', 'diagnóstico de equipos', 'asistencia técnica'
+    ],
+    'Seguridad y salud en el trabajo' => [
+        'seguridad laboral', 'salud ocupacional', 'riesgos laborales', 'sst', 'ergonomía',
+        'normas de seguridad', 'accidentes laborales', 'prevención', 'protocolos',
+        'elementos de protección personal', 'brigadas'
+    ],
+    'Administración' => [
+        'administración', 'gestión', 'empresa', 'recursos humanos', 'oficina', 'dirección',
+        'organización', 'procesos administrativos', 'secretariado', 'gerencia', 'planificación',
+        'liderazgo'
+    ]
+];
+
 
     foreach ($perfiles_seleccionados as $perfil) {
         $palabras = $sinonimos[$perfil] ?? [$perfil]; // Usa sinónimos si existen
@@ -49,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    $sql_recomendacion = "SELECT * FROM programas WHERE (" . implode(" OR ", $condiciones) . ") AND LOWER(activacion) = 'activo' LIMIT 5";
+    $sql_recomendacion = "SELECT * FROM programas WHERE (" . implode(" OR ", $condiciones) . ") AND LOWER(activacion) = 'activo'";
     $resultado = $conn->query($sql_recomendacion);
 
 
@@ -68,6 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Diagnóstico Empresarial</title>
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
     <link rel="stylesheet" href="diagnostico_empresarial.css">
 
     <!-- Select2 -->
@@ -158,11 +204,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <option value="Logística">Logística</option>
                 <option value="Contabilidad">Contabilidad</option>
                 <option value="Electricidad">Electricidad</option>
+                <option value="Electrónica">Electrónica</option>
+                <option value="Gestión empresarial">Gestión empresarial</option>
                 <option value="Diseño gráfico">Diseño gráfico</option>
                 <option value="Soporte técnico">Soporte técnico</option>
                 <option value="Seguridad y salud en el trabajo">Seguridad y salud en el trabajo</option>
                 <option value="Administración">Administración</option>
+                <option value="Ambiental">Ambiental</option>
+                <option value="Telecomunicaciones">Telecomunicaciones</option>
+                <option value="Desarrollo de software">Desarrollo de software</option>
+                <option value="Redes de datos">Redes de datos</option>
+                <option value="Diseño de productos">Diseño de productos</option>
+                <option value="Gestión documental">Gestión documental</option>
+                <option value="Servicio al cliente">Servicio al cliente</option>
+                <option value="Diseño industrial">Diseño industrial</option>
+                <option value="Producción multimedia">Producción multimedia</option>
+                <option value="Diseño web">Diseño web</option>
+                <option value="Tecnología en automatización">Tecnología en automatización</option>
             </select>
+
 
             <label>¿Tiene infraestructura para formar?</label>
             <select name="infraestructura" required><option>Sí</option><option>No</option></select>
@@ -174,7 +234,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <select name="beneficios" required><option>Sí</option><option>No</option></select>
 
             <button type="submit" class="btn">Enviar Diagnóstico</button>
+            <button type="submit" class="btn"onclick="window.location.href='../empresa_menu.html'">⬅ Regresar</button>
+
         </form>
+        
     </main>
 
     <?php if (!empty($recomendaciones)): ?>

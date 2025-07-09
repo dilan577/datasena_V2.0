@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 
 try {
     // Conexión a la base de datos
-    $conexion = new PDO("mysql:host=localhost;dbname=datasenn_db", "root", "");
+    $conexion = new PDO("mysql:host=localhost;dbname=datasenn_db", "root", "123456");
     $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Consulta para obtener todos los programas
