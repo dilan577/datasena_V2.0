@@ -1,7 +1,7 @@
 <?php
 // Conexión a la base de datos
 try {
-    $pdo = new PDO("mysql:host=localhost;dbname=datasena_db", "root", "123456");
+    $pdo = new PDO("mysql:host=localhost;dbname=datasena_db", "root", "");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die("Error de conexión: " . $e->getMessage());
@@ -37,10 +37,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="reporte.css">
 </head>
 <body>
-    <div class="barra-gov">.gov.co</div>
+
+    <div class="barra-gov">
+        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+    </div>
+
+    <h1>DATASENA</h1>
+    <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
 
     <div class="contenedor">
-        <h1>📋 Reportar Empresa, Admin o Programa</h1>
+        <header>📋 Reportar Empresa, Admin o Programa</header>
 
         <form method="POST">
             <label>Tipo de reporte:</label>
@@ -80,7 +86,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 
-    <div class="barra-gov">.gov.co</div>
+    <footer>
+        <p>&copy; Todos los derechos reservados al SENA</p>
+    </footer>
+
+    <div class="barra-gov">
+        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+    </div>
 
     <script>
         const empresas = <?= json_encode($empresas) ?>;
@@ -117,6 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             const url = formato === "pdf" ? "descargas_pdf.php" : "descargas_xml.php";
             window.open(url + "?id=" + id, "_blank");
         }
+
     </script>
 </body>
 </html>

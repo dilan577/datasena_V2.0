@@ -125,7 +125,7 @@ img.img{
     margin: 40px auto;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 0 12px var(--secundary-2-950);
+    box-shadow: 0 0 12px var(--secundary-1-950);
     flex-grow: 1;
     width: 90%;
 }
@@ -152,16 +152,16 @@ input[type="text"] {
     width: 100%;
     padding: 12px;
     border-radius: 8px;
-    border: 2px solid #000;
+    border: 2px solid var(--black);
     margin-bottom: 10px;
     font-size: 1em;
-    background-color: #fff;
-    color: #000;
+    background-color: var(--white);
+    color: var(--black);
 }
 
 /* Botones */
 .logout-btn {
-    background-color: var(--secundary-2-700);
+    background-color: var(--secundary-1-900);
     color: white;
     padding: 10px 24px;
     border: none;
@@ -172,7 +172,7 @@ input[type="text"] {
 }
 
 .logout-btn:hover {
-    background-color: var(--secundary-2-400);
+    background-color: var(--secundary-1-500);
     transform: translateY(-2px);
 }
 
