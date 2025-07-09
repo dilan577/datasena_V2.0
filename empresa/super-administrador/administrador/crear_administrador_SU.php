@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $conn = new mysqli("localhost", "root", "123456", "datasena_db");
+    $conn = new mysqli("localhost", "root", " ", "datasena_db");
     if ($conn->connect_error) {
         die("Conexión fallida: " . $conn->connect_error);
     }
