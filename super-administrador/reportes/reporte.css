@@ -132,7 +132,7 @@ img.img{
     border-radius: 15px;
 }
 .contenedor {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--white);
     margin: auto;
     padding: 30px;
     width: 500px;
@@ -141,6 +141,7 @@ img.img{
 }
 label {
     color: #0d3c77;
+    font-weight: bold;
 }
 
 form {
