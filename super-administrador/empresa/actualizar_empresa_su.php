@@ -118,7 +118,7 @@ $conexion->close();
     <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
 </div>
 
-<header>DATASENA</header>
+<h1>DATASENA</h1>
 <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
 
 <div class="form-container">

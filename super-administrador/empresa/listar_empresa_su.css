@@ -76,20 +76,20 @@ html, body {
     padding: 0;
     height: 100%;
     overflow-x: hidden;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to right, #a8d2fa, #e2ebf7);
+    background: var(--gray-900); 
 }
 
-/* Barra .gov */
-.barra-gov {
-    background-color: #0c14ef;
-    width: 100%;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.barra-gov,
+.barra-gov-bottom {
+  background-color: var(--secundary-3-900);
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gov-logo {
@@ -103,27 +103,28 @@ header {
     text-align: center;
     font-size: 2em;
     padding: 15px;
-    background-color: rgba(255, 255, 255, 0.6);
     font-weight: bold;
-    color: #0d3c77;
+    color: var(--black);
 }
 
 /* Logo central */
-.img {
-    display: block;
-    margin: 0 auto;
-    max-width: 100px;
-    padding-top: 10px;
+/* Logo */
+img.img{
+    position: absolute;
+    top: 50px;
+    right: 25px;
+    width: 80px;
+    height: auto;
 }
 
 /* Contenedor del contenido */
 .form-container {
     max-width: 800px;
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color:var(--white);
     margin: 40px auto;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0,0,0,0.2);
+    box-shadow: 0 0 12px var(--secundary-2-950);
     flex-grow: 1;
     width: 90%;
 }
@@ -131,7 +132,7 @@ header {
 /* Título */
 h2 {
     text-align: center;
-    color: #0d3c77;
+    color: var(--black);
 }
 
 /* Formularios */
@@ -159,7 +160,7 @@ input[type="text"] {
 
 /* Botones */
 .logout-btn {
-    background-color: #0d6efd;
+    background-color: var(--secundary-2-700);
     color: white;
     padding: 10px 24px;
     border: none;
@@ -170,7 +171,7 @@ input[type="text"] {
 }
 
 .logout-btn:hover {
-    background-color: #0b5ed7;
+    background-color: var(--secundary-2-400);
     transform: translateY(-2px);
 }
 
@@ -202,8 +203,8 @@ input[type="text"] {
 
 /* Footer */
 footer {
-    background-color: #0d3c77;
-    color: white;
+    background-color: var(--primary-900);
+    color: var(--white);
     padding: 15px;
     text-align: center;
     margin-top: auto;

@@ -76,20 +76,21 @@ html, body {
     height: 100%;
     overflow-x: hidden;
     font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #a8d2fa, #e2ebf7);
-    color: #0d3c77;
+    background: var(--gray-900);;
+    color: var(--black);
     display: flex;
     flex-direction: column;
 }
 
 /* Barras gov */
-.barra-gov {
-    background-color: #0c14ef;
-    width: 100%;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.barra-gov,
+.barra-gov-bottom {
+  background-color: var(--secundary-3-900);
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gov-logo {
@@ -101,9 +102,8 @@ html, body {
 /* Encabezado */
 header {
     text-align: center;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.6);
-    color: #0d3c77;
+    padding: 20px;;
+    color: var(--black);
     font-size: 24px;
     font-weight: bold;
 }
@@ -123,8 +123,8 @@ header {
 }
 
 .search-box button {
-    background-color: #0078c0;
-    color: white;
+    background-color: var(--secundary-2-700);
+    color: var(--white);
     padding: 10px 20px;
     border: none;
     border-radius: 6px;
@@ -134,7 +134,7 @@ header {
 }
 
 .search-box button:hover {
-    background-color: #337ccf;
+    background-color: var(--secundary-2-400);
 }
 
 /* Detalles */
@@ -212,9 +212,11 @@ header {
 
 /* Footer */
 footer {
-    background-color: #0d3c77;
-    color: white;
-    padding: 15px;
-    text-align: center;
-    margin-top: auto;
+  color: var(--white);
+  background-color: var(--primary-900);
+  text-align: center;
+  padding: 2px;
+  margin-top: auto;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow);
 }

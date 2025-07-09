@@ -1,4 +1,3 @@
-/* === Estilo: Listar Administradores === */
 /* Variables y estilos globales */
 :root {
     /* Primary color */
@@ -71,28 +70,28 @@
     --font-size-h6: 1.2rem;
 
 }
-
-/* Fondo general */
+/* Reset básico */
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
     overflow-x: hidden;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to right, #a8d2fa, #e2ebf7);
+    font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: column;
+    background: var(--gray-900); 
 }
 
-/* Barra .gov */
-.barra-gov {
-    background-color: #0c14ef;
-    width: 100%;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.barra-gov,
+.barra-gov-bottom {
+  background-color: var(--secundary-3-900);
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .gov-logo {
     height: 50px;
     width: auto;
@@ -103,55 +102,65 @@ html, body {
 header {
     text-align: center;
     font-size: 2em;
-    padding: 20px;
-    background-color: rgba(0, 42, 82, 0.5);
+    padding: 15px;
     font-weight: bold;
-    color: #0d3c77;
+    color: var(--black);
 }
 
 /* Logo central */
-.img {
-    display: block;
-    margin: 10px auto;
-    max-width: 80px;
+/* Logo */
+img.img{
+    position: absolute;
+    top: 50px;
+    right: 25px;
+    width: 80px;
+    height: auto;
 }
 
-/* Contenedor principal */
+/* Contenedor del contenido */
 .form-container {
-    max-width: 1000px;
-    margin: 30px auto;
-    background-color: rgba(255, 255, 255, 0.95);
+    max-width: 800px;
+    background-color:var(--white);
+    margin: 40px auto;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 12px #337ccf;;
+    flex-grow: 1;
     width: 90%;
 }
 
 /* Título */
 h2 {
     text-align: center;
-    color: #0d3c77;
+    color: var(--black);
+}
+
+/* Formularios */
+form {
     margin-bottom: 20px;
 }
 
-/* Input de búsqueda */
-.search-container {
-    margin-bottom: 20px;
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #0d3c77;
 }
+
 input[type="text"] {
     width: 100%;
     padding: 12px;
-    font-size: 1em;
-    border: 2px solid #000;
     border-radius: 8px;
+    border: 2px solid #000;
+    margin-bottom: 10px;
+    font-size: 1em;
     background-color: #fff;
     color: #000;
-    box-sizing: border-box;
 }
 
 /* Botones */
 .logout-btn {
-    background-color: #4a90e2;
+    background-color: var(--secundary-3-500);
     color: white;
     padding: 10px 24px;
     border: none;
@@ -159,35 +168,11 @@ input[type="text"] {
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
-    margin-top: 10px;
-}
-.logout-btn:hover {
-    background-color: #337ccf;
-    transform: translateY(-2px);
 }
 
-/* Tabla de resultados */
-.user-list table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-}
-.user-list th,
-.user-list td {
-    border: 1px solid #ccc;
-    padding: 12px;
-    text-align: center;
-    font-size: 0.95em;
-}
-.user-list th {
-    background-color: #0d3c77;
-    color: white;
-}
-.user-list tr:nth-child(even) {
-    background-color: #f2f2f2;
+.logout-btn:hover {
+    background-color: #337ccf;;
+    transform: translateY(-2px);
 }
 
 /* Mensaje de error */
@@ -201,74 +186,8 @@ input[type="text"] {
     font-weight: bold;
 }
 
-/* Botón regresar */
-.back_visual {
-    text-align: center;
-    margin-top: 30px;
-}
-
-/* Footer */
-footer {
-    background-color: #0d3c77;
-    padding: 20px;
-    text-align: center;
-    color: white;
-    font-size: 0.9em;
-    margin-top: auto;
-}
-
-/* Modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-}
-
-.modal-content {
-    background-color: white;
-    margin: 10% auto;
-    padding: 30px;
-    border: 1px solid #888;
-    width: 90%;
-    max-width: 600px;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.2);
-}
-
-.modal-header {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #0d3c77;
-    text-align: center;
-}
-
-.modal-body p {
-    margin: 10px 0;
-    color: #333;
-    line-height: 1.4;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    margin-top: -20px;
-}
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-.admin-card {
+/* Tarjeta de empresa */
+.empresa-card {
     background-color: rgba(255, 255, 255, 0.9);
     padding: 20px;
     border-radius: 12px;
@@ -276,8 +195,17 @@ footer {
     margin-top: 20px;
 }
 
-.admin-card p {
+.empresa-card p {
     margin: 10px 0;
     color: #333;
     line-height: 1.4;
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-900);
+    color: var(--white);
+    padding: 15px;
+    text-align: center;
+    margin-top: auto;
 }

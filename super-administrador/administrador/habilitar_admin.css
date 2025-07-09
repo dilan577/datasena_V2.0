@@ -74,21 +74,23 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    overflow-x: hidden;
     font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #a8d2fa, #e2ebf7);
-    color: #0d3c77;
+    background: var(--gray-900);;
+    color: var(--black);
     display: flex;
     flex-direction: column;
 }
 
-/* Barra GOV */
-.barra-gov {
-    background-color: #0c14ef;
-    width: 100%;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Barras gov */
+.barra-gov,
+.barra-gov-bottom {
+  background-color: var(--secundary-3-900);
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gov-logo {
@@ -100,13 +102,13 @@ html, body {
 /* Encabezado */
 header {
     text-align: center;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.6);
+    padding: 20px;;
+    color: var(--black);
     font-size: 24px;
     font-weight: bold;
-    color: #0d3c77;
 }
 
+/* Búsqueda */
 .search-box {
     text-align: center;
     padding: 20px;
@@ -118,26 +120,22 @@ header {
     border: 2px solid black;
     border-radius: 6px;
     font-size: 1em;
-    margin-top: 10px; /* separación del label */
-}
-
-.search-box label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
 }
 
 .search-box button {
-    background-color: #0078c0;
-    color: white;
+    background-color: var(--secundary-2-700);
+    color: var(--white);
     padding: 10px 20px;
     border: none;
     border-radius: 6px;
-    margin-top: 12px; /* separación del input */
+    margin-left: 10px;
     cursor: pointer;
     font-weight: bold;
 }
 
+.search-box button:hover {
+    background-color: var(--secundary-2-400);
+}
 
 /* Detalles */
 .empresa-detalle {
@@ -196,13 +194,9 @@ header {
 .mensaje {
     text-align: center;
     font-weight: bold;
-    margin: 20px auto;
-    padding: 12px;
-    max-width: 600px;
-    background-color: rgba(255,255,255,0.6);
-    border-radius: 8px;
+    margin-top: 15px;
+    padding: 10px;
 }
-
 
 .mensaje.exito {
     color: green;
@@ -218,27 +212,11 @@ header {
 
 /* Footer */
 footer {
-    background-color: #0d3c77;
-    color: white;
-    padding: 15px;
-    text-align: center;
-    margin-top: auto;
-}
-.buscar-form {
-    background-color: #4a90e2;
-    border: 1px solid #0d3c77;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 12px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-family: 'Segoe UI', sans-serif;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 15px;
-}
-
-.buscar-form:hover {
-    background-color: #337ccf;
+  color: var(--white);
+  background-color: var(--primary-900);
+  text-align: center;
+  padding: 2px;
+  margin-top: auto;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow);
 }
