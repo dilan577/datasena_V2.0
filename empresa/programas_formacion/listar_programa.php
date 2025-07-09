@@ -1,7 +1,7 @@
 <?php
 // Conexión con PDO
 try {
-    $conexion = new PDO("mysql:host=localhost;dbname=datasena_db", "root", " ");
+    $conexion = new PDO("mysql:host=localhost;dbname=datasena_db", "root", "");
     $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     die("Error de conexión: " . $e->getMessage());
