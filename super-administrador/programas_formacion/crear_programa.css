@@ -103,11 +103,11 @@ body {
 }
 
 /* Encabezado */
-header {
+h1 {
     text-align: center;
-    font-size: 2.5em;
-    color: #0d3c77;
-    margin-top: 10px;
+    margin-top: 20px;
+    font-size: 2.4em;
+    color: var(--black);
 }
 
 /* Logo */
@@ -126,13 +126,13 @@ img.img{
     border-radius: 12px;
     max-width: 1000px;
     margin: 20px auto;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 15px var(--secundary-1-900);
 }
 
 /* Título */
 h4 {
     text-align: center;
-    color: #0d3c77;
+    color: var(--black);
     margin-bottom: 20px;
 }
 
@@ -160,8 +160,8 @@ h4 {
 .forma-row select {
     padding: 10px;
     border-radius: 8px;
-    border: 2px solid #000; /* Borde negro */
-    background-color: #ffffff;
+    border: 2px solid var(--black); /* Borde negro */
+    background-color: var(--white);
     color: #333;
     font-size: 1em;
 }
@@ -176,8 +176,8 @@ h4 {
 }
 
 .registrar {
-    background-color: #4a90e2;
-    color: white;
+    background-color: var(--secundary-1-900);
+    color: var(--white);
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
@@ -188,7 +188,7 @@ h4 {
 }
 
 .registrar:hover {
-    background-color: #337ccf;
+    background-color: var(--secundary-1-600);
     transform: translateY(-2px);
 }
 

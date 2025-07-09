@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
 </div>
 
-<header>DATASENA</header>
+<h1>DATASENA</h1>
 <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
 
 <div class="forma-container">
@@ -88,17 +88,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <form method="post">
     <div class="forma-grid">
       <div class="forma-row">
-        <label for="nombre_programa">Nombre del<br> Programa</label>
+        <label for="nombre_programa">Nombre del Programa</label>
         <input type="text" id="nombre_programa" name="nombre_programa" placeholder="Ingrese el nombre del programa de formación" required>
       </div>
 
       <div class="forma-row">
-        <label for="codigo_programa">Código del<br> Programa</label>
+        <label for="codigo_programa">Código delcPrograma</label>
         <input type="text" id="codigo_programa" name="codigo_programa" placeholder="Ingrese el código del programa" required>
       </div>
 
       <div class="forma-row">
-        <label for="nivel_formacion">Nivel de<br> Formación</label>
+        <label for="nivel_formacion">Nivel de Formación</label>
         <select id="nivel_formacion" name="nivel_formacion" required>
           <option value="Tecnico">Técnico</option>
           <option value="Tecnologo">Tecnólogo</option>
