@@ -50,7 +50,7 @@ $conexion->close();
     <meta charset="UTF-8">
     <title>Listar Empresa</title>
     <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
-    <link rel="stylesheet" href="../../administrador/admin_empresa/admin_listar_empresa_su_v2.css">
+    <link rel="stylesheet" href="../admin_empresa/admin_listar_empresa_su_v2.css">
 </head>
 <body>
     <div class="barra-gov">
@@ -67,12 +67,12 @@ $conexion->close();
             <p class="mensaje-error"><?= htmlspecialchars($mensaje) ?></p>
         <?php endif; ?>
 
-        <form action="admin_listar_empresa_su.php" method="post" style="display:flex; gap: 10px; flex-wrap:wrap;">
+        <form action="listar_empresa_su.php" method="post" style="display:flex; gap: 10px; flex-wrap:wrap;">
             <label for="buscar_dato">Buscar empresa:</label>
             <input type="text" id="buscar_dato" name="dato_busqueda" placeholder="Número de identidad o nickname" required>
             <button class="logout-btn" type="submit" name="buscar">🔍 Buscar</button>
             <button class="logout-btn" type="submit" name="mostrar_todos" onclick="document.getElementById('buscar_dato').removeAttribute('required')">📋 Mostrar Todos</button>
-            <button class="logout-btn" onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
+            <button class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
         </form>
         <hr>
         <?php if (!empty($empresa)): ?>

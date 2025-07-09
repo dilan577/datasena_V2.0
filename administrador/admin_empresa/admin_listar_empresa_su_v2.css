@@ -1,23 +1,95 @@
+/* Variables y estilos globales */
+:root {
+    /* Primary color */
+    --primary-950: #39A900;
+    --primary-900: #4db21a;
+    --primary-800: #61BA33;
+    --primary-700: #74c34d;
+    --primary-600: #88cb66;
+    --primary-500: #9cd480;
+    --primary-400: #b0dd99;
+    --primary-300: #c4e5b3;
+    --primary-200: #d7eecc;
+    
+    /* Secondary color */
+    --secundary-1-950: #007832;
+    --secundary-1-900: #1A8647;
+    --secundary-1-800: #33935B;
+    --secundary-1-700: #4DA170;
+    --secundary-1-600: #66AE84;
+    --secundary-1-500: #80BC99;
+    --secundary-1-400: #99C9AD;
+    --secundary-1-300: #B3D7C2;
+    --secundary-1-200: #cce4d6;
+    --secundary-2-950: #71277a;
+    --secundary-2-900: #7f3d86;
+    --secundary-2-800: #8d5295;
+    --secundary-2-700: #9c68a2;
+    --secundary-2-600: #aa7daf;
+    --secundary-2-500: #b893bd;
+    --secundary-2-400: #c6a9ca;
+    --secundary-2-300: #dabed7;
+    --secundary-2-200: #e3daea;
+    --secundary-3-950: #00304d;
+    --secundary-3-900: #1a455f;
+    --secundary-3-800: #335971;
+    --secundary-3-700: #4d6e82;
+    --secundary-3-600: #668394;
+    --secundary-3-500: #8098a6;
+    --secundary-3-400: #99acb8;
+    --secundary-3-300: #b3c1ca;
+    --secundary-3-200: #ccd6db;
+    --secundary-4-950: #fdc300;
+    --secundary-4-900: #fdc91a;
+    --secundary-4-800: #fdcf33;
+    --secundary-4-700: #fed54d;
+    --secundary-4-600: #fedb66;
+    --secundary-4-500: #fee180;
+    --secundary-4-400: #fee799;
+    --secundary-4-300: #feedb3;
+    --secundary-4-200: #fff3cc;
+    
+    /* Basic color */
+    --white: #ffffff;
+    --black: #000000;
+    --gray-950: #f6f6f6;
+    --gray-900: #e1e1e1;
+    --gray-800: #cccccc;
+    --gray-700: #b7b7b7;
+    --gray-600: #a2a2a2;
+    --gray-500: #8d8d8d;
+    
+    /* Font-family */
+    --main-font: Arial, sans-serif;
+    --font-size-h1-plus: 4.8rem;
+    --font-size-h1: 3.2rem;
+    --font-size-h2: 2.4rem;
+    --font-size-h3: 2.0rem;
+    --font-size-h4: 1.6rem;
+    --font-size-h5: 1.4rem;
+    --font-size-h6: 1.2rem;
+
+}
 /* Reset básico */
 html, body {
     margin: 0;
     padding: 0;
     height: 100%;
     overflow-x: hidden;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to right, #a8d2fa, #e2ebf7);
+    background: var(--gray-900); 
 }
 
-/* Barra .gov */
-.barra-gov {
-    background-color: #0c14ef;
-    width: 100%;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.barra-gov,
+.barra-gov-bottom {
+  background-color: var(--secundary-3-900);
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gov-logo {
@@ -31,27 +103,28 @@ header {
     text-align: center;
     font-size: 2em;
     padding: 15px;
-    background-color: rgba(255, 255, 255, 0.6);
     font-weight: bold;
-    color: #0d3c77;
+    color: var(--black);
 }
 
 /* Logo central */
-.img {
-    display: block;
-    margin: 0 auto;
-    max-width: 100px;
-    padding-top: 10px;
+/* Logo */
+img.img{
+    position: absolute;
+    top: 50px;
+    right: 25px;
+    width: 80px;
+    height: auto;
 }
 
 /* Contenedor del contenido */
 .form-container {
     max-width: 800px;
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color:var(--white);
     margin: 40px auto;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0,0,0,0.2);
+    box-shadow: 0 0 12px var(--secundary-2-950);
     flex-grow: 1;
     width: 90%;
 }
@@ -59,7 +132,7 @@ header {
 /* Título */
 h2 {
     text-align: center;
-    color: #0d3c77;
+    color: var(--black);
 }
 
 /* Formularios */
@@ -87,7 +160,7 @@ input[type="text"] {
 
 /* Botones */
 .logout-btn {
-    background-color: #0d6efd;
+    background-color: var(--secundary-2-700);
     color: white;
     padding: 10px 24px;
     border: none;
@@ -98,7 +171,7 @@ input[type="text"] {
 }
 
 .logout-btn:hover {
-    background-color: #0b5ed7;
+    background-color: var(--secundary-2-400);
     transform: translateY(-2px);
 }
 
@@ -130,8 +203,8 @@ input[type="text"] {
 
 /* Footer */
 footer {
-    background-color: #0d3c77;
-    color: white;
+    background-color: var(--primary-900);
+    color: var(--white);
     padding: 15px;
     text-align: center;
     margin-top: auto;

@@ -102,23 +102,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mostrar_todos'])) {
 $conexion->close();
 ?>
 
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Visualizar / Actualizar Empresas</title>
     <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
-    <link rel="stylesheet" href="../../administrador/admin_empresa/admin_actualizar_empresa_su_v2.css">
+    <link rel="stylesheet" href="../admin_empresa/admin_actualizar_empresa_su_v2.css">
 </head>
 <body>
 <div class="barra-gov">
     <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
 </div>
 
-<header>DATASENA</header>
+<h1>DATASENA</h1>
 <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
 
 <div class="form-container">
@@ -129,12 +126,12 @@ $conexion->close();
     <?php endif; ?>
 
     <!-- Buscar y mostrar -->
-    <form id="form-busqueda" action="admin_actualizar_empresa_su.php" method="post" style="display:flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+    <form id="form-busqueda" action="actualizar_empresa_su.php" method="post" style="display:flex; flex-wrap: wrap; gap: 10px; align-items: center;">
         <label for="buscar_dato">Buscar por número de identidad o nickname:</label>
         <input type="text" id="buscar_dato" name="dato_busqueda" placeholder="Ingrese número o nombre" required>
         <button class="logout-btn" type="submit" name="buscar">Buscar</button>
         <button class="logout-btn" type="submit" name="mostrar_todos" id="btn-todos">Mostrar Todos</button>
-        <button class="logout-btn" onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
+        <button class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
     </div>
     </form>
 
