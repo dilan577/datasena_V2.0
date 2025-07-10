@@ -69,9 +69,12 @@ $conexion->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <div class="barra-gov">
+   <div class="barra-gov">
         <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
     </div>
+
+    <h1>DATASENA</h1>
+    <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
 
     <header>
         <h1>Panel de Habilitación de Programas</h1>
@@ -82,11 +85,9 @@ $conexion->close();
             <form method="get" class="form-flex">
                 <label for="buscar_ficha">Número de Ficha:</label>
                 <input type="text" id="buscar_ficha" name="numero_ficha" value="<?= htmlspecialchars($_GET['numero_ficha'] ?? '') ?>">
-                <button type="submit">Buscar</button>
-                <button type="submit" name="mostrar_todos">Mostrar Todos</button>
-                <div class="btn-derecha">
-                    <button type="button" onclick="location.href='../admin_menu.html'">↩️ Regresar</button>
-                </div>
+                <button type="submit">🔍 Buscar</button>
+                <button type="submit" name="mostrar_todos">📋 Mostrar Todos</button>
+                <button type="button" onclick="location.href='../admin_menu.html'">↩️ Regresar</button>
             </form>
         </div>
 

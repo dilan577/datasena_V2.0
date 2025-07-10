@@ -37,7 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="admin_reporte.css">
 </head>
 <body>
-    <div class="barra-gov">.gov.co</div>
+     <div class="barra-gov">
+        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+    </div>
+
+    <h1>DATASENA</h1>
+    <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
 
     <div class="contenedor">
         <h1>📋 Reportar Empresa, Admin o Programa</h1>
@@ -59,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label>Observación:</label>
             <textarea name="observacion" rows="5" required></textarea>
 
-            <button type="submit">Guardar Reporte</button>
+            <button type="submit">✅ Crear</button>
         </form>
 
         <?php if (isset($lastId)): ?>
@@ -76,11 +81,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <div class="acciones-extra">
-            <button onclick="window.location.href='../super_menu.html'">⬅️ Regresar</button>
+            <button onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
         </div>
     </div>
+        
+     <footer>
+        <p>&copy; 2025 Todos los derechos reservados - Proyecto SENA</p>
+    </footer>
 
-    <div class="barra-gov">.gov.co</div>
+    <div class="barra-gov">
+        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+    </div>
 
     <script>
         const empresas = <?= json_encode($empresas) ?>;

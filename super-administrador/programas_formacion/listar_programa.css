@@ -206,7 +206,7 @@ input[type="text"] {
 footer {
     background-color: var(--primary-900);
     color: var(--white);
-    padding: 15px;
+    padding: 12px;
     text-align: center;
     margin-top: auto;
 }

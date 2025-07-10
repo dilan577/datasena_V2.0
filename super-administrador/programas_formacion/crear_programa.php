@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
 
 <div class="forma-container">
-  <h4>Crear Programa</h4>
+  <h2>Crear Programa</h2>
 
   <?php if (!empty($mensaje)): ?>
     <div class="mensaje"><?= htmlspecialchars($mensaje) ?></div>

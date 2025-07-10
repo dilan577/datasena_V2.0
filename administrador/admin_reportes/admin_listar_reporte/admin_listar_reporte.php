@@ -37,7 +37,7 @@ $conexion->close();
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>📋 Ver Reportes</title>
+    <title> Ver Reportes</title>
     <link rel="shortcut icon" href="../../../img/Logotipo_Datasena.png" type="image/x-icon">
     <link rel="stylesheet" href="admin_listar_reporte.css">
 </head>
@@ -46,7 +46,7 @@ $conexion->close();
         <img src="../../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
     </div>
 
-    <header>DATASENA - Ver Reportes</header>
+    <header>DATASENA <br> Ver Reportes</header>
     <img src="../../../img/logo-sena.png" alt="Logo SENA" class="img">
 
     <div class="form-container">
