@@ -80,7 +80,7 @@ $conexion->close();
     <div class="barra-gov">
         <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
     </div>
-    <header>DATASENA</header>
+    <h1>DATASENA</h1>
     <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
 
     <div class="form-container">
@@ -93,8 +93,8 @@ $conexion->close();
         <form method="GET" action="">
             <label for="nombre_programa">Buscar Programa por Nombre:</label>
             <input type="text" name="nombre_programa" id="nombre_programa" value="<?= isset($_GET['nombre_programa']) ? htmlspecialchars($_GET['nombre_programa']) : '' ?>" >
-            <button type="submit" name="buscar" class="buscar-form">Buscar</button>
-            <button type="submit" name="mostrar_todos" class="buscar-form">Mostrar todos</button>
+            <button type="submit" name="buscar" class="logout-btn">🔍 Buscar</button>
+            <button type="submit" name="mostrar_todos" class="logout-btn">📋 Mostrar todos</button>
             <button type="button" class="logout-btn" onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
         </form>
 
