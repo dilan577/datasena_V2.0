@@ -204,7 +204,7 @@ footer {
   color: var(--white);
   background-color: var(--primary-900);
   text-align: center;
-  padding: 2px;
+  font-weight: bold;
   margin-top: auto;
   font-size: 0.9rem;
   box-shadow: var(--shadow);
