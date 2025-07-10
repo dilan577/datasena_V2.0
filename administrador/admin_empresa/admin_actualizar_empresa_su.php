@@ -126,24 +126,26 @@ $conexion->close();
     <?php endif; ?>
 
     <!-- Buscar y mostrar -->
-    <form id="form-busqueda" action="actualizar_empresa_su.php" method="post" style="display:flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+    <form id="form-busqueda" action="admin_actualizar_empresa_su.php" method="post" style="display:flex; flex-wrap: wrap; gap: 10px; align-items: center;">
         <label for="buscar_dato">Buscar por número de identidad o nickname:</label>
         <input type="text" id="buscar_dato" name="dato_busqueda" placeholder="Ingrese número o nombre" required>
         <button class="logout-btn" type="submit" name="buscar">Buscar</button>
         <button class="logout-btn" type="submit" name="mostrar_todos" id="btn-todos">Mostrar Todos</button>
-        <button class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
+        <button class="logout-btn" onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
+        </form>
+            <div style="height: 0.1cm;"></div>
+            <hr style="border: 0.01px solid #ccc; width: 100%;">
+
     </div>
     </form>
-
     <script>
         document.getElementById('btn-todos').addEventListener('click', function () {
             document.getElementById('buscar_dato').removeAttribute('required');
         });
     </script>
-    <hr>
     <!-- Formulario de edición -->
     <?php if (!empty($empresas['id'])): ?>
-        <form class="form-grid" action="actualizar_empresa_su.php" method="post">
+        <form class="form-grid" action="admin_actualizar_empresa_su.php" method="post">
             <input type="hidden" name="id" value="<?= htmlspecialchars($empresas['id']) ?>">
 
             <div class="form-row">
@@ -173,7 +175,6 @@ $conexion->close();
 
             <div class="form-row botones-finales">
                 <button class="logout-btn" type="submit">Actualizar</button>
-                <button class="logout-btn" type="button" onclick="window.location.href='../super_menu.html'">Regresar</button>
             </div>
         </form>
     <?php endif; ?>

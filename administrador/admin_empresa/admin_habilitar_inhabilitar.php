@@ -66,12 +66,15 @@ $conexion->close();
     <meta charset="UTF-8">
     <title>Habilitar/Inhabilitar Empresa</title>
     <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
-    <link rel="stylesheet" href="../../administrador/admin_empresa/admin_listar_empresa_su_v2.css">
+    <link rel="stylesheet" href="admin_habilitar_inhabilitar.css">
 </head>
 <body>
 <div class="barra-gov">
     <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
 </div>
+
+<h1>DATASENA</h1>
+<img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
 
 <header>
     <h1>Panel de Habilitación de Empresas</h1>
@@ -82,8 +85,8 @@ $conexion->close();
         <form method="get">
             <label for="buscar_cc">Número de Documento:</label>
             <input type="text" id="buscar_cc" name="cc">
-            <button type="submit" class="logout-btn">Buscar</button>
-            <button type="submit" class="logout-btn" name="mostrar_todos">Mostrar Todos</button>
+            <button type="submit">🔍 Buscar</button>
+            <button type="submit" name="mostrar_todos">📋 Mostrar Todos</button>
             <button type="button" class="logout-btn" onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
         </form>
     </div>
@@ -169,7 +172,7 @@ $conexion->close();
 </main>
 
 <footer>
-    <p>&copy; Todos los derechos reservados al SENA</p>
+    <p>&copy; 2025 Todos los derechos reservados - Proyecto SENA</p>
 </footer>
 
 <div class="barra-gov">
