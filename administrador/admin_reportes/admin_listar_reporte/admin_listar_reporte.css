@@ -241,12 +241,16 @@ textarea {
    PIE DE PÁGINA
 ----------------------------------- */
 footer {
-    background-color: var(--primary-900);
-    color: white;
-    padding: 15px;
-    text-align: center;
-    margin-top: auto;
+  color: var(--white);
+  background-color: var(--primary-900);
+  text-align: center;
+  padding: 12px;
+  margin-top: auto;
+  font-weight: bold;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow);
 }
+
 .empresa-card {
     background-color: rgba(255, 255, 255, 0.95);
     padding: 20px;
