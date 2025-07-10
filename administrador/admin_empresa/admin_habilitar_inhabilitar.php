@@ -180,4 +180,3 @@ $conexion->close();
 </div>
 </body>
 </html>
-S

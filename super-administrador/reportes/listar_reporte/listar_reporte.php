@@ -115,8 +115,8 @@ $conexion->close();
                 <p><strong>📝 Observación:</strong> <?= htmlspecialchars($r['observacion']) ?></p>
                 <p><strong>📅 Fecha:</strong> <?= $r['fecha_reporte'] ?></p>
                 <p>
-                    <a class="logout-btn" style="background-color:#28a745;" href="descargar_pdf.php?id=<?= $r['id'] ?>" target="_blank">📄 PDF</a>
-                    <a class="logout-btn" style="background-color:#6c757d;" href="descargar_xml.php?id=<?= $r['id'] ?>" target="_blank">📦 XML</a>
+                    <a class="logout-btn" style="background-color:#28a745;" href="../descargas_pdf.php?id=<?= $r['id'] ?>" target="_blank">📄 PDF</a>
+                    <a class="logout-btn" style="background-color:#6c757d;" href="../descargas_xml.php?id=<?= $r['id'] ?>" target="_blank">📦 XML</a>
                 </p>
             </div>
         <?php endforeach; ?>
