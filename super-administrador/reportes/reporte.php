@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <footer>
-        <p>&copy; Todos los derechos reservados al SENA</p>
+        <p>&copy; 2025 Todos los derechos reservados - Proyecto SENA</p>
     </footer>
 
     <div class="barra-gov">
