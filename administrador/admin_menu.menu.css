@@ -265,3 +265,96 @@ footer {
   z-index: 0;
   pointer-events: none;
 }
+
+/* MEDIA QUERIES */
+
+/* Pantallas menores a 1024px (tablets) */
+@media (max-width: 1024px) {
+  .top-buttons {
+    gap: 80px;
+  }
+
+  .top-btn {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+  }
+
+  .center-box {
+    padding: 30px;
+  }
+}
+
+/* Pantallas menores a 768px (móviles) */
+@media (max-width: 768px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 16px;
+  }
+
+  .top-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+    left: 0;
+    transform: none;
+    position: static;
+    gap: 12px;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .dropdown-container,
+  .top-btn {
+    width: 100%;
+  }
+
+  .center-box {
+    margin: 80px 20px 20px;
+    padding: 20px;
+    width: auto;
+  }
+
+  .dropdown-content,
+  .submenu {
+    position: static;
+    width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .dropdown-content button,
+  .submenu a {
+    padding: 10px 14px;
+  }
+
+  .gov-logo {
+    max-height: 30px;
+  }
+
+  footer {
+    font-size: 0.75rem;
+    padding: 10px;
+  }
+}
+
+/* Pantallas menores a 480px (teléfonos pequeños) */
+@media (max-width: 480px) {
+  .top-btn {
+    font-size: 0.85rem;
+    padding: 10px 14px;
+  }
+
+  .dropdown-btn {
+    font-size: 22px;
+    padding: 8px 12px;
+  }
+
+  .center-box h2 {
+    font-size: var(--font-size-h4);
+  }
+
+  .center-box p {
+    font-size: var(--font-size-h6);
+  }
+}
