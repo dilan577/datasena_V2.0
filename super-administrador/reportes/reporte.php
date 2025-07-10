@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label>Observación:</label>
             <textarea name="observacion" rows="5" required></textarea>
 
-            <button type="submit">Guardar Reporte</button>
+            <button type="submit">✅ Crear</button>
         </form>
 
         <?php if (isset($lastId)): ?>
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <div class="acciones-extra">
-            <button onclick="window.location.href='../super_menu.html'">⬅️ Regresar</button>
+            <button onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
         </div>
     </div>
 

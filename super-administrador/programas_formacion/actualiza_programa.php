@@ -93,8 +93,8 @@ $conexion->close();
         <form method="GET" action="">
             <label for="nombre_programa">Buscar Programa por Nombre:</label>
             <input type="text" name="nombre_programa" id="nombre_programa" value="<?= isset($_GET['nombre_programa']) ? htmlspecialchars($_GET['nombre_programa']) : '' ?>" >
-            <button type="submit" name="buscar" class="logout-btn">Buscar</button>
-            <button type="submit" name="mostrar_todos" class="logout-btn">Mostrar todos</button>
+            <button type="submit" name="buscar" class="logout-btn">🔍 Buscar</button>
+            <button type="submit" name="mostrar_todos" class="logout-btn">📋 Mostrar todos</button>
             <button type="button" class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
         </form>
 

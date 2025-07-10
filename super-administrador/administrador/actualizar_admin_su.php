@@ -138,8 +138,8 @@ $conexion->close();
     <form action="actualizar_admin_su.php" method="post" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
         <label for="numero_documento">Buscar por Documento:</label>
         <input type="text" name="numero_documento" id="numero_documento" required>
-        <button class="logout-btn" type="submit" name="buscar">Buscar</button>
-        <button class="logout-btn" type="submit" name="mostrar_todos" id="btn-todos">Mostrar Todos</button>
+        <button class="logout-btn" type="submit" name="buscar">🔍 Buscar</button>
+        <button class="logout-btn" type="submit" name="mostrar_todos" id="btn-todos">📋 Mostrar Todos</button>
         <button class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
     </form>
 

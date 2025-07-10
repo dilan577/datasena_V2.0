@@ -138,8 +138,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="buttons-container">
-                <button type="submit" class="back_crear">Crear Administrador</button>
-                <button type="button" class="back_crear" onclick="window.location.href='../super_menu.html'">Regresar al Menú</button>
+                <button type="submit" class="back_crear">✅ Crear</button>
+                <button type="button" class="back_crear" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
             </div>
         </form>
     </div>

@@ -82,8 +82,8 @@ $conexion->close();
         <form method="get">
             <label for="buscar_cc">Número de Documento:</label>
             <input type="text" id="buscar_cc" name="cc">
-            <button type="submit">Buscar</button>
-            <button type="submit" name="mostrar_todos">Mostrar Todos</button>
+            <button type="submit">🔍 Buscar</button>
+            <button type="submit" name="mostrar_todos">📋 Mostrar Todos</button>
             <button type="button" class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
         </form>
     </div>
