@@ -230,6 +230,7 @@ footer {
   text-align: center;
   padding: 12px;
   margin-top: auto;
+  font-weight: bold;
   font-size: 0.9rem;
   box-shadow: var(--shadow);
 }
