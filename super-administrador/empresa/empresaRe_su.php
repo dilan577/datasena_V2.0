@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Si todo está bien, insertar en base de datos
     if (empty($errores)) {
         try {
-            $conexion = new PDO("mysql:host=localhost;dbname=datasena_db;charset=utf8", "root", "123456");
+            $conexion = new PDO("mysql:host=localhost;dbname=datasena_db;charset=utf8", "root", "");
             $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $contrasenaHash = password_hash($datos['contrasena'], PASSWORD_DEFAULT);

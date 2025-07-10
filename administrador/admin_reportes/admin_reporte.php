@@ -16,7 +16,7 @@ $programas = $pdo->query("SELECT id, nombre_programa AS nombre FROM programas")-
 
 // Procesar formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $tipo = $_POST['tipo_reporte'];
+    $tipo = $_POST['tipo_reporte'];       // Espera 'empresa', 'administrador' o 'programa'
     $id = $_POST['id_elemento'];
     $observacion = $_POST['observacion'];
 
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <select name="tipo_reporte" id="tipo_reporte" required onchange="mostrarOpciones()">
                 <option value="">Seleccione</option>
                 <option value="empresa">Empresa</option>
-                <option value="admin">Admin</option>
+                <option value="administrador">Administrador</option>
                 <option value="programa">Programa</option>
             </select>
 
@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <div class="acciones-extra">
-            <button onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
+            <button onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
         </div>
     </div>
         
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             let datos = [];
             if (tipo === 'empresa') datos = empresas;
-            else if (tipo === 'admin') datos = admin;
+            else if (tipo === 'administrador') datos = admin;
             else if (tipo === 'programa') datos = programas;
 
             datos.forEach(dato => {
@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 return;
             }
 
-            const url = formato === "pdf" ? "descargas_pdf.php" : "descargas_xml.php";
+            const url = formato === "pdf" ? "admin_descargas_pdf.php" : "admin_descargas_xml.php";
             window.open(url + "?id=" + id, "_blank");
         }
     </script>

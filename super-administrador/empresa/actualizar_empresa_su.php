@@ -131,7 +131,7 @@ $conexion->close();
     <!-- Buscar y mostrar -->
     <form id="form-busqueda" action="actualizar_empresa_su.php" method="post" style="display:flex; flex-wrap: wrap; gap: 10px; align-items: center;">
         <label for="buscar_dato">Buscar por número de identidad o nickname:</label>
-        <input type="text" id="buscar_dato" name="dato_busqueda" placeholder="Ingrese número o nombre" required>
+        <input type="text" id="buscar_dato" name="dato_busqueda" placeholder="Ingrese número de identidad o nombre" required>
         <button class="logout-btn" type="submit" name="buscar">🔍 Buscar</button>
         <button class="logout-btn" type="submit" name="mostrar_todos" id="btn-todos">📋 Mostrar Todos</button>
         <button class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>

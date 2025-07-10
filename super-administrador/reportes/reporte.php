@@ -9,9 +9,9 @@ try {
 
 $mensaje = "";
 
-// Obtener empresas, admins y programas
-$empresas = $pdo->query("SELECT id AS id, nickname AS nombre FROM empresas")->fetchAll(PDO::FETCH_ASSOC);
-$admin = $pdo->query("SELECT id, CONCAT(nombres, ' ', apellidos, ' (', nickname, ')') AS nombre FROM admin")->fetchAll(PDO::FETCH_ASSOC);
+// Obtener empresas, administradores y programas
+$empresas = $pdo->query("SELECT id, nickname AS nombre FROM empresas")->fetchAll(PDO::FETCH_ASSOC);
+$administradores = $pdo->query("SELECT id, CONCAT(nombres, ' ', apellidos, ' (', nickname, ')') AS nombre FROM admin")->fetchAll(PDO::FETCH_ASSOC);
 $programas = $pdo->query("SELECT id, nombre_programa AS nombre FROM programas")->fetchAll(PDO::FETCH_ASSOC);
 
 // Procesar formulario
@@ -20,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id_elemento'];
     $observacion = $_POST['observacion'];
 
+    // Insertar en la tabla reportes
     $stmt = $pdo->prepare("INSERT INTO reportes (tipo_reporte, id_referenciado, observacion) VALUES (?, ?, ?)");
     $stmt->execute([$tipo, $id, $observacion]);
 
@@ -46,14 +47,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
 
     <div class="contenedor">
-        <header>📋 Reportar Empresa, Admin o Programa</header>
+        <header>📋 Reportar Empresa, Administrador o Programa</header>
 
         <form method="POST">
             <label>Tipo de reporte:</label>
             <select name="tipo_reporte" id="tipo_reporte" required onchange="mostrarOpciones()">
                 <option value="">Seleccione</option>
                 <option value="empresa">Empresa</option>
-                <option value="admin">Admin</option>
+                <option value="administrador">Administrador</option>
                 <option value="programa">Programa</option>
             </select>
 
@@ -96,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <script>
         const empresas = <?= json_encode($empresas) ?>;
-        const admin = <?= json_encode($admin) ?>;
+        const administradores = <?= json_encode($administradores) ?>;
         const programas = <?= json_encode($programas) ?>;
 
         function mostrarOpciones() {
@@ -106,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             let datos = [];
             if (tipo === 'empresa') datos = empresas;
-            else if (tipo === 'admin') datos = admin;
+            else if (tipo === 'administrador') datos = administradores;
             else if (tipo === 'programa') datos = programas;
 
             datos.forEach(dato => {
@@ -129,7 +130,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             const url = formato === "pdf" ? "descargas_pdf.php" : "descargas_xml.php";
             window.open(url + "?id=" + id, "_blank");
         }
-
     </script>
 </body>
 </html>

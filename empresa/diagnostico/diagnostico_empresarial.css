@@ -142,7 +142,7 @@ footer {
 }
 
 .barra-gov {
-    background-color: #0c14ef;
+    background-color: var(--secundary-3-950);
     text-align: center;
     padding: 8px;
 }

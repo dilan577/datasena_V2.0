@@ -10,16 +10,46 @@ $mensaje = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tipo_reporte'])) {
     $tipo = $_POST['tipo_reporte'];
 
-    if (!in_array($tipo, ['empresa', 'admin', 'programa'])) {
+    // Validar tipo
+    if (!in_array($tipo, ['empresa', 'administrador', 'programa'])) {
         $mensaje = "⚠️ Tipo de reporte inválido.";
     } else {
+        // Consultar reportes del tipo seleccionado
         $stmt = $conexion->prepare("SELECT * FROM reportes WHERE tipo_reporte = ?");
         $stmt->bind_param("s", $tipo);
         $stmt->execute();
         $resultado = $stmt->get_result();
 
         if ($resultado->num_rows > 0) {
+            // Traer nombres para mostrar
+            // Dependiendo del tipo, se obtiene el nombre de la tabla correspondiente
+            $tabla = '';
+            $campo_nombre = '';
+            if ($tipo === 'empresa') {
+                $tabla = 'empresas';
+                $campo_nombre = 'nickname';
+            } elseif ($tipo === 'administrador') {
+                $tabla = 'admin';
+                $campo_nombre = "CONCAT(nombres, ' ', apellidos, ' (', nickname, ')')";
+            } elseif ($tipo === 'programa') {
+                $tabla = 'programas';
+                $campo_nombre = 'nombre_programa';
+            }
+
             while ($fila = $resultado->fetch_assoc()) {
+                // Obtener nombre real
+                $id_ref = $fila['id_referenciado'];
+
+                // Consulta para obtener el nombre
+                $sql_nombre = "SELECT $campo_nombre AS nombre FROM $tabla WHERE id = ?";
+                $stmt_nombre = $conexion->prepare($sql_nombre);
+                $stmt_nombre->bind_param("i", $id_ref);
+                $stmt_nombre->execute();
+                $res_nombre = $stmt_nombre->get_result();
+                $nombre_real = $res_nombre->fetch_assoc()['nombre'] ?? 'Nombre no encontrado';
+                $stmt_nombre->close();
+
+                $fila['nombre_referenciado'] = $nombre_real;
                 $reportes[] = $fila;
             }
         } else {
@@ -60,8 +90,8 @@ $conexion->close();
                     <span class="label-text"><span class="icon">🏢</span> Empresa</span>
                 </label>
                 <label class="radio-option">
-                    <input type="radio" name="tipo_reporte" value="admin">
-                    <span class="label-text"><span class="icon">👤</span> Admin</span>
+                    <input type="radio" name="tipo_reporte" value="administrador">
+                    <span class="label-text"><span class="icon">👤</span> Administrador</span>
                 </label>
                 <label class="radio-option">
                     <input type="radio" name="tipo_reporte" value="programa">
@@ -81,6 +111,7 @@ $conexion->close();
                 <p><strong>🆔 ID del Reporte:</strong> <?= $r['id'] ?></p>
                 <p><strong>📂 Tipo:</strong> <?= ucfirst($r['tipo_reporte']) ?></p>
                 <p><strong>🔗 ID Referenciado:</strong> <?= $r['id_referenciado'] ?></p>
+                <p><strong>👤 Nombre Referenciado:</strong> <?= htmlspecialchars($r['nombre_referenciado']) ?></p>
                 <p><strong>📝 Observación:</strong> <?= htmlspecialchars($r['observacion']) ?></p>
                 <p><strong>📅 Fecha:</strong> <?= $r['fecha_reporte'] ?></p>
                 <p>

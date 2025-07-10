@@ -257,7 +257,7 @@ $sinonimos = [
     <?php endif; ?>
 
     <footer>
-        <p>&copy; Todos los derechos reservados al SENA</p>
+        <a>&copy; Todos los derechos reservados al SENA</a>
     </footer>
 
     <div class="barra-gov">

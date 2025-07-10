@@ -81,12 +81,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $datos = [];
 
         } catch (PDOException $e) {
-            $errores['general'] = "Error en base de datos: " . $e->getMessage();
+            if ($e->getCode() == 23000) {
+                if (strpos($e->getMessage(), 'numero_identidad') !== false) {
+                    $errores['general'] = "El número de identidad ya está registrado.";
+                } else {
+                    $errores['general'] = "Error de integridad en la base de datos.";
+                }
+            } else {
+                $errores['general'] = "Error en base de datos: " . $e->getMessage();
+            }
         }
     }
 }
-
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -108,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <h3>Registro de Empresa</h3>
 
     <?php if (!empty($errores['general'])): ?>
-        <div class="mensaje-error"><?= htmlspecialchars($errores['general']) ?></div>
+        <script>alert("<?= htmlspecialchars($errores['general']) ?>");</script>
     <?php endif; ?>
     <?php if (!empty($exito)): ?>
         <div class="mensaje-exito">✅ <?= htmlspecialchars($exito) ?></div>

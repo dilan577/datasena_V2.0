@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
 
       <div class="forma-row">
-        <label for="codigo_programa">Código delcPrograma</label>
+        <label for="codigo_programa">Código del Programa</label>
         <input type="text" id="codigo_programa" name="codigo_programa" placeholder="Ingrese el código del programa" required>
       </div>
 
