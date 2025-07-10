@@ -135,15 +135,14 @@ $conexion->close();
         <button class="logout-btn" type="submit" name="buscar">🔍 Buscar</button>
         <button class="logout-btn" type="submit" name="mostrar_todos" id="btn-todos">📋 Mostrar Todos</button>
         <button class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
-    </div>
-    </form>
-
+        </form>
+            <div style="height: 0.1cm;"></div>
+            <hr style="border: 0.01px solid #ccc; width: 100%;">
     <script>
         document.getElementById('btn-todos').addEventListener('click', function () {
             document.getElementById('buscar_dato').removeAttribute('required');
         });
     </script>
-    <hr>
     <!-- Formulario de edición -->
     <?php if (!empty($empresas['id'])): ?>
         <form class="form-grid" action="actualizar_empresa_su.php" method="post">
