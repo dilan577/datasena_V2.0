@@ -202,9 +202,10 @@ button:hover {
 /* Footer */
 footer {
   color: var(--white);
+  font-weight: bold;
   background-color: var(--primary-900);
   text-align: center;
-  padding: 2px;
+  padding: 12px;
   margin-top: auto;
   font-size: 0.9rem;
   box-shadow: var(--shadow);

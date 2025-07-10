@@ -172,6 +172,7 @@ select {
 
 footer {
   color: var(--white);
+  font-weight: bold;
   background-color: var(--primary-900);
   text-align: center;
   padding: 12px;

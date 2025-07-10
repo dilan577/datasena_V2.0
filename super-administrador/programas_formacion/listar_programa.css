@@ -204,9 +204,12 @@ input[type="text"] {
 
 /* Footer */
 footer {
-    background-color: var(--primary-900);
-    color: var(--white);
-    padding: 12px;
-    text-align: center;
-    margin-top: auto;
+  color: var(--white);
+  font-weight: bold;
+  background-color: var(--primary-900);
+  text-align: center;
+  padding: 12px;
+  margin-top: auto;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow);
 }

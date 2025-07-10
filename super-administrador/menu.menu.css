@@ -219,13 +219,14 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: var(--black);
   display: none;
   z-index: 5;
 }
 
 footer {
   color: var(--white);
+  font-weight: bold;
   background-color: var(--primary-900);
   text-align: center;
   padding: 12px;

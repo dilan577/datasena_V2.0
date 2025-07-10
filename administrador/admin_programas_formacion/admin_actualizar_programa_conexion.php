@@ -123,7 +123,7 @@ $conexion->close();
     </div>
 
     <footer>
-        <a>&copy; Todos los derechos reservados al SENA</a>
+        <a>&copy;  2025 Todos los derechos reservados - Proyecto SENA</a>
     </footer>
 </body>
 <div class="barra-gov">

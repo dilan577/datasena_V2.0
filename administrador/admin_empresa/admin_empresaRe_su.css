@@ -184,11 +184,14 @@ select:focus,
 
 /* Pie de página */
 footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #2b4a74;
-    color: white;
-    margin-top: 40px;
+  color: var(--white);
+  font-weight: bold;
+  background-color: var(--primary-900);
+  text-align: center;
+  padding: 12px;
+  margin-top: auto;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow);
 }
 
 /* Logo */

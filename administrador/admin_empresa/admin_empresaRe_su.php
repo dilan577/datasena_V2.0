@@ -224,7 +224,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </form>
 </div>
 
-<footer>&copy; Todos los derechos reservados al SENA</footer>
+<footer>&copy;  2025 Todos los derechos reservados - Proyecto SENA</footer>
 </body>
 <div class="barra-gov">
   <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">

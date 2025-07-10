@@ -200,12 +200,14 @@ h4 {
 
 /* Footer */
 footer {
-    text-align: center;
-    padding: 12px;
-    background-color: var(--primary-900);
-    color: var(--white);
-    font-size: 0.9em;
-    margin-top: 40px;
+  color: var(--white);
+  font-weight: bold;
+  background-color: var(--primary-900);
+  text-align: center;
+  padding: 12px;
+  margin-top: auto;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow);
 }
 
 /* Responsive */
