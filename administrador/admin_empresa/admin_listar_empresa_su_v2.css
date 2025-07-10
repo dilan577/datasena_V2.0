@@ -76,7 +76,7 @@ html, body {
     padding: 0;
     height: 100%;
     overflow-x: hidden;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Arial, sans-serif';
     display: flex;
     flex-direction: column;
     background: var(--gray-900); 

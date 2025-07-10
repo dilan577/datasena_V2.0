@@ -72,11 +72,11 @@
 }
 /* Fondo general */
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
-    background: linear-gradient(to bottom right, #a8d2fa, #e2ebf7);
+    background: var(--gray-900);
     background-attachment: fixed;
-    color: #111;
+    color: var(--black);
 }
 
 /* Títulos */
