@@ -99,12 +99,36 @@ html, body {
     object-fit: contain;
 }
 
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2.4em;
+    color: var(--black);
+}
+
+
 /* Encabezado */
 header {
     text-align: center;
     padding: 20px;;
     color: var(--black);
     font-size: 24px;
+    font-weight: bold;
+}
+
+/* Logo */
+img.img{
+    position: absolute;
+    top: 50px;
+    right: 30px;
+    width: 80px;
+    height: auto;
+}
+
+label {
+    color: #0d3c77;
+    font-size: 1.1em;
+    margin-bottom: 5px;
     font-weight: bold;
 }
 

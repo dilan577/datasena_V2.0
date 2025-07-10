@@ -72,6 +72,9 @@ $conexion->close();
         <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
     </div>
 
+    <h1>DATASENA</h1>
+    <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
+
     <header>
         <h1>Panel de Habilitación de Administradores</h1>
     </header>
