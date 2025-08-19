@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (empty($datos[$campo])) {
             $errores[$campo] = "Este campo es obligatorio.";
         }
-    }
+    }   
 
     // Validaciones adicionales
     $datos['contrasena'] = trim($_POST['contrasena'] ?? '');

@@ -11,6 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $password = $_POST['password'] ?? '';
 
         if ($rol === 'super') {
+            // Superadmin - Contraseña sin encriptar
             $stmt = $conexion->prepare("SELECT * FROM inicio_super_admin WHERE usuario = :usuario LIMIT 1");
             $stmt->bindParam(':usuario', $usuario);
             $stmt->execute();
@@ -27,12 +28,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
 
         } elseif ($rol === 'admin') {
+            // Admin - Contraseña encriptada
             $stmt = $conexion->prepare("SELECT * FROM admin WHERE nickname = :nickname LIMIT 1");
             $stmt->bindParam(':nickname', $usuario);
             $stmt->execute();
             $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($admin && $password === $admin['contrasena']) {
+            if ($admin && password_verify($password, $admin['contrasena'])) {
                 $_SESSION['rol'] = 'admin';
                 $_SESSION['usuario_id'] = $admin['id'];
                 $_SESSION['nickname'] = $admin['nickname'];
@@ -44,12 +46,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             }
 
         } elseif ($rol === 'empresa') {
+            // Empresa - Contraseña encriptada
             $stmt = $conexion->prepare("SELECT * FROM empresas WHERE nickname = :nickname LIMIT 1");
             $stmt->bindParam(':nickname', $usuario);
             $stmt->execute();
             $empresa = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($empresa && $password === $empresa['contrasena']) {
+            if ($empresa && password_verify($password, $empresa['contrasena'])) {
                 $_SESSION['rol'] = 'empresa';
                 $_SESSION['usuario_id'] = $empresa['id'];
                 $_SESSION['nickname'] = $empresa['nickname'];
