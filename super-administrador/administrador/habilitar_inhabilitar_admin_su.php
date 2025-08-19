@@ -87,8 +87,6 @@ $conexion->close();
                 <button type="submit">🔍 Buscar</button>
                 <button type="submit" name="mostrar_todos">📋 Mostrar Todos</button>
                 <button type="button" class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
-
-                
             </form>
         </div>
 

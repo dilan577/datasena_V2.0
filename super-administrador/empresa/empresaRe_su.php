@@ -137,7 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <div class="forma-row">
                     <label for="numero_identidad">🔢 Número de documento:</label>
                     <input type="text" id="numero_identidad" name="numero_identidad"
-                        pattern="\d{8,12}" title="Debe tener entre 8 y 12 dígitos numérisuper-administrador/empresa/actualizar_empresa_su.phpcos"
+                        pattern="\d{8,12}" title="Debe tener entre 8 y 12 dígitos numéricos"
                         value="<?= htmlspecialchars($datos['numero_identidad'] ?? '') ?>" required>
                     <?php if (!empty($errores['numero_identidad'])): ?>
                         <div class="mensaje-error">❌ <?= htmlspecialchars($errores['numero_identidad']) ?></div>

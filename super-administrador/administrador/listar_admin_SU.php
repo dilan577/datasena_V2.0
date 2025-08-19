@@ -75,9 +75,7 @@ $conexion->close();
         <button class="logout-btn" type="submit">🔍 Buscar</button>
         <button class="logout-btn" type="submit" name="buscar_todos" onclick="document.getElementById('buscar_dato').removeAttribute('required')">📋 Mostrar Todos</button>
         <button type="button" class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
-
     </form>
-
 
     <hr>
 

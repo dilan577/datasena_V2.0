@@ -5,8 +5,8 @@ $datos = [];
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $campos = [
         'tipo_documento', 'numero_identidad', 'nickname',
-        'telefono', 'correo', 'direccion',
-        'actividad_economica', 'estado'
+        'telefono', 'correo', 'dirección',
+        'actividad_económica', 'estado'
     ];
 
     foreach ($campos as $campo) {
@@ -64,10 +64,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             $sql = "INSERT INTO empresas (
                         tipo_documento, numero_identidad, nickname, telefono,
-                        correo, direccion, actividad_economica, estado, contrasena
+                        correo, dirección, actividad_económica, estado, contrasena
                     ) VALUES (
                         :tipo_documento, :numero_identidad, :nickname, :telefono,
-                        :correo, :direccion, :actividad_economica, :estado, :contrasena
+                        :correo, :dirección, :actividad_económica, :estado, :contrasena
                     )";
 
             $stmt = $conexion->prepare($sql);
@@ -188,10 +188,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <!-- Segunda columna -->
             <div>
                 <div class="forma-row">
-                    <label for="actividad_economica">💼 Actividad Económica:</label>
-                    <input type="text" id="actividad_economica" name="actividad_economica" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ,.]+" title="Solo letras, números, comas y puntos" value="<?= htmlspecialchars($datos['actividad_economica'] ?? '') ?>" required>
-                    <?php if (!empty($errores['actividad_economica'])): ?>
-                        <div class="mensaje-error">❌ <?= htmlspecialchars($errores['actividad_economica']) ?></div>
+                    <label for="actividad_económica">💼 Actividad Económica:</label>
+                    <input type="text" id="actividad_económica" name="actividad_económica" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ,.]+" title="Solo letras, números, comas y puntos" value="<?= htmlspecialchars($datos['actividad_económica'] ?? '') ?>" required>
+                    <?php if (!empty($errores['actividad_económica'])): ?>
+                        <div class="mensaje-error">❌ <?= htmlspecialchars($errores['actividad_económica']) ?></div>
                     <?php endif; ?>
                 </div>
 

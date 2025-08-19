@@ -106,7 +106,7 @@ $conexion->close();
                 <li><strong>Teléfono:</strong> <?= htmlspecialchars($empresas['telefono']) ?></li>
                 <li><strong>Correo:</strong> <?= htmlspecialchars($empresas['correo']) ?></li>
                 <li><strong>Dirección:</strong> <?= htmlspecialchars($empresas['direccion']) ?></li>
-                <li><strong>Actividad:</strong> <?= htmlspecialchars($empresas['actividad_economica']) ?></li>
+                <li><strong>Actividad:</strong> <?= htmlspecialchars($empresas['actividad_económica']) ?></li>
                 <li><strong>Estado Actual:</strong> <?= $empresas['estado_habilitacion'] === 'Activo' ? '✅ Habilitado' : '❌ Inhabilitado' ?></li>
                 <li><strong>Fecha de Registro:</strong> <?= htmlspecialchars($empresas['fecha_registro']) ?></li>
             </ul>
@@ -160,7 +160,7 @@ $conexion->close();
                         <td><?= htmlspecialchars($e['telefono']) ?></td>
                         <td><?= htmlspecialchars($e['correo']) ?></td>
                         <td><?= htmlspecialchars($e['direccion']) ?></td>
-                        <td><?= htmlspecialchars($e['actividad_economica']) ?></td>
+                        <td><?= htmlspecialchars($e['actividad_económica']) ?></td>
                         <td><?= htmlspecialchars($e['estado_habilitacion']) ?></td>
                         <td><?= htmlspecialchars($e['fecha_registro']) ?></td>
                     </tr>

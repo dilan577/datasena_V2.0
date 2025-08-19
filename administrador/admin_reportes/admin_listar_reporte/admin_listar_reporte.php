@@ -66,18 +66,18 @@ $conexion->close();
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title> Ver Reportes</title>
-    <link rel="shortcut icon" href="../../../img/Logotipo_Datasena.png" type="image/x-icon">
-    <link rel="stylesheet" href="admin_listar_reporte.css">
+    <meta charset="UTF-8" />
+    <title>Ver Reportes</title>
+    <link rel="shortcut icon" href="../../../img/Logotipo_Datasena.png" type="image/x-icon" />
+    <link rel="stylesheet" href="admin_listar_reporte.css" />
 </head>
 <body>
     <div class="barra-gov">
-        <img src="../../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+        <img src="../../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
     </div>
 
     <header>DATASENA <br> Ver Reportes</header>
-    <img src="../../../img/logo-sena.png" alt="Logo SENA" class="img">
+    <img src="../../../img/logo-sena.png" alt="Logo SENA" class="img" />
 
     <div class="form-container">
         <h2>📁 Buscar Reportes por Tipo</h2>
@@ -115,7 +115,7 @@ $conexion->close();
                 <p><strong>📝 Observación:</strong> <?= htmlspecialchars($r['observacion']) ?></p>
                 <p><strong>📅 Fecha:</strong> <?= $r['fecha_reporte'] ?></p>
                 <p>
-                    <a class="logout-btn" style="background-color:#28a745;"   href="../admin_descargas_pdf.php?id=<?= $r['id'] ?>" target="_blank">📄 PDF</a>
+                    <a class="logout-btn" style="background-color:#28a745;" href="../admin_descargas_pdf.php?id=<?= $r['id'] ?>" target="_blank">📄 PDF</a>
                     <a class="logout-btn" style="background-color:#6c757d;" href="../admin_descargas_xml.php?id=<?= $r['id'] ?>" target="_blank">📦 XML</a>
                 </p>
             </div>
@@ -127,7 +127,7 @@ $conexion->close();
     </footer>
 
     <div class="barra-gov">
-        <img src="../../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+        <img src="../../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
     </div>
 </body>
 </html>

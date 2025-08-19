@@ -22,7 +22,7 @@ if (empty($nombre_programa) || empty($numero_ficha) || empty($tipo_programa) || 
     exit;
 }
 
-// Verificar si el número de ficha ya existe (porque es UNIQUE)
+// Verificar si el número de ficha ya existe (porque es ÚNICO)
 $verificar_sql = "SELECT id FROM programas WHERE numero_ficha = ?";
 $verificar_stmt = $conexion->prepare($verificar_sql);
 $verificar_stmt->bind_param("s", $numero_ficha);

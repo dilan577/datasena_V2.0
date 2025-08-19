@@ -65,18 +65,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Crear Programa</title>
-  <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
-  <link rel="stylesheet" href="../../administrador/admin_programas_formacion/admin_crear_programa.css">
+  <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon" />
+  <link rel="stylesheet" href="../../administrador/admin_programas_formacion/admin_crear_programa.css" />
 </head>
 <body>
 <div class="barra-gov">
-  <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+  <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
 </div>
 
 <h1>DATASENA</h1>
-<img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
+<img src="../../img/logo-sena.png" alt="Logo SENA" class="img" />
 
 <div class="forma-container">
   <h2>Crear Programa</h2>
@@ -89,12 +89,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="forma-grid">
       <div class="forma-row">
         <label for="nombre_programa">Nombre del Programa</label>
-        <input type="text" id="nombre_programa" name="nombre_programa" placeholder="Ingrese el nombre del programa de formación" required>
+        <input type="text" id="nombre_programa" name="nombre_programa" placeholder="Ingrese el nombre del programa de formación" required />
       </div>
 
       <div class="forma-row">
         <label for="codigo_programa">Código del Programa</label>
-        <input type="text" id="codigo_programa" name="codigo_programa" placeholder="Ingrese el código del programa" required>
+        <input type="text" id="codigo_programa" name="codigo_programa" placeholder="Ingrese el código del programa" required />
       </div>
 
       <div class="forma-row">
@@ -123,11 +123,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <footer>
-  <a>&copy;  2025 Todos los derechos reservados - Proyecto SENA</a>
+  <a>&copy; 2025 Todos los derechos reservados - Proyecto SENA</a>
 </footer>
 
 <div class="barra-gov">
-  <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+  <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
 </div>
 </body>
 </html>

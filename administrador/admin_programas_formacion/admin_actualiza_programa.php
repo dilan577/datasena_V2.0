@@ -71,17 +71,17 @@ $conexion->close();
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Visualizar / Actualizar Programa</title>
-    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
-    <link rel="stylesheet" href="../../administrador/admin_programas_formacion/admin_actualiza_programa.css">
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../../administrador/admin_programas_formacion/admin_actualiza_programa.css" />
 </head>
 <body>
     <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
     </div>
     <h1>DATASENA</h1>
-    <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
+    <img src="../../img/logo-sena.png" alt="Logo SENA" class="img" />
 
     <div class="form-container">
         <h2>Visualizar / Actualizar Programa</h2>
@@ -92,21 +92,21 @@ $conexion->close();
 
         <form method="GET" action="">
             <label for="nombre_programa">Buscar Programa por Nombre:</label>
-            <input type="text" name="nombre_programa" id="nombre_programa" value="<?= isset($_GET['nombre_programa']) ? htmlspecialchars($_GET['nombre_programa']) : '' ?>" >
+            <input type="text" name="nombre_programa" id="nombre_programa" value="<?= isset($_GET['nombre_programa']) ? htmlspecialchars($_GET['nombre_programa']) : '' ?>" />
             <button type="submit" name="buscar" class="logout-btn">🔍 Buscar</button>
             <button type="submit" name="mostrar_todos" class="logout-btn">📋 Mostrar todos</button>
             <button type="button" class="logout-btn" onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
         </form>
 
-        <hr>
+        <hr />
 
         <?php if (!empty($programa['id'])): ?>
             <form class="form-grid" action="" method="POST">
-                <input type="hidden" name="id" value="<?= htmlspecialchars($programa['id']) ?>">
+                <input type="hidden" name="id" value="<?= htmlspecialchars($programa['id']) ?>" />
 
                 <div class="form-row">
                     <label for="nombre_programa">Nombre del Programa:</label>
-                    <input type="text" id="nombre_programa" name="nombre_programa" value="<?= htmlspecialchars($programa['nombre_programa']) ?>" required>
+                    <input type="text" id="nombre_programa" name="nombre_programa" value="<?= htmlspecialchars($programa['nombre_programa']) ?>" required />
                 </div>
 
                 <div class="form-row">
@@ -120,12 +120,12 @@ $conexion->close();
 
                 <div class="form-row">
                     <label for="numero_ficha">Número de ficha:</label>
-                    <input type="text" id="numero_ficha" name="numero_ficha" value="<?= htmlspecialchars($programa['numero_ficha']) ?>" required>
+                    <input type="text" id="numero_ficha" name="numero_ficha" value="<?= htmlspecialchars($programa['numero_ficha']) ?>" required />
                 </div>
 
                 <div class="form-row">
                     <label for="duracion_programa">Duración:</label>
-                    <input type="text" id="duracion_programa" name="duracion_programa" value="<?= htmlspecialchars($programa['duracion_programa']) ?>" required>
+                    <input type="text" id="duracion_programa" name="duracion_programa" value="<?= htmlspecialchars($programa['duracion_programa']) ?>" required />
                 </div>
 
                 <div class="form-row">
@@ -136,10 +136,9 @@ $conexion->close();
                     </select>
                 </div>
 
-            <div class="form-row botones-finales">
-                <button class="logout-btn" type="submit">Actualizar Programa</button>
-            </div>
-
+                <div class="form-row botones-finales">
+                    <button class="logout-btn" type="submit">Actualizar Programa</button>
+                </div>
             </form>
         <?php endif; ?>
 
@@ -176,11 +175,11 @@ $conexion->close();
     </div>
 
     <footer>
-        <a>&copy;  2025 Todos los derechos reservados - Proyecto SENA</a>
+        <a>©  2025 Todos los derechos reservados - Proyecto SENA</a>
     </footer>
 
     <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
     </div>
 </body>
 </html>

@@ -1,131 +1,21 @@
-<?php
-$conn = new mysqli("localhost", "root", "", "datasena_db");
-if ($conn->connect_error) {
-    die("❌ Error de conexión: " . $conn->connect_error);
-}
-
-$mensaje_exito = false;
-$recomendaciones = [];
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $campos = [
-        'empresa', 'nit', 'sector', 'tamano', 'ubicacion',
-        'empleados', 'contrataciones', 'contrato_frecuente',
-        'tiene_proceso', 'perfiles_definidos', 'publicacion',
-        'aprendices', 'programa_apoyo', 'infraestructura',
-        'apoyo_seleccion', 'beneficios'
-    ];
-
-    $valores = [];
-    foreach ($campos as $campo) {
-        $valores[$campo] = trim($_POST[$campo] ?? '');
-    }
-
-    $perfiles_seleccionados = $_POST['perfiles_necesarios'] ?? [];
-    $texto_perfiles = implode(", ", $perfiles_seleccionados);
-
-    $sql = "INSERT INTO diagnostico_empresarial (" . implode(", ", $campos) . ", perfiles_necesarios) 
-            VALUES ('" . implode("','", array_map([$conn, 'real_escape_string'], $valores)) . "', '" . $conn->real_escape_string($texto_perfiles) . "')";
-    
-    if ($conn->query($sql) === TRUE) {
-        $mensaje_exito = true;
-
-        if (!empty($perfiles_seleccionados)) {
-    $condiciones = [];
-
-    // Diccionario de sinónimos por perfil
-$sinonimos = [
-    'Textiles' => [
-        'textil', 'moda', 'confección', 'costura', 'tejido', 'hilado', 'diseño de modas',
-        'industria textil', 'patronaje', 'bordado', 'sastrería', 'trazado', 'telares'
-    ],
-    'Programación' => [
-        'programador', 'software', 'desarrollador', 'sistemas', 'aplicaciones', 'tecnología',
-        'informática', 'bases de datos', 'código', 'algoritmos', 'web', 'backend', 'frontend',
-        'desarrollo de software', 'programación web', 'devops', 'inteligencia artificial'
-    ],
-    'Mecánica' => [
-        'mecánica', 'mecánico', 'automotriz', 'motor', 'ingeniería mecánica', 'mantenimiento',
-        'mecatrónica', 'ensamble', 'soldadura', 'torno', 'cambio de aceite', 'frenos',
-        'transmisión', 'sistemas mecánicos'
-    ],
-    'Logística' => [
-        'logística', 'almacenamiento', 'distribución', 'inventario', 'cadena de suministro',
-        'transporte', 'bodega', 'carga', 'descarga', 'paquetería', 'gestión logística',
-        'envío', 'movilización'
-    ],
-    'Contabilidad' => [
-        'contabilidad', 'finanzas', 'impuestos', 'balances', 'facturación', 'libros contables',
-        'caja menor', 'presupuesto', 'registro contable', 'auditoría', 'informes financieros',
-        'asientos contables'
-    ],
-    'Electricidad' => [
-        'electricidad', 'eléctrico', 'circuitos', 'voltaje', 'corriente', 'instalaciones eléctricas',
-        'tableros', 'bombillos', 'mantenimiento eléctrico', 'automatización', 'electrónica',
-        'cableado'
-    ],
-    'Diseño gráfico' => [
-        'diseño gráfico', 'gráfico', 'creatividad', 'publicidad', 'photoshop', 'ilustrador',
-        'branding', 'logos', 'colores', 'maquetación', 'editorial', 'carteles',
-        'composición visual', 'contenido digital'
-    ],
-    'Soporte técnico' => [
-        'soporte técnico', 'reparación', 'hardware', 'software', 'tecnología', 'mantenimiento de equipos',
-        'sistemas', 'redes', 'ayuda informática', 'diagnóstico de equipos', 'asistencia técnica'
-    ],
-    'Seguridad y salud en el trabajo' => [
-        'seguridad laboral', 'salud ocupacional', 'riesgos laborales', 'sst', 'ergonomía',
-        'normas de seguridad', 'accidentes laborales', 'prevención', 'protocolos',
-        'elementos de protección personal', 'brigadas'
-    ],
-    'Administración' => [
-        'administración', 'gestión', 'empresa', 'recursos humanos', 'oficina', 'dirección',
-        'organización', 'procesos administrativos', 'secretariado', 'gerencia', 'planificación',
-        'liderazgo'
-    ]
-];
-
-
-    foreach ($perfiles_seleccionados as $perfil) {
-        $palabras = $sinonimos[$perfil] ?? [$perfil]; // Usa sinónimos si existen
-        foreach ($palabras as $palabra) {
-            $palabra = strtolower($conn->real_escape_string($palabra));
-            $condiciones[] = "LOWER(nombre_programa) LIKE '%$palabra%'";
-        }
-    }
-
-    $sql_recomendacion = "SELECT * FROM programas WHERE (" . implode(" OR ", $condiciones) . ") AND LOWER(activacion) = 'activo'";
-    $resultado = $conn->query($sql_recomendacion);
-
-
-            while ($fila = $resultado->fetch_assoc()) {
-                $recomendaciones[] = $fila;
-            }
-        }
-    } else {
-        echo "❌ Error al guardar: " . $conn->error;
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Diagnóstico Empresarial</title>
-    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
-    <link rel="stylesheet" href="diagnostico_empresarial.css">
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon" />
+    <link rel="stylesheet" href="diagnostico_empresarial.css" />
 
     <!-- Select2 -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
     </div>
 
     <header>DATASENA</header>
-    <img src="../../img/logo-sena.png" class="logo-img" alt="Logo SENA">
+    <img src="../../img/logo-sena.png" class="logo-img" alt="Logo SENA" />
 
     <main class="form-container">
         <h2>Formulario de Diagnóstico Empresarial</h2>
@@ -137,10 +27,10 @@ $sinonimos = [
 
         <form method="POST" class="form-grid">
             <label>Nombre Empresa:</label>
-            <input type="text" name="empresa" required>
+            <input type="text" name="empresa" required />
 
             <label>NIT:</label>
-            <input type="text" name="nit" required>
+            <input type="text" name="nit" required />
 
             <label>Sector:</label>
             <select name="sector" required>
@@ -160,13 +50,13 @@ $sinonimos = [
             </select>
 
             <label>Ubicación:</label>
-            <input type="text" name="ubicacion" required>
+            <input type="text" name="ubicacion" required />
 
             <label>Total empleados:</label>
-            <input type="number" name="empleados" required>
+            <input type="number" name="empleados" required />
 
             <label>Contrataciones último año:</label>
-            <input type="number" name="contrataciones" required>
+            <input type="number" name="contrataciones" required />
 
             <label>Tipo contrato frecuente:</label>
             <select name="contrato_frecuente" required>
@@ -223,7 +113,6 @@ $sinonimos = [
                 <option value="Tecnología en automatización">Tecnología en automatización</option>
             </select>
 
-
             <label>¿Tiene infraestructura para formar?</label>
             <select name="infraestructura" required><option>Sí</option><option>No</option></select>
 
@@ -234,10 +123,8 @@ $sinonimos = [
             <select name="beneficios" required><option>Sí</option><option>No</option></select>
 
             <button type="submit" class="btn">Enviar Diagnóstico</button>
-            <button type="submit" class="btn"onclick="window.location.href='../empresa_menu.html'">⬅ Regresar</button>
-
+            <button type="button" class="btn" onclick="window.location.href='../empresa_menu.html'">⬅ Regresar</button>
         </form>
-        
     </main>
 
     <?php if (!empty($recomendaciones)): ?>
@@ -261,7 +148,7 @@ $sinonimos = [
     </footer>
 
     <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
     </div>
 
     <!-- jQuery y Select2 -->

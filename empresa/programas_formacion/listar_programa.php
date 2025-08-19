@@ -38,13 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $conexion = null;
 ?>
 
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
     <title>Listar Programas</title>
-    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon" />
     <link rel="stylesheet" href="listar_programa.css" />
 </head>
 <body>

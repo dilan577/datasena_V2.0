@@ -62,19 +62,19 @@ $conexion->close();
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Habilitar/Inhabilitar Programa</title>
-    <link rel="stylesheet" href="../../administrador/admin_programas_formacion/admin_habili_inhabilit_programa.css">
-    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../administrador/admin_programas_formacion/admin_habili_inhabilit_programa.css" />
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
    <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
     </div>
 
     <h1>DATASENA</h1>
-    <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
+    <img src="../../img/logo-sena.png" alt="Logo SENA" class="img" />
 
     <header>
         <h1>Panel de Habilitación de Programas</h1>
@@ -84,7 +84,7 @@ $conexion->close();
         <div class="search-box">
             <form method="get" class="form-flex">
                 <label for="buscar_ficha">Número de Ficha:</label>
-                <input type="text" id="buscar_ficha" name="numero_ficha" value="<?= htmlspecialchars($_GET['numero_ficha'] ?? '') ?>">
+                <input type="text" id="buscar_ficha" name="numero_ficha" value="<?= htmlspecialchars($_GET['numero_ficha'] ?? '') ?>" />
                 <button type="submit">🔍 Buscar</button>
                 <button type="submit" name="mostrar_todos">📋 Mostrar Todos</button>
                 <button type="button" onclick="location.href='../admin_menu.html'">↩️ Regresar</button>
@@ -155,11 +155,11 @@ $conexion->close();
     </main>
 
     <footer>
-        <p>&copy;  2025 Todos los derechos reservados - Proyecto SENA</p>
+        <p>&copy; 2025 Todos los derechos reservados - Proyecto SENA</p>
     </footer>
 
     <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
     </div>
 </body>
 </html>

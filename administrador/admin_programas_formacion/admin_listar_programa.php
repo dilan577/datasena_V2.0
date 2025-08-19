@@ -45,7 +45,7 @@ $conexion = null;
     <meta charset="UTF-8" />
     <title>Listar Programas</title>
     <link rel="stylesheet" href="../../administrador/admin_programas_formacion/admin_listar_programa.css" />
-    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon" />
 </head>
 <body>
     <div class="barra-gov">

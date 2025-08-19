@@ -1,3 +1,6 @@
+Claro, aquí tienes el código corregido con las palabras que llevan tilde correctamente acentuadas:
+
+```php
 <?php
 $conexion = new mysqli("localhost", "root", "", "datasena_db");
 if ($conexion->connect_error) {
@@ -47,18 +50,18 @@ $conexion->close();
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Listar Empresa</title>
-    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
-    <link rel="stylesheet" href="../../administrador/admin_empresa/admin_listar_empresa_su_v2.css">
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon" />
+    <link rel="stylesheet" href="../../administrador/admin_empresa/admin_listar_empresa_su_v2.css" />
 </head>
 <body>
     <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
     </div>
 
     <h1>DATASENA</h1>
-    <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
+    <img src="../../img/logo-sena.png" alt="Logo SENA" class="img" />
 
     <div class="form-container">
         <h2>Listar Empresa</h2>
@@ -69,12 +72,12 @@ $conexion->close();
 
         <form action="admin_listar_empresa_su.php" method="post" style="display:flex; gap: 10px; flex-wrap:wrap;">
             <label for="buscar_dato">Buscar empresa:</label>
-            <input type="text" id="buscar_dato" name="dato_busqueda" placeholder="Número de identidad o nickname" required>
+            <input type="text" id="buscar_dato" name="dato_busqueda" placeholder="Número de identidad o nickname" required />
             <button class="logout-btn" type="submit" name="buscar">🔍 Buscar</button>
             <button class="logout-btn" type="submit" name="mostrar_todos" onclick="document.getElementById('buscar_dato').removeAttribute('required')">📋 Mostrar Todos</button>
             <button class="logout-btn" onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
         </form>
-        <hr>
+        <hr />
         <?php if (!empty($empresa)): ?>
             <div class="empresa-card">
                 <p><strong>Tipo de documento:</strong> <?= htmlspecialchars($empresa['tipo_documento']) ?></p>
@@ -131,7 +134,7 @@ $conexion->close();
     </footer>
 
     <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
     </div>
 </body>
 </html>

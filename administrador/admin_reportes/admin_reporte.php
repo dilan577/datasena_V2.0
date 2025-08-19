@@ -31,18 +31,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Reportar Elemento</title>
-    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
-    <link rel="stylesheet" href="admin_reporte.css">
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon" />
+    <link rel="stylesheet" href="admin_reporte.css" />
 </head>
 <body>
      <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
     </div>
 
     <h1>DATASENA</h1>
-    <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
+    <img src="../../img/logo-sena.png" alt="Logo SENA" class="img" />
 
     <div class="contenedor">
         <h1>📋 Reportar Empresa, Admin o Programa</h1>
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </footer>
 
     <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
     </div>
 
     <script>
