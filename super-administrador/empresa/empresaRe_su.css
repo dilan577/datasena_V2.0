@@ -248,3 +248,19 @@ html {
     padding: 0;
   }
 }
+
+.barra-gov,
+.barra-gov-bottom {
+  background-color: var(--secundary-3-900);
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gov-logo {
+  height: 50px;
+  max-height: 50px;
+  width: auto;
+  object-fit: contain;
+}

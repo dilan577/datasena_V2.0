@@ -81,8 +81,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $datos = [];
 
         } catch (PDOException $e) {
-            $errores['general'] = "Error en base de datos: " . $e->getMessage();
-        }
+    // Verificamos si el error es por clave duplicada
+    if ($e->getCode() == 23000) {
+        $errores['numero_identidad'] = " El número de documento ya está registrado.";
+    } else {
+        $errores['general'] = "Error en base de datos: " . $e->getMessage();
+    }
+}
+
     }
 }
 
@@ -98,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body>
 <div class="barra-gov">
-  <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
+    <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
 </div>
 
 <h1>DATASENA</h1>
