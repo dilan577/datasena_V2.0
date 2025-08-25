@@ -19,6 +19,7 @@ $empresas = [
 ];
 $todas_empresas = [];
 $mensaje = "";
+$numero_error = ""; // nuevo para mensajes de duplicado
 
 // Actualizar empresa
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && !empty($_POST['id'])) {
@@ -57,14 +58,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && !empty($_POS
     }
 
     if (empty($errores)) {
-        $stmt = $conexion->prepare("UPDATE empresas SET tipo_documento=?, numero_identidad=?, nickname=?, telefono=?, correo=?, direccion=?, actividad_economica=? WHERE id=?");
-        $stmt->bind_param("sssssssi", $tipo_documento, $numero_identidad, $nickname, $telefono, $correo, $direccion, $actividad_economica, $id);
-        if ($stmt->execute()) {
-            $mensaje = "✅ Empresa actualizada correctamente.";
+        // Verificar duplicado antes de actualizar
+        $check = $conexion->prepare("SELECT id FROM empresas WHERE numero_identidad = ? AND id != ?");
+        $check->bind_param("si", $numero_identidad, $id);
+        $check->execute();
+        $check->store_result();
+
+        if ($check->num_rows > 0) {
+            $numero_error = "El número de identidad ya está en uso por otra empresa.";
+            $mensaje = "❌ Ya existe otra empresa con ese número de identidad.";
+            $check->close();
         } else {
-            $mensaje = "❌ Error al actualizar la empresa.";
+            $check->close();
+            $stmt = $conexion->prepare("UPDATE empresas SET tipo_documento=?, numero_identidad=?, nickname=?, telefono=?, correo=?, direccion=?, actividad_economica=? WHERE id=?");
+            $stmt->bind_param("sssssssi", $tipo_documento, $numero_identidad, $nickname, $telefono, $correo, $direccion, $actividad_economica, $id);
+            if ($stmt->execute()) {
+                $mensaje = "✅ Empresa actualizada correctamente.";
+            } else {
+                $mensaje = "❌ Error al actualizar la empresa.";
+            }
+            $stmt->close();
         }
-        $stmt->close();
     } else {
         $mensaje = "❌ " . implode("<br>❌ ", $errores);
     }
@@ -103,8 +117,6 @@ $conexion->close();
 ?>
 
 
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -135,14 +147,15 @@ $conexion->close();
         <button class="logout-btn" type="submit" name="buscar">🔍 Buscar</button>
         <button class="logout-btn" type="submit" name="mostrar_todos" id="btn-todos">📋 Mostrar Todos</button>
         <button class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
-        </form>
-            <div style="height: 0.1cm;"></div>
-            <hr style="border: 0.01px solid #ccc; width: 100%;">
+    </form>
+    <div style="height: 0.1cm;"></div>
+    <hr style="border: 0.01px solid #ccc; width: 100%;">
     <script>
         document.getElementById('btn-todos').addEventListener('click', function () {
             document.getElementById('buscar_dato').removeAttribute('required');
         });
     </script>
+
     <!-- Formulario de edición -->
     <?php if (!empty($empresas['id'])): ?>
         <form class="form-grid" action="actualizar_empresa_su.php" method="post">
@@ -162,7 +175,16 @@ $conexion->close();
                 </select>
             </div>
 
-            <div class="form-row"><label>Número de identidad:</label><input type="text" name="numero_identidad" value="<?= htmlspecialchars($empresas['numero_identidad']) ?>" required></div>
+            <div class="form-row">
+                <label>Número de identidad:</label>
+                <input type="text" id="numero_identidad" name="numero_identidad"
+                       value="<?= htmlspecialchars($empresas['numero_identidad']) ?>"
+                       required pattern="\d{8,12}">
+                <output id="numero_output" for="numero_identidad" style="display:block; color:red; font-weight:bold; margin-top:4px;">
+                    <?= isset($numero_error) && $numero_error !== "" ? htmlspecialchars($numero_error) : '' ?>
+                </output>
+            </div>
+
             <div class="form-row"><label>Nombre de la empresa:</label><input type="text" name="nickname" value="<?= htmlspecialchars($empresas['nickname']) ?>" required></div>
             <div class="form-row"><label>Teléfono:</label><input type="text" name="telefono" value="<?= htmlspecialchars($empresas['telefono']) ?>" pattern="\d{10}" required></div>
             <div class="form-row"><label>Correo:</label><input type="email" name="correo" value="<?= htmlspecialchars($empresas['correo']) ?>" required></div>
@@ -227,5 +249,26 @@ $conexion->close();
 <div class="barra-gov">
     <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
 </div>
+
+<script>
+(function(){
+    const numInput = document.getElementById('numero_identidad');
+    const output = document.getElementById('numero_output');
+
+    if (numInput && output && output.textContent.trim() !== "") {
+        numInput.setCustomValidity(output.textContent.trim());
+        if (typeof numInput.reportValidity === 'function') {
+            numInput.reportValidity();
+        }
+    }
+
+    if (numInput) {
+        numInput.addEventListener('input', function() {
+            this.setCustomValidity('');
+            if (output) output.textContent = '';
+        });
+    }
+})();
+</script>
 </body>
 </html>
