@@ -72,9 +72,11 @@ $conexion->close();
     <link rel="stylesheet" href="admin_listar_reporte.css" />
 </head>
 <body>
-    <div class="barra-gov">
-        <img src="../../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
-    </div>
+    
+    <!--barra del gov superior-->
+    <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
+    <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+    </nav>
 
     <header>DATASENA <br> Ver Reportes</header>
     <img src="../../../img/logo-sena.png" alt="Logo SENA" class="img" />
@@ -126,8 +128,9 @@ $conexion->close();
         <a>&copy; 2025 Todos los derechos reservados - Proyecto SENA</a>
     </footer>
 
-    <div class="barra-gov">
-        <img src="../../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
-    </div>
+    <!--barra del gov inferior-->
+    <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
+    <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+    </nav>
 </body>
 </html>

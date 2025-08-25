@@ -37,9 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="admin_reporte.css" />
 </head>
 <body>
-     <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
-    </div>
+
+<!--barra del gov superior-->
+<nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
+  <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+</nav>
 
     <h1>DATASENA</h1>
     <img src="../../img/logo-sena.png" alt="Logo SENA" class="img" />
@@ -89,9 +91,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p>&copy; 2025 Todos los derechos reservados - Proyecto SENA</p>
     </footer>
 
-    <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
-    </div>
+    <!--barra del gov inferior-->
+    <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
+    <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+    </nav>
 
     <script>
         const empresas = <?= json_encode($empresas) ?>;

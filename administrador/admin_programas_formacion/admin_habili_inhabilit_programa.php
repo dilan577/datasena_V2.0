@@ -69,9 +69,11 @@ $conexion->close();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
-   <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
-    </div>
+
+<!--barra del gov superior-->
+<nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
+  <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+</nav>
 
     <h1>DATASENA</h1>
     <img src="../../img/logo-sena.png" alt="Logo SENA" class="img" />
@@ -158,8 +160,9 @@ $conexion->close();
         <p>&copy; 2025 Todos los derechos reservados - Proyecto SENA</p>
     </footer>
 
-    <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
-    </div>
+    <!--barra del gov inferior-->
+    <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
+    <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+    </nav>
 </body>
 </html>
