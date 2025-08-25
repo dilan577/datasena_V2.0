@@ -229,7 +229,8 @@ body {
 
 /* Botón */
 button {
-  width: 100%;
+  width: 40%;
+  left: 105px;
   padding: 12px;
   border: none;
   border-radius: var(--border-radius);
@@ -245,7 +246,7 @@ button {
 }
 
 button:hover {
-  background: var(--color-primary-dark);
+  background: var(--black);
   transform: translateY(-2px);
   box-shadow: 0 6px 20px var(--focus-shadow);
 }
