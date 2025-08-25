@@ -57,7 +57,7 @@ $conexion->close();
 </head>
 <body>
     <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
+        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
     </div>
 
     <h1>DATASENA</h1>
@@ -134,7 +134,7 @@ $conexion->close();
     </footer>
 
     <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
+        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo">
     </div>
 </body>
 </html>
