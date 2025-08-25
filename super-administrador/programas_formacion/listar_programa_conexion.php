@@ -22,4 +22,4 @@ if ($programa) {
     echo json_encode($programa);
 } else {
     echo json_encode(['error' => 'Programa no encontrado']);
-}
+}1
