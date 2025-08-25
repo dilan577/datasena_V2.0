@@ -111,6 +111,8 @@ $conexion->close();
     <link rel="stylesheet" href="../admin_empresa/admin_actualizar_empresa_su_v2.css">
 </head>
 <body>
+
+<!--barra del gov superior-->
 <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
