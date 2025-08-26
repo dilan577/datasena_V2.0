@@ -10,9 +10,11 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
-    </div>
+
+<!--barra del gov superior-->
+<nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
+  <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+</nav>
 
     <header>DATASENA</header>
     <img src="../../img/logo-sena.png" class="logo-img" alt="Logo SENA" />
@@ -140,16 +142,17 @@
             </ul>
         </div>
     <?php elseif ($mensaje_exito): ?>
-        <p class="mensaje info">ℹ️ No se encontraron programas que coincidan con los perfiles ingresados.</p>
+        <p class="mensaje info">ℹ️ No se encontraron programas que coincidan con los perfiles ingresados.<p>
     <?php endif; ?>
 
     <footer>
         <a>&copy; Todos los derechos reservados al SENA</a>
     </footer>
 
-    <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
-    </div>
+        <!--barra del gov inferior-->
+    <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
+    <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+    </nav>
 
     <!-- jQuery y Select2 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

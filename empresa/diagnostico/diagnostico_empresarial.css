@@ -72,32 +72,36 @@
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
-    background: linear-gradient(to bottom right, #a8d2fa, #e2ebf7);
+    background: var(--gray-900); 
     background-attachment: fixed;
-    color: #0d3c77;
+    color: var(--black);
 }
 
 header {
+    font-size: 2.4rem;
     text-align: center;
-    font-size: 2.5em;
-    margin: 20px 0;
+    padding: 20px;
+    color: var(--black);
+    font-weight: bold;
 }
 
 .logo-img {
-    display: block;
-    margin: 0 auto;
-    width: 100px;
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    width: 80px;
+    height: auto
 }
 
 .form-container {
-    background: #ffffffee;
+    background: var(--white);
     border-radius: 12px;
     padding: 30px;
     max-width: 800px;
     margin: 20px auto;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px var(--secundary-3-950);
 }
 
 h2, h3 {
@@ -119,8 +123,8 @@ input, select {
 }
 
 button.btn {
-    background-color: #4a90e2;
-    color: white;
+    background-color: var(--secundary-3-700);
+    color: var(--white);
     padding: 12px;
     font-weight: bold;
     border: none;
@@ -128,27 +132,60 @@ button.btn {
     cursor: pointer;
     width: 150px;
     margin: 0 auto;
+     box-shadow: 0 4px 12px var(--secundary-3-950);
 }
 
 button.btn:hover {
-    background-color: #337ccf;
+    background-color: var(--secundary-3-950);
 }
 
 footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #0d3c77;
-    color: white;
+  color: var(--white);
+  background-color: var(--primary-900);
+  text-align: center;
+  font-weight: bold;
+  padding: 12px;
+  margin-top: auto;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow);
 }
 
-.barra-gov {
-    background-color: var(--secundary-3-950);
-    text-align: center;
-    padding: 8px;
+/* Fuente iconografica */
+@font-face {
+  font-family: "govco-font";
+  src: url("../assets/icons/fonts/govco-font-icons.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
-.gov-logo {
-    height: 40px;
+html {
+  font-size: 100%; /* 100% = 16px */
+}
+
+.barra-superior-govco {
+  background-color: #3366cc;
+  width: 100%;
+  height: 2.5rem;
+  text-align: center;
+}
+
+.barra-superior-govco a {
+  content: url(https://cdn.www.gov.co/assets/images/logo.svg);
+  height: 1.875rem;
+  width: 8.5rem;
+}
+
+.barra-superior-govco a:focus-visible {
+  outline: max(0.125rem, 0.15em) solid #FFFFFF;
+  border-radius: 0.313rem;
+}
+
+
+@media (max-width: 991px) {
+  .barra-superior-govco {
+    justify-content: center;
+    padding: 0;
+  }
 }
 
 .mensaje {
