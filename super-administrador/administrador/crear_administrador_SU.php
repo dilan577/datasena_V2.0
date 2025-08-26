@@ -94,9 +94,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
-    </div>
+
+<!--barra del gov superior-->
+<nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
+  <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+</nav>
+
     <h1>DATASENA</h1>
     <img src="../../img/logo-sena.png" alt="Logo de la Empresa" class="img" />
 
@@ -250,8 +253,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a>&copy; 2025 Todos los derechos reservados - Proyecto SENA</a>
     </footer>
 
-    <div class="barra-gov">
-        <img src="../../img/gov.png" alt="Gobierno de Colombia" class="gov-logo" />
-    </div>
+<!--barra del gov inferior-->
+<nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
+  <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+</nav>
+
 </body>
 </html>
