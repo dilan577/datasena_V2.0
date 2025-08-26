@@ -1,3 +1,51 @@
+<?php
+// Inicializar variables para evitar warnings
+$mensaje_exito = false;
+$recomendaciones = [];
+
+// Si el formulario fue enviado (POST)
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Aquí capturas los datos enviados
+    $empresa          = $_POST['empresa'] ?? '';
+    $nit              = $_POST['nit'] ?? '';
+    $sector           = $_POST['sector'] ?? '';
+    $tamano           = $_POST['tamano'] ?? '';
+    $ubicacion        = $_POST['ubicacion'] ?? '';
+    $empleados        = $_POST['empleados'] ?? 0;
+    $contrataciones   = $_POST['contrataciones'] ?? 0;
+    $contrato_frec    = $_POST['contrato_frecuente'] ?? '';
+    $tiene_proceso    = $_POST['tiene_proceso'] ?? '';
+    $perfiles_def     = $_POST['perfiles_definidos'] ?? '';
+    $publicacion      = $_POST['publicacion'] ?? '';
+    $aprendices       = $_POST['aprendices'] ?? '';
+    $programa_apoyo   = $_POST['programa_apoyo'] ?? '';
+    $perfiles_neces   = $_POST['perfiles_necesarios'] ?? [];
+    $infraestructura  = $_POST['infraestructura'] ?? '';
+    $apoyo_selec      = $_POST['apoyo_seleccion'] ?? '';
+    $beneficios       = $_POST['beneficios'] ?? '';
+
+    // Aquí iría la lógica de guardado en BD
+    // Ejemplo ficticio:
+    /*
+    $sql = "INSERT INTO diagnosticos (...) VALUES (...)";
+    mysqli_query($conn, $sql);
+    */
+
+    // Simulamos que se guardó con éxito
+    $mensaje_exito = true;
+
+    // Simulación de búsqueda de programas recomendados (ejemplo simple)
+    if (!empty($perfiles_neces)) {
+        foreach ($perfiles_neces as $perfil) {
+            $recomendaciones[] = [
+                'nombre_programa'   => "Programa de $perfil",
+                'tipo_programa'     => "Técnico",
+                'duracion_programa' => "12 meses"
+            ];
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
