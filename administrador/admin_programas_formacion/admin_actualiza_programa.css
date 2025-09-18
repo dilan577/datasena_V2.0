@@ -233,3 +233,31 @@ html {
     font-size: 16px;
 }
 
+/* --- ESTILOS PARA LA TABLA --- */
+.tabla-contenedor {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.tabla-programas {
+    width: 100%;
+    border-collapse: collapse; /* Hace que los bordes se unan */
+    text-align: center;
+    font-size: 16px;
+}
+
+.tabla-programas thead th {
+    background-color: #0078c0; /* Fondo azul */
+    color: white;              /* Texto blanco */
+    padding: 10px;
+    border: 1px solid #ddd;    /* Bordes de cada cuadro */
+}
+
+.tabla-programas tbody td {
+    padding: 10px;
+    background-color: white;   /* Fondo blanco en cada celda */
+    border: 1px solid #ddd;    /* Bordes de cada cuadro */
+}
+
+    

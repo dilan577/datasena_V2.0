@@ -33,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && !empty($_POS
 
 // Procesar búsqueda o mostrar todos
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['buscar'])) {
-    // Quitamos espacios sobrantes para la búsqueda
     $nombre_programa_input = trim($_GET['nombre_programa']);
     if (empty($nombre_programa_input)) {
         $mensaje = "Por favor ingrese un nombre para buscar.";
@@ -45,12 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['buscar'])) {
         $resultado = $stmt->get_result();
         $programas = $resultado->fetch_all(MYSQLI_ASSOC);
 
-        // Si solo hay 1 resultado, cargarlo en el formulario, y no mostrar tabla
         if (count($programas) === 1) {
             $programa = $programas[0];
-            $programas = []; // vaciar array para no mostrar tabla
+            $programas = [];
         } else {
-            // Si hay más de 1 resultado, no mostrar formulario y tampoco tabla ni título
             $programa = null;
             $programas = [];
             $mensaje = "Se encontraron " . count($programas) . " resultados. Por favor refine su búsqueda para editar.";
@@ -75,6 +72,8 @@ $conexion->close();
     <title>Visualizar / Actualizar Programa</title>
     <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon" />
     <link rel="stylesheet" href="../../administrador/admin_programas_formacion/admin_actualiza_programa.css" />
+
+
 </head>
 <body>
 
@@ -149,30 +148,30 @@ $conexion->close();
             <?php if ($mostrarTituloLista): ?>
                 <h3>Lista de Programas</h3>
             <?php endif; ?>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre del Programa</th>
-                        <th>Tipo de Programa</th>
-                        <th>Número de Ficha</th>
-                        <th>Duración</th>
-                        <th>Activación</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($programas as $prog): ?>
+            <div class="tabla-contenedor">
+                <table class="tabla-programas">
+                    <thead>
                         <tr>
-                            <td><?= htmlspecialchars($prog['id']) ?></td>
-                            <td><?= htmlspecialchars($prog['nombre_programa']) ?></td>
-                            <td><?= htmlspecialchars($prog['tipo_programa']) ?></td>
-                            <td><?= htmlspecialchars($prog['numero_ficha']) ?></td>
-                            <td><?= htmlspecialchars($prog['duracion_programa']) ?></td>
-                            <td><?= htmlspecialchars($prog['activacion']) ?></td>
+                            <th>Nombre del Programa</th>
+                            <th>Tipo de Programa</th>
+                            <th>Número de Ficha</th>
+                            <th>Duración</th>
+                            <th>Activación</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($programas as $prog): ?>
+                            <tr>
+                                <td><?= htmlspecialchars($prog['nombre_programa']) ?></td>
+                                <td><?= htmlspecialchars($prog['tipo_programa']) ?></td>
+                                <td><?= htmlspecialchars($prog['numero_ficha']) ?></td>
+                                <td><?= htmlspecialchars($prog['duracion_programa']) ?></td>
+                                <td><?= htmlspecialchars($prog['activacion']) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         <?php endif; ?>
 
     </div>
@@ -181,9 +180,9 @@ $conexion->close();
         <a>©  2025 Todos los derechos reservados - Proyecto SENA</a>
     </footer>
 
-        <!--barra del gov inferior-->
+    <!--barra del gov inferior-->
     <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
-    <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+        <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
     </nav>
 </body>
 </html>
