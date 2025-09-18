@@ -211,7 +211,7 @@ $conexion->close();
         <h3>📋 Empresas registradas</h3>
         <div style="overflow-x: auto;">
             <table border="1" cellpadding="6" cellspacing="0" style="width:100%; border-collapse: collapse; background: #fff;">
-                <thead style="background-color: #f5f5f5ff; color: black;">
+                <thead style="background-color: #0078c0; color: white;">
                     <tr>
                         <th>Tipo Doc</th>
                         <th>Identidad</th>
