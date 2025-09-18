@@ -188,7 +188,6 @@ $conexion->close();
             <table border="1" cellpadding="6" cellspacing="0" style="width:100%; border-collapse: collapse; background: #fff;">
                 <thead style="background-color: #0078c0; color: white;">
                     <tr>
-                        <th>ID</th>
                         <th>Tipo Doc</th>
                         <th>Identidad</th>
                         <th>Nombre</th>
@@ -203,7 +202,6 @@ $conexion->close();
                 <tbody>
                     <?php foreach ($todas_empresas as $e): ?>
                         <tr>
-                            <td><?= htmlspecialchars($e['id']) ?></td>
                             <td><?= htmlspecialchars($e['tipo_documento']) ?></td>
                             <td><?= htmlspecialchars($e['numero_identidad']) ?></td>
                             <td><?= htmlspecialchars($e['nickname']) ?></td>
