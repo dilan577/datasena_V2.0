@@ -80,7 +80,7 @@ $conexion->close();
             <h3>📋 Lista de Empresas Registradas</h3>
             <div style="overflow-x:auto;">
                 <table border="1" cellpadding="6" cellspacing="0" style="width:100%; border-collapse:collapse; background:#fff;">
-                    <thead style="background:#fff; color:black;">
+                <thead style="background-color: #0078c0; color: white;">
                         <tr>
                             <th>Tipo de Documento</th>
                             <th>Número de Identidad</th>

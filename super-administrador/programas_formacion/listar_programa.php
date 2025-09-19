@@ -98,7 +98,8 @@ $conexion = null;
         <h3>📋 Programas Registrados</h3>
         <div class="user-list" style="overflow-x:auto;">
             <table border="1" cellpadding="6" cellspacing="0">
-                <thead>
+                <thead style="background-color: #0078c0; color: white;">
+
                     <tr>
                         <th>ID</th>
                         <th>Nombre del Programa</th>
