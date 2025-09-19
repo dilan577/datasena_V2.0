@@ -77,75 +77,60 @@ $conexion->close();
     <link rel="stylesheet" href="actualiza_programa.css">
 </head>
 <body>
-
 <!--barra del gov superior-->
 <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
-
     <h1>DATASENA</h1>
     <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
-
     <div class="form-container">
         <h2>Visualizar / Actualizar Programa</h2>
-
         <?php if ($mensaje): ?>
             <p style="color:<?= str_contains($mensaje, 'Error') ? 'red' : 'green' ?>; font-weight:bold;"><?= htmlspecialchars($mensaje) ?></p>
         <?php endif; ?>
-
         <form method="GET" action="">
-            <label for="nombre_programa">Buscar Programa por Nombre:</label>
+            <label for="nombre_programa">Buscar programa por nombre:</label>
             <input type="text" name="nombre_programa" id="nombre_programa" value="<?= isset($_GET['nombre_programa']) ? htmlspecialchars($_GET['nombre_programa']) : '' ?>" >
             <button type="submit" name="buscar" class="logout-btn">🔍 Buscar</button>
             <button type="submit" name="mostrar_todos" class="logout-btn">📋 Mostrar todos</button>
             <button type="button" class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
         </form>
-
         <hr>
-
         <?php if (!empty($programa['id'])): ?>
             <form class="form-grid" action="" method="POST">
                 <input type="hidden" name="id" value="<?= htmlspecialchars($programa['id']) ?>">
-
                 <div class="form-row">
-                    <label for="nombre_programa">Nombre del Programa:</label>
+                    <label for="nombre_programa">Nombre del programa:</label>
                     <input type="text" id="nombre_programa" name="nombre_programa" value="<?= htmlspecialchars($programa['nombre_programa']) ?>" required>
                 </div>
-
                 <div class="form-row">
-                    <label for="tipo_programa">Tipo de Programa:</label>
+                    <label for="tipo_programa">Tipo de programa:</label>
                     <select id="tipo_programa" name="tipo_programa" required>
                         <option value="Tecnico" <?= $programa['tipo_programa'] == 'Tecnico' ? 'selected' : '' ?>>Técnico</option>
                         <option value="Tecnologo" <?= $programa['tipo_programa'] == 'Tecnologo' ? 'selected' : '' ?>>Tecnólogo</option>
                         <option value="Operario" <?= $programa['tipo_programa'] == 'Operario' ? 'selected' : '' ?>>Operario</option>
                     </select>
                 </div>
-
                 <div class="form-row">
                     <label for="numero_ficha">Número de ficha:</label>
                     <input type="text" id="numero_ficha" name="numero_ficha" value="<?= htmlspecialchars($programa['numero_ficha']) ?>" required>
                 </div>
-
                 <div class="form-row">
                     <label for="duracion_programa">Duración:</label>
                     <input type="text" id="duracion_programa" name="duracion_programa" value="<?= htmlspecialchars($programa['duracion_programa']) ?>" required>
                 </div>
-
                 <div class="form-row">
-                    <label for="activacion">Activación:</label>
+                    <label for="activacion">Estado:</label>
                     <select id="activacion" name="activacion" required>
                         <option value="activo" <?= $programa['activacion'] == 'activo' ? 'selected' : '' ?>>Activo</option>
                         <option value="inactivo" <?= $programa['activacion'] == 'inactivo' ? 'selected' : '' ?>>Inactivo</option>
                     </select>
                 </div>
-
             <div class="form-row botones-finales">
                 <button class="logout-btn" type="submit">Actualizar Programa</button>
             </div>
-
             </form>
         <?php endif; ?>
-
         <?php if (!empty($programas)): ?>
             <?php if ($mostrarTituloLista): ?>
                 <h3>Lista de Programas</h3>
@@ -158,7 +143,7 @@ $conexion->close();
                         <th>Tipo de Programa</th>
                         <th>Número de Ficha</th>
                         <th>Duración</th>
-                        <th>Activación</th>
+                        <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -166,26 +151,22 @@ $conexion->close();
                         <tr>
                             <td><?= htmlspecialchars($prog['id']) ?></td>
                             <td><?= htmlspecialchars($prog['nombre_programa']) ?></td>
-                            <td><?= htmlspecialchars($prog['tipo_programa']) ?></td>
+                            <td><?= htmlspecialchars($prog['tipo_programa'] == 'Tecnico' ? 'Técnico' : ($prog['tipo_programa'] == 'Tecnologo' ? 'Tecnólogo' : 'Operario')) ?></td>
                             <td><?= htmlspecialchars($prog['numero_ficha']) ?></td>
                             <td><?= htmlspecialchars($prog['duracion_programa']) ?></td>
-                            <td><?= htmlspecialchars($prog['activacion']) ?></td>
+                            <td><?= htmlspecialchars($prog['activacion'] == 'activo' ? 'Activo' : 'Inactivo') ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         <?php endif; ?>
-
     </div>
-
     <footer>
         <a>&copy; 2025 Todos los derechos reservados - Proyecto SENA</a>
     </footer>
-
 <!--barra del gov inferior-->
 <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
-
 </body>
 </html>

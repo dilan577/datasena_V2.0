@@ -4,7 +4,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($conn->connect_error) {
         die("Conexión fallida: " . $conn->connect_error);
     }
-
     // Recibir y limpiar datos
     $tipo_documento = $conn->real_escape_string($_POST['tipo_documento'] ?? '');
     $numero_documento = $conn->real_escape_string($_POST['numero_documento'] ?? '');
@@ -15,43 +14,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contrasena = $_POST['contrasena'] ?? '';
     $confirmar_contrasena = $_POST['confirmar_contrasena'] ?? '';
     $rol_id = isset($_POST['rol_id']) ? (int)$_POST['rol_id'] : 1;
-
     $errores = [];
-
     // Validaciones
     $tipos_validos = ['CC', 'TI', 'CE', 'Otro'];
     if (!in_array($tipo_documento, $tipos_validos)) {
         $errores[] = "Tipo de documento inválido.";
     }
-
     if (!preg_match('/^\d{5,20}$/', $numero_documento)) {
         $errores[] = "Número de documento debe tener entre 5 y 20 dígitos.";
     }
-
     if (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/u', $nombres)) {
         $errores[] = "Los nombres solo pueden contener letras y espacios.";
     }
-
     if (!preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/u', $apellidos)) {
         $errores[] = "Los apellidos solo pueden contener letras y espacios.";
     }
-
     if (!preg_match('/^[A-Za-z0-9_]{3,50}$/', $nickname)) {
         $errores[] = "El nickname debe tener entre 3 y 50 caracteres, solo letras, números y guiones bajos.";
     }
-
     if (!filter_var($correo_electronico, FILTER_VALIDATE_EMAIL)) {
         $errores[] = "Correo electrónico inválido.";
     }
-
     if (strlen($contrasena) < 6) {
         $errores[] = "La contraseña debe tener al menos 6 caracteres.";
     }
-
     if ($contrasena !== $confirmar_contrasena) {
         $errores[] = "Las contraseñas no coinciden.";
     }
-
     if (empty($errores)) {
         // Verificar que no exista usuario con esos datos
         $sql_check = "SELECT id FROM admin WHERE numero_documento=? OR nickname=? OR correo_electronico=?";
@@ -59,14 +48,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_check->bind_param("sss", $numero_documento, $nickname, $correo_electronico);
         $stmt_check->execute();
         $stmt_check->store_result();
-
         if ($stmt_check->num_rows > 0) {
             $error = "❌ Ya existe un administrador con esos datos.";
         } else {
             $hash = password_hash($contrasena, PASSWORD_DEFAULT);
             $stmt_insert = $conn->prepare("INSERT INTO admin (tipo_documento, numero_documento, nombres, apellidos, nickname, correo_electronico, contrasena, rol_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt_insert->bind_param("sssssssi", $tipo_documento, $numero_documento, $nombres, $apellidos, $nickname, $correo_electronico, $hash, $rol_id);
-
             if ($stmt_insert->execute()) {
                 $success = "✅ Administrador creado con éxito.";
             } else {
@@ -78,11 +65,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $error = "❌ " . implode("<br>❌ ", $errores);
     }
-
     $conn->close();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -94,15 +79,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
 </head>
 <body>
-
 <!--barra del gov superior-->
 <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
-
     <h1>DATASENA</h1>
     <img src="../../img/logo-sena.png" alt="Logo de la Empresa" class="img" />
-
     <div class="forma-container">
         <h3>Crear Administrador</h3>
         <?php if (isset($success)): ?>
@@ -124,7 +106,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <option value="Otro" <?= (isset($_POST['tipo_documento']) && $_POST['tipo_documento'] === 'Otro') ? 'selected' : '' ?>>Otro</option>
                         </select>
                     </div>
-
                     <div class="forma-row">
                         <label for="numero_documento"><i class="fas fa-clipboard-list"></i> Número de documento:</label>
                         <input
@@ -140,7 +121,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             title="Solo números entre 5 y 20 dígitos"
                         />
                     </div>
-
                     <div class="forma-row">
                         <label for="nombres"><i class="fas fa-user"></i> Nombres:</label>
                         <input
@@ -156,7 +136,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             title="Solo letras y espacios"
                         />
                     </div>
-
                     <div class="forma-row">
                         <label for="apellidos"><i class="fas fa-user-alt"></i> Apellidos:</label>
                         <input
@@ -172,7 +151,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             title="Solo letras y espacios"
                         />
                     </div>
-
                     <div class="forma-row">
                         <label for="nickname"><i class="fas fa-user-tag"></i> Nickname (usuario):</label>
                         <input
@@ -189,7 +167,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         />
                     </div>
                 </div>
-
                 <!-- Segunda columna -->
                 <div>
                     <div class="forma-row">
@@ -205,7 +182,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             value="<?= isset($_POST['correo_electronico']) ? htmlspecialchars($_POST['correo_electronico']) : '' ?>"
                         />
                     </div>
-
                     <div class="forma-row">
                         <label for="contrasena"><i class="fas fa-lock"></i> Contraseña:</label>
                         <input
@@ -218,7 +194,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             minlength="6"
                         />
                     </div>
-
                     <div class="forma-row">
                         <label for="confirmar_contrasena"><i class="fas fa-lock"></i> Confirmar contraseña:</label>
                         <input
@@ -231,7 +206,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             minlength="6"
                         />
                     </div>
-
                     <div class="forma-row">
                         <label for="rol_id"><i class="fas fa-user-shield"></i> Administrador:</label>
                         <select class="md-input" disabled>
@@ -241,22 +215,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
             </div>
-
             <div class="buttons-container">
                 <button type="submit" class="back_crear">✅ Crear</button>
                 <button type="button" class="back_crear" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
             </div>
         </form>
     </div>
-
     <footer>
         <a>&copy; 2025 Todos los derechos reservados - Proyecto SENA</a>
     </footer>
-
 <!--barra del gov inferior-->
 <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
-
 </body>
 </html>

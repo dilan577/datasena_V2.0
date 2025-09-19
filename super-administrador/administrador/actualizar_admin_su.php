@@ -1,7 +1,7 @@
 <?php
 $conexion = new mysqli("localhost", "root", "", "datasena_db");
 if ($conexion->connect_error) {
-    die("Error de conexión: " . $conexion->connect_error);
+    die("Error de conexi&oacute;n: " . $conexion->connect_error);
 }
 
 $admin = [
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buscar'])) {
     $stmt->execute();
     $resultado = $stmt->get_result();
     $admin = $resultado->num_rows > 0 ? $resultado->fetch_assoc() : [];
-    if (empty($admin)) $mensaje = "❌ No se encontró ningún administrador.";
+    if (empty($admin)) $mensaje = "❌ No se encontr&oacute; ning&uacute;n administrador.";
     $stmt->close();
 }
 
@@ -117,8 +117,8 @@ $conexion->close();
 <head>
     <meta charset="UTF-8">
     <title>Visualizar / Actualizar Administrador</title>
-    <link rel="stylesheet" href="../../super-administrador/administrador/actualizar_admin_su_v2.css">
-    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
+    <link rel="stylesheet" href="../../super-administrador/administrador/actualizar_admin_su_v2.css" />
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon" />
 </head>
 <body>
 
@@ -128,7 +128,7 @@ $conexion->close();
 </nav>
 
 <h1>DATASENA</h1>
-<img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
+<img src="../../img/logo-sena.png" alt="Logo SENA" class="img" />
 
 <div class="form-container">
     <h2>Visualizar / Actualizar Administrador</h2>
@@ -161,15 +161,15 @@ $conexion->close();
                 <label>Tipo de documento:</label>
                 <select name="tipo_documento" required>
                     <option value="">Seleccione</option>
-                    <option value="CC" <?= $admin['tipo_documento'] == 'CC' ? 'selected' : '' ?>>Cédula</option>
+                    <option value="CC" <?= $admin['tipo_documento'] == 'CC' ? 'selected' : '' ?>>C&eacute;dula</option>
                     <option value="TI" <?= $admin['tipo_documento'] == 'TI' ? 'selected' : '' ?>>Tarjeta</option>
-                    <option value="CE" <?= $admin['tipo_documento'] == 'CE' ? 'selected' : '' ?>>Cédula extranjera</option>
+                    <option value="CE" <?= $admin['tipo_documento'] == 'CE' ? 'selected' : '' ?>>C&eacute;dula extranjera</option>
                     <option value="Otro" <?= $admin['tipo_documento'] == 'Otro' ? 'selected' : '' ?>>Otro</option>
                 </select>
             </div>
 
             <div class="form-row"><label>Documento:</label>
-                <input type="text" name="numero_documento" pattern="[0-9]+" title="Solo números" value="<?= htmlspecialchars($admin['numero_documento']) ?>" required>
+                <input type="text" name="numero_documento" pattern="[0-9]+" title="Solo n&uacute;meros" value="<?= htmlspecialchars($admin['numero_documento']) ?>" required>
             </div>
 
             <div class="form-row"><label>Nombres:</label>
@@ -189,8 +189,8 @@ $conexion->close();
             </div>
 
             <div class="form-row">
-                <label>Contraseña:</label>
-                <input type="password" name="contrasena" placeholder="Ingrese nueva contraseña" class="input-estandar">
+                <label>Contrase&ntilde;a:</label>
+                <input type="password" name="contrasena" placeholder="Ingrese nueva contrase&ntilde;a" class="input-estandar">
             </div>
             
             <div class="form-row">
@@ -199,7 +199,7 @@ $conexion->close();
                 <input type="hidden" name="rol_id" value="<?= $admin['rol_id'] ?>">
             </div>
 
-            <div class="form-row"><label>Fecha de Creación:</label>
+            <div class="form-row"><label>Fecha de Creaci&oacute;n:</label>
                 <input type="text" value="<?= htmlspecialchars($admin['fecha_creacion']) ?>" readonly>
             </div>
 
@@ -210,7 +210,7 @@ $conexion->close();
     <?php endif; ?>
 
     <?php if (!empty($todos_admins)): ?>
-        <h3>📋 Administradores registrados</h3>
+        <h3>&#128195; Administradores registrados</h3>
         <div style="overflow-x:auto;">
             <table border="1" cellpadding="6" cellspacing="0" style="width:100%; border-collapse:collapse; background:#fff;">
                 <thead style="background-color:#0078c0; color:white;">
@@ -223,8 +223,8 @@ $conexion->close();
                         <th>Nickname</th>
                         <th>Correo</th>
                         <th>Rol</th>
-                        <th>Habilitación</th>
-                        <th>Creación</th>
+                        <th>Habilitaci&oacute;n</th>
+                        <th>Creaci&oacute;n</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -253,7 +253,7 @@ $conexion->close();
 </footer>
 
 <!--barra del gov inferior-->
-<nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
+<nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra inferior">
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
 <script>

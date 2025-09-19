@@ -3,17 +3,14 @@ $conexion = new mysqli("localhost", "root", "", "datasena_db");
 if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
 }
-
 $admin = null;
 $todos_admins = [];
 $mensaje = "";
-
 // Buscar uno
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dato_busqueda']) && !isset($_POST['buscar_todos'])) {
     $dato = trim($_POST['dato_busqueda']);
-
-    $sql = "SELECT tipo_documento, numero_documento, nombres, apellidos, nickname, correo_electronico, estado_habilitacion, fecha_creacion 
-            FROM admin 
+    $sql = "SELECT tipo_documento, numero_documento, nombres, apellidos, nickname, correo_electronico, estado_habilitacion, fecha_creacion
+            FROM admin
             WHERE numero_documento = ? OR nickname = ?";
     $stmt = $conexion->prepare($sql);
     if (!$stmt) {
@@ -22,7 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dato_busqueda']) && !
     $stmt->bind_param("ss", $dato, $dato);
     $stmt->execute();
     $resultado = $stmt->get_result();
-
     if ($resultado->num_rows > 0) {
         $admin = $resultado->fetch_assoc();
     } else {
@@ -30,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dato_busqueda']) && !
     }
     $stmt->close();
 }
-
 // Buscar todos
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buscar_todos'])) {
     $sql = "SELECT tipo_documento, numero_documento, nombres, apellidos, nickname, correo_electronico, estado_habilitacion, fecha_creacion FROM admin";
@@ -43,34 +38,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buscar_todos'])) {
         $mensaje = "❌ No hay administradores registrados.";
     }
 }
-
 $conexion->close();
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Listar Administrador</title>
+    <title>Listar Administradores</title>
     <link rel="stylesheet" href="listar_admin_SU_v2.css">
     <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
 </head>
 <body>
-
 <!--barra del gov superior-->
 <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
-
 <header>DATASENA</header>
 <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
-
 <div class="form-container">
-    <h2>Listar Administrador</h2>
-
+    <h2>Listar Administradores</h2>
     <?php if (!empty($mensaje)): ?>
         <p class="mensaje-error"><?= htmlspecialchars($mensaje) ?></p>
     <?php endif; ?>
-
     <form action="listar_admin_SU.php" method="post" style="display:flex; gap:10px; flex-wrap: wrap; align-items: center;">
         <label for="buscar_dato">Buscar administrador:</label>
         <input type="text" id="buscar_dato" name="dato_busqueda" placeholder="Número de documento o nickname" required>
@@ -78,9 +67,7 @@ $conexion->close();
         <button class="logout-btn" type="submit" name="buscar_todos" onclick="document.getElementById('buscar_dato').removeAttribute('required')">📋 Mostrar Todos</button>
         <button type="button" class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
     </form>
-
     <hr>
-
     <?php if ($admin): ?>
         <div class="empresa-card">
             <p><strong>Tipo de documento:</strong> <?= htmlspecialchars($admin['tipo_documento']) ?></p>
@@ -93,21 +80,20 @@ $conexion->close();
             <p><strong>Fecha de creación:</strong> <?= htmlspecialchars($admin['fecha_creacion'] ?? 'Sin fecha') ?></p>
         </div>
     <?php endif; ?>
-
     <?php if (!empty($todos_admins)): ?>
-        <h3>📋 Administradores Registrados</h3>
+        <h3>📋 Lista de Administradores Registrados</h3>
         <div style="overflow-x:auto;">
             <table border="1" cellpadding="6" cellspacing="0" style="width:100%; border-collapse:collapse; background:#fff;">
                 <thead style="background:#fff; color:black">
                     <tr>
-                        <th>Tipo Doc</th>
-                        <th>Número</th>
+                        <th>Tipo de Documento</th>
+                        <th>Número de Documento</th>
                         <th>Nombres</th>
                         <th>Apellidos</th>
                         <th>Nickname</th>
-                        <th>Correo</th>
-                        <th>Estado</th>
-                        <th>Fecha Creación</th>
+                        <th>Correo Electrónico</th>
+                        <th>Estado de Habilitación</th>
+                        <th>Fecha de Creación</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -128,15 +114,12 @@ $conexion->close();
         </div>
     <?php endif; ?>
 </div>
-
 <footer>
     <a>&copy; 2025 Todos los derechos reservados - Proyecto SENA</a>
 </footer>
-
 <!--barra del gov inferior-->
 <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
-
 </body>
 </html>

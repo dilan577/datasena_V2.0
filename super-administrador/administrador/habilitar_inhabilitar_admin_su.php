@@ -3,17 +3,14 @@ $conexion = new mysqli("localhost", "root", "", "datasena_db");
 if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
 }
-
 $admin = null;
 $todos = [];
 $mensaje = "";
 $mensaje_tipo = "";
-
 // Actualizar estado
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_estado'])) {
     $numero_documento = $_POST['numero_documento'] ?? '';
     $nuevo_estado = $_POST['nuevo_estado'] ?? '';
-
     if (!empty($numero_documento) && !empty($nuevo_estado)) {
         $stmt = $conexion->prepare("UPDATE admin SET estado_habilitacion = ? WHERE numero_documento = ?");
         $stmt->bind_param("ss", $nuevo_estado, $numero_documento);
@@ -27,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_estado']))
         $stmt->close();
     }
 }
-
 // Búsqueda individual
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['numero_documento']) && !isset($_GET['mostrar_todos'])) {
     $numero_documento = $_GET['numero_documento'];
@@ -42,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['numero_documento']) && 
         $mensaje_tipo = "error";
     }
 }
-
 // Mostrar todos
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['mostrar_todos'])) {
     $sql = "SELECT * FROM admin";
@@ -56,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['mostrar_todos'])) {
         $mensaje_tipo = "error";
     }
 }
-
 $conexion->close();
 ?>
 <!DOCTYPE html>
@@ -68,19 +62,16 @@ $conexion->close();
     <link rel="stylesheet" href="habilitar_admin.css">
 </head>
 <body>
-    
+
 <!--barra del gov superior-->
 <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
-
     <h1>DATASENA</h1>
     <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
-
     <header>
         <h1>Panel de Habilitación de Administradores</h1>
     </header>
-
     <main>
         <div class="search-box">
             <form method="get">
@@ -91,11 +82,9 @@ $conexion->close();
                 <button type="button" class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
             </form>
         </div>
-
         <?php if (!empty($mensaje)): ?>
             <div class="mensaje <?= $mensaje_tipo ?>"><?= htmlspecialchars($mensaje) ?></div>
         <?php endif; ?>
-
         <!-- Individual -->
         <?php if ($admin): ?>
             <section class="empresa-detalle">
@@ -103,17 +92,16 @@ $conexion->close();
                 <ul>
                     <li><strong>Nombre completo:</strong> <?= htmlspecialchars($admin['nombres'] . ' ' . $admin['apellidos']) ?></li>
                     <li><strong>Documento:</strong> <?= htmlspecialchars($admin['numero_documento']) ?></li>
-                    <li><strong>Correo:</strong> <?= htmlspecialchars($admin['correo_electronico']) ?></li>
+                    <li><strong>Correo electrónico:</strong> <?= htmlspecialchars($admin['correo_electronico']) ?></li>
                     <li><strong>Nickname:</strong> <?= htmlspecialchars($admin['nickname']) ?></li>
                     <li><strong>Fecha de creación:</strong> <?= htmlspecialchars($admin['fecha_creacion']) ?></li>
                     <li><strong>Estado actual:</strong> <?= $admin['estado_habilitacion'] === 'Activo' ? '✅ Habilitado' : '❌ Inhabilitado' ?></li>
                 </ul>
-
                 <form method="post" class="form-estado">
                     <input type="hidden" name="numero_documento" value="<?= htmlspecialchars($admin['numero_documento']) ?>">
                     <label for="nuevo_estado">Cambiar Estado:</label>
                     <select name="nuevo_estado" required>
-                        <option value="">Seleccione</option>
+                        <option value="">Seleccione...</option>
                         <option value="Activo">✅ Habilitar</option>
                         <option value="Inactivo">❌ Inhabilitar</option>
                     </select>
@@ -123,22 +111,21 @@ $conexion->close();
                 </form>
             </section>
         <?php endif; ?>
-
         <!-- Todos -->
         <?php if (!empty($todos)): ?>
-            <h3>📋 Administradores Registrados</h3>
+            <h3>📋 Lista de Administradores Registrados</h3>
             <div style="overflow-x:auto;">
                 <table border="1" cellpadding="6" cellspacing="0" style="width:100%; border-collapse:collapse; background: #fff;">
                     <thead style="background-color: #0078c0; color: white;">
                         <tr>
-                            <th>Tipo Doc</th>
-                            <th>Documento</th>
+                            <th>Tipo Doc.</th>
+                            <th>Número de Documento</th>
                             <th>Nombres</th>
                             <th>Apellidos</th>
-                            <th>Correo</th>
+                            <th>Correo Electrónico</th>
                             <th>Nickname</th>
                             <th>Estado</th>
-                            <th>Fecha Creación</th>
+                            <th>Fecha de Creación</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -158,13 +145,11 @@ $conexion->close();
                 </table>
             </div>
         <?php endif; ?>
-        
-    </main>
 
+    </main>
     <footer>
         <p>&copy; 2025 Todos los derechos reservados - Proyecto SENA</p>
     </footer>
-
     <!--barra del gov superior-->
     <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
     <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
