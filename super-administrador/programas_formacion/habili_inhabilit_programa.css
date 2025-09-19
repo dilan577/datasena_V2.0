@@ -264,3 +264,7 @@ footer {
   font-size: 0.9rem;
   box-shadow: var(--shadow);
 }
+
+main {
+  padding-bottom: 60px; /* espacio extra para separar del footer */
+}
