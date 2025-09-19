@@ -1,4 +1,4 @@
-<?php
+super-administrador/empresa/habilitar_inhabilitar.php<?php
 $errores = [];
 $datos = [];
 

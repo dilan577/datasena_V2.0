@@ -115,7 +115,7 @@ $conexion->close();
 
             <form method="post" class="form-estado">
                 <input type="hidden" name="cc" value="<?= htmlspecialchars($empresas['numero_identidad']) ?>">
-                <label for="nuevo_estado">Cambiar Estado:</label>
+                <label for="nuevo_estado">Cambiar Estado: </label>
                 <select name="nuevo_estado" required>
                     <option value="">Seleccione</option>
                     <option value="Activo">✅ Habilitar</option>
