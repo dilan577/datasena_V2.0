@@ -21,71 +21,94 @@ $todos_admins = [];
 $mensaje = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && !empty($_POST['id'])) {
-    $id = $_POST['id'];
-    $tipo_documento     = $_POST['tipo_documento']      ?? null;
-    $numero_documento   = $_POST['numero_documento']    ?? null;
-    $nombres            = $_POST['nombres']             ?? null;
-    $apellidos          = $_POST['apellidos']           ?? null;
-    $nickname           = $_POST['nickname']            ?? null;
-    $correo_electronico = $_POST['correo_electronico']  ?? null;
-    $contrasena         = $_POST['contrasena']          ?? null;
-    $rol_id             = $_POST['rol_id']              ?? null;
+    $id                = $_POST['id'];
+    $tipo_documento    = $_POST['tipo_documento']     ?? null;
+    $numero_documento  = $_POST['numero_documento']   ?? null;
+    $nombres           = $_POST['nombres']            ?? null;
+    $apellidos         = $_POST['apellidos']          ?? null;
+    $nickname          = $_POST['nickname']           ?? null;
+    $correo_electronico= $_POST['correo_electronico'] ?? null;
+    $contrasena        = $_POST['contrasena']         ?? null;
+    $rol_id            = $_POST['rol_id']             ?? null;
 
-    $campos = [];
-    $tipos = "";
-    $parametros = [];
-
-    if ($tipo_documento !== null) {
-        $campos[] = "tipo_documento=?";
-        $tipos .= "s";
-        $parametros[] = $tipo_documento;
-    }
-    if ($numero_documento !== null) {
-        $campos[] = "numero_documento=?";
-        $tipos .= "s";
-        $parametros[] = $numero_documento;
-    }
-    if ($nombres !== null) {
-        $campos[] = "nombres=?";
-        $tipos .= "s";
-        $parametros[] = $nombres;
-    }
-    if ($apellidos !== null) {
-        $campos[] = "apellidos=?";
-        $tipos .= "s";
-        $parametros[] = $apellidos;
-    }
-    if ($nickname !== null) {
-        $campos[] = "nickname=?";
-        $tipos .= "s";
-        $parametros[] = $nickname;
-    }
-    if ($correo_electronico !== null) {
-        $campos[] = "correo_electronico=?";
-        $tipos .= "s";
-        $parametros[] = $correo_electronico;
-    }
-    if (!empty($contrasena)) {
-        $campos[] = "contrasena=?";
-        $tipos .= "s";
-        $parametros[] = password_hash($contrasena, PASSWORD_DEFAULT);
-    }
-
-    if (!empty($campos)) {
-        $tipos .= "i";
-        $parametros[] = $id;
-
-        $sql = "UPDATE admin SET " . implode(", ", $campos) . " WHERE id=?";
-        $stmt = $conexion->prepare($sql);
-        $stmt->bind_param($tipos, ...$parametros);
-
-        $mensaje = $stmt->execute() ? "✅ Administrador actualizado correctamente." : "❌ Error al actualizar el administrador.";
-        $stmt->close();
+    // --- VALIDACIONES ---
+    if (!ctype_digit($numero_documento) || $numero_documento <= 0) {
+        $mensaje = "❌ El número de documento debe ser positivo y solo contener dígitos.";
+    } elseif (!filter_var($correo_electronico, FILTER_VALIDATE_EMAIL)) {
+        $mensaje = "❌ El correo electrónico no es válido.";
     } else {
-        $mensaje = "⚠️ No se enviaron datos para actualizar.";
+        // --- VERIFICAR DUPLICADOS ---
+        $sql_check = "SELECT id FROM admin 
+                      WHERE (numero_documento=? OR nickname=? OR correo_electronico=?) 
+                      AND id<>?";
+        $stmt_check = $conexion->prepare($sql_check);
+        $stmt_check->bind_param("sssi", $numero_documento, $nickname, $correo_electronico, $id);
+        $stmt_check->execute();
+        $stmt_check->store_result();
+
+        if ($stmt_check->num_rows > 0) {
+            $mensaje = "❌ Ya existe un administrador con ese documento, nickname o correo.";
+        } else {
+            // --- ACTUALIZACIÓN ---
+            $campos = [];
+            $tipos = "";
+            $parametros = [];
+
+            if ($tipo_documento !== null) {
+                $campos[] = "tipo_documento=?";
+                $tipos .= "s";
+                $parametros[] = $tipo_documento;
+            }
+            if ($numero_documento !== null) {
+                $campos[] = "numero_documento=?";
+                $tipos .= "s";
+                $parametros[] = $numero_documento;
+            }
+            if ($nombres !== null) {
+                $campos[] = "nombres=?";
+                $tipos .= "s";
+                $parametros[] = $nombres;
+            }
+            if ($apellidos !== null) {
+                $campos[] = "apellidos=?";
+                $tipos .= "s";
+                $parametros[] = $apellidos;
+            }
+            if ($nickname !== null) {
+                $campos[] = "nickname=?";
+                $tipos .= "s";
+                $parametros[] = $nickname;
+            }
+            if ($correo_electronico !== null) {
+                $campos[] = "correo_electronico=?";
+                $tipos .= "s";
+                $parametros[] = $correo_electronico;
+            }
+            if (!empty($contrasena)) {
+                $campos[] = "contrasena=?";
+                $tipos .= "s";
+                $parametros[] = password_hash($contrasena, PASSWORD_DEFAULT);
+            }
+
+            if (!empty($campos)) {
+                $tipos .= "i";
+                $parametros[] = $id;
+
+                $sql = "UPDATE admin SET " . implode(", ", $campos) . " WHERE id=?";
+                $stmt = $conexion->prepare($sql);
+                $stmt->bind_param($tipos, ...$parametros);
+
+                $mensaje = $stmt->execute() ? "✅ Administrador actualizado correctamente." : "❌ Error al actualizar el administrador.";
+                $stmt->close();
+            } else {
+                $mensaje = "⚠️ No se enviaron datos para actualizar.";
+            }
+        }
+        $stmt_check->close();
     }
 }
 
+// --- BUSCAR POR DOCUMENTO ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buscar'])) {
     $numero_documento = trim($_POST['numero_documento']);
     $stmt = $conexion->prepare("SELECT * FROM admin WHERE numero_documento = ?");
@@ -97,6 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buscar'])) {
     $stmt->close();
 }
 
+// --- MOSTRAR TODOS ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mostrar_todos'])) {
     $sql = "SELECT * FROM admin";
     $resultado = $conexion->query($sql);
@@ -111,6 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mostrar_todos'])) {
 
 $conexion->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -215,14 +240,12 @@ $conexion->close();
             <table border="1" cellpadding="6" cellspacing="0" style="width:100%; border-collapse:collapse; background:#fff;">
                 <thead style="background-color:#0078c0; color:white;">
                     <tr>
-                        <th>ID</th>
                         <th>Tipo Doc</th>
                         <th>Documento</th>
                         <th>Nombre</th>
                         <th>Apellidos</th>
                         <th>Nickname</th>
                         <th>Correo</th>
-                        <th>Rol</th>
                         <th>Habilitaci&oacute;n</th>
                         <th>Creaci&oacute;n</th>
                     </tr>
@@ -230,14 +253,12 @@ $conexion->close();
                 <tbody>
                     <?php foreach ($todos_admins as $a): ?>
                         <tr>
-                            <td><?= htmlspecialchars($a['id']) ?></td>
                             <td><?= htmlspecialchars($a['tipo_documento']) ?></td>
                             <td><?= htmlspecialchars($a['numero_documento']) ?></td>
                             <td><?= htmlspecialchars($a['nombres']) ?></td>
                             <td><?= htmlspecialchars($a['apellidos']) ?></td>
                             <td><?= htmlspecialchars($a['nickname']) ?></td>
                             <td><?= htmlspecialchars($a['correo_electronico']) ?></td>
-                            <td><?= htmlspecialchars($a['rol_id']) ?></td>
                             <td><?= htmlspecialchars($a['estado_habilitacion']) ?></td>
                             <td><?= htmlspecialchars($a['fecha_creacion']) ?></td>
                         </tr>

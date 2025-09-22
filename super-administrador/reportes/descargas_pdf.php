@@ -5,9 +5,6 @@ class PDF extends FPDF
 {
     function Header()
     {
-        // Marca de agua (logo de SENA)
-        //$this->Image(__DIR__ . '/../../img/logo-sena.png', 30, 50, 150, 150);
-
         // Borde gris alrededor de la hoja
         $this->SetDrawColor(169,169,169);
         $this->Rect(5,5,200,287,'D'); 
@@ -29,28 +26,47 @@ class PDF extends FPDF
     }
 }
 
+// Validar que llegue el ID por GET
+$id = $_GET['id'] ?? null;
+if (!$id) die("❌ No se especificó el reporte");
+
+// Conexión a la base de datos
+try {
+    $pdo = new PDO("mysql:host=localhost;dbname=datasena_db", "root", "");
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Error de conexión: " . $e->getMessage());
+}
+
+// Traer datos del reporte
+$stmt = $pdo->prepare("SELECT tipo_reporte, id_referenciado, observacion FROM reportes WHERE id = ?");
+$stmt->execute([$id]);
+$reporte = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$reporte) die("❌ Reporte no encontrado");
+
+// Crear PDF
 $pdf = new PDF();
 $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->SetFont('Arial','',12);
 
-// Ejemplo de datos
-$pdf->Cell(40,10,'Empresa:');
-$pdf->Cell(100,10,'Mi Empresa S.A.',0,1);
+// Mostrar datos según tipo de reporte
+$pdf->Cell(50,10,'Tipo de Reporte:');
+$pdf->Cell(100,10,$reporte['tipo_reporte'],0,1);
 
-$pdf->Cell(40,10,'NIT:');
-$pdf->Cell(100,10,'123456789',0,1);
+$pdf->Cell(50,10,'ID Referenciado:');
+$pdf->Cell(100,10,$reporte['id_referenciado'],0,1);
 
-$pdf->Cell(40,10,'Representante:');
-$pdf->Cell(100,10,'Juan Perez',0,1);
+// Observación real del formulario
+$pdf->Cell(50,10,'Observacion:');
+$pdf->MultiCell(0,10,$reporte['observacion'],0,1);
 
-$pdf->Cell(40,10,'Observacion:');
-$pdf->MultiCell(0,10,'Esta es la observacion del reporte. Aqui se detallan comentarios adicionales.',0,1);
-
-// Ahora imprimimos la fecha justo después de Observación
+// Fecha del reporte
 $pdf->Ln(5);
-$pdf->Cell(40,10,'Fecha:');
+$pdf->Cell(50,10,'Fecha:');
 $pdf->Cell(100,10,date("d/m/Y"),0,1);
 
+// Generar PDF
 $pdf->Output();
 ?>

@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <option value="programa">Programa</option>
             </select>
 
-            <label>Selecciona el elemento:</label>
+            <label>Selecciona una opción:</label>
             <select name="id_elemento" id="id_elemento" required>
                 <option value="">Seleccione un tipo primero</option>
             </select>

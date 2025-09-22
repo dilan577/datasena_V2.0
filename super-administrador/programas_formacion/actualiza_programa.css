@@ -232,3 +232,21 @@ html {
     padding: 10px 25px;
     font-size: 16px;
 }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 15px;
+}
+
+table th, table td {
+  border: 1px solid var(--black);
+  padding: 8px;
+  text-align: center;
+}
+
+table th {
+    color: var(--white); /* Cambia el color de los encabezados */
+    background-color: #0078c0; /* opcional: fondo gris */
+    text-align: center; /* centrado */
+    padding: 8px; /* espacio interno */
+}

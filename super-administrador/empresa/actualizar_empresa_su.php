@@ -30,54 +30,99 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && !empty($_POS
     $correo = trim($_POST['correo']);
     $direccion = trim($_POST['direccion']);
     $actividad_economica = trim($_POST['actividad_economica']);
-    // Validaciones
+
+    // ================= VALIDACIONES =================
+
+    // Tipo de documento válido
     $tipos_validos = ['NIT','Registro Mercantil','Registro Cámara de Comercio Extranjera','Pasaporte Empresarial','RUT','Licencia Municipal'];
     if (!in_array($tipo_documento, $tipos_validos)) {
         $errores[] = "Tipo de documento inválido.";
     }
+
+    // Número de identidad: solo dígitos, entre 8 y 12, no negativo
     if (!preg_match('/^\d{8,12}$/', $numero_identidad)) {
         $errores[] = "Número de identidad debe tener entre 8 y 12 dígitos.";
     }
-    if (!preg_match('/^[A-Za-zÁÉÍÓÚñáéíóú0-9 ]+$/u', $nickname)) {
-        $errores[] = "El nombre solo puede contener letras, números y espacios.";
+    if ((int)$numero_identidad < 0) {
+        $errores[] = "Número de identidad no puede ser negativo.";
     }
+
+    // Nombre empresa: letras, números y espacios
+    if (!preg_match('/^[A-Za-zÁÉÍÓÚñáéíóú0-9 ]+$/u', $nickname)) {
+        $errores[] = "El nombre de la empresa solo puede contener letras, números y espacios.";
+    }
+
+    // Teléfono: exactamente 10 dígitos y positivo
     if (!preg_match('/^\d{10}$/', $telefono)) {
         $errores[] = "El teléfono debe tener exactamente 10 dígitos.";
     }
+    if ((int)$telefono < 0) {
+        $errores[] = "El teléfono no puede ser negativo.";
+    }
+
+    // Correo válido
     if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
         $errores[] = "Correo electrónico inválido.";
     }
+
+    // Dirección: mínimo 5 caracteres
     if (empty($direccion) || strlen($direccion) < 5) {
         $errores[] = "La dirección debe tener al menos 5 caracteres.";
     }
+
+    // Actividad económica: letras, números, comas y puntos
     if (!preg_match('/^[A-Za-zÁÉÍÓÚñáéíóú0-9 ,.]+$/u', $actividad_economica)) {
-        $errores[] = "Actividad económica con caracteres inválidos.";
+        $errores[] = "Actividad económica contiene caracteres inválidos.";
     }
+
+    // ================= VALIDAR DUPLICADOS =================
     if (empty($errores)) {
-        // Verificar duplicado antes de actualizar
+        // Validar numero_identidad duplicado
         $check = $conexion->prepare("SELECT id FROM empresas WHERE numero_identidad = ? AND id != ?");
         $check->bind_param("si", $numero_identidad, $id);
         $check->execute();
         $check->store_result();
         if ($check->num_rows > 0) {
-            $numero_error = "El número de identidad ya está en uso por otra empresa.";
-            $mensaje = "❌ Ya existe otra empresa con ese número de identidad.";
-            $check->close();
-        } else {
-            $check->close();
-            $stmt = $conexion->prepare("UPDATE empresas SET tipo_documento=?, numero_identidad=?, nickname=?, telefono=?, correo=?, direccion=?, actividad_economica=? WHERE id=?");
-            $stmt->bind_param("sssssssi", $tipo_documento, $numero_identidad, $nickname, $telefono, $correo, $direccion, $actividad_economica, $id);
-            if ($stmt->execute()) {
-                $mensaje = "✅ Empresa actualizada correctamente.";
-            } else {
-                $mensaje = "❌ Error al actualizar la empresa.";
-            }
-            $stmt->close();
+            $errores[] = "El número de identidad ya está en uso por otra empresa.";
         }
+        $check->close();
+
+        // Validar nickname duplicado
+        $check = $conexion->prepare("SELECT id FROM empresas WHERE nickname = ? AND id != ?");
+        $check->bind_param("si", $nickname, $id);
+        $check->execute();
+        $check->store_result();
+        if ($check->num_rows > 0) {
+            $errores[] = "El nombre de la empresa ya está en uso.";
+        }
+        $check->close();
+
+        // Validar correo duplicado
+        $check = $conexion->prepare("SELECT id FROM empresas WHERE correo = ? AND id != ?");
+        $check->bind_param("si", $correo, $id);
+        $check->execute();
+        $check->store_result();
+        if ($check->num_rows > 0) {
+            $errores[] = "El correo electrónico ya está en uso por otra empresa.";
+        }
+        $check->close();
+    }
+
+    // ================= ACTUALIZAR SI NO HAY ERRORES =================
+    if (empty($errores)) {
+        $stmt = $conexion->prepare("UPDATE empresas SET tipo_documento=?, numero_identidad=?, nickname=?, telefono=?, correo=?, direccion=?, actividad_economica=? WHERE id=?");
+        $stmt->bind_param("sssssssi", $tipo_documento, $numero_identidad, $nickname, $telefono, $correo, $direccion, $actividad_economica, $id);
+        if ($stmt->execute()) {
+            $mensaje = "✅ Empresa actualizada correctamente.";
+        } else {
+            $mensaje = "❌ Error al actualizar la empresa.";
+        }
+        $stmt->close();
     } else {
         $mensaje = "❌ " . implode("<br>❌ ", $errores);
     }
 }
+
 // Buscar empresa
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buscar'])) {
     $dato = trim($_POST['dato_busqueda']);
@@ -211,7 +256,7 @@ $conexion->close();
                             <td><?= htmlspecialchars($e['correo']) ?></td>
                             <td><?= htmlspecialchars($e['direccion']) ?></td>
                             <td><?= htmlspecialchars($e['actividad_economica']) ?></td>
-                            <td><?= htmlspecialchars($e['estado']) ?></td>
+                            <td><?= $e['estado'] == 1 ? 'Activo' : 'Inactivo' ?></td>
                             <td><?= htmlspecialchars($e['fecha_registro']) ?></td>
                         </tr>
                     <?php endforeach; ?>

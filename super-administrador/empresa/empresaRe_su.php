@@ -1,81 +1,126 @@
 <?php
 $errores = [];
 $datos = [];
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Lista de campos obligatorios
     $campos = [
         'tipo_documento', 'numero_identidad', 'nickname',
         'telefono', 'correo', 'direccion',
         'actividad_economica', 'estado'
     ];
+
+    // Recorremos los campos para validar que no vengan vacíos
     foreach ($campos as $campo) {
         $datos[$campo] = trim($_POST[$campo] ?? '');
         if (empty($datos[$campo])) {
             $errores[$campo] = "Este campo es obligatorio.";
         }
     }
-    // Validaciones adicionales
+
+    // Capturamos las contraseñas aparte
     $datos['contrasena'] = trim($_POST['contrasena'] ?? '');
     $datos['confirmar_contrasena'] = trim($_POST['confirmar_contrasena'] ?? '');
+
     // Validación de correo electrónico
     if (!empty($datos['correo']) && !filter_var($datos['correo'], FILTER_VALIDATE_EMAIL)) {
         $errores['correo'] = "Correo electrónico no válido.";
     }
-    // Validación de teléfono (10 dígitos)
+
+    // Validación de teléfono (exactamente 10 dígitos)
     if (!empty($datos['telefono']) && !preg_match('/^\d{10}$/', $datos['telefono'])) {
         $errores['telefono'] = "El teléfono debe tener exactamente 10 dígitos.";
     }
+
     // Validación de número de documento (8 a 12 dígitos)
     if (!empty($datos['numero_identidad']) && !preg_match('/^\d{8,12}$/', $datos['numero_identidad'])) {
         $errores['numero_identidad'] = "El número de identidad debe tener entre 8 y 12 dígitos numéricos.";
     }
-    // Validación de nickname (letras, números y espacios)
+
+    // Validación de nickname (letras, números y espacios permitidos)
     if (!empty($datos['nickname']) && !preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ]+$/u', $datos['nickname'])) {
         $errores['nickname'] = "El nombre de la empresa solo puede contener letras, números y espacios.";
     }
+
     // Validación de contraseña segura
     if (empty($datos['contrasena'])) {
         $errores['contrasena'] = "La contraseña es obligatoria.";
     } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#+_\-])[A-Za-z\d@$!%*?&#+_\-]{8,}$/', $datos['contrasena'])) {
         $errores['contrasena'] = "La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial.";
     }
+
     // Confirmación de contraseña
     if (empty($datos['confirmar_contrasena'])) {
         $errores['confirmar_contrasena'] = "Por favor, confirme su contraseña.";
     } elseif ($datos['contrasena'] !== $datos['confirmar_contrasena']) {
         $errores['confirmar_contrasena'] = "Las contraseñas no coinciden.";
     }
-    // Si todo está bien, insertar en base de datos
+
+    // Si no hay errores hasta ahora, procedemos a validar unicidad en la base de datos
     if (empty($errores)) {
         try {
+            // Conexión con la base de datos usando PDO
             $conexion = new PDO("mysql:host=localhost;dbname=datasena_db;charset=utf8", "root", "");
             $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $contrasenaHash = password_hash($datos['contrasena'], PASSWORD_DEFAULT);
-            $sql = "INSERT INTO empresas (
-                        tipo_documento, numero_identidad, nickname, telefono,
-                        correo, direccion, actividad_economica, estado, contrasena
-                    ) VALUES (
-                        :tipo_documento, :numero_identidad, :nickname, :telefono,
-                        :correo, :direccion, :actividad_economica, :estado, :contrasena
-                    )";
-            $stmt = $conexion->prepare($sql);
-            foreach ($campos as $campo) {
-                $stmt->bindValue(":$campo", $datos[$campo]);
-            }
-            $stmt->bindValue(':contrasena', $contrasenaHash);
-            $stmt->execute();
-            $exito = "Empresa registrada exitosamente.";
-            $datos = [];
-        } catch (PDOException $e) {
-            // Verificamos si el error es por clave duplicada
-            if ($e->getCode() == 23000) {
+
+            // 🔎 Verificación de que el número de identidad no esté repetido
+            $stmt = $conexion->prepare("SELECT id FROM empresas WHERE numero_identidad = :numero_identidad LIMIT 1");
+            $stmt->execute([':numero_identidad' => $datos['numero_identidad']]);
+            if ($stmt->fetch()) {
                 $errores['numero_identidad'] = "El número de documento ya está registrado.";
-            } else {
-                $errores['general'] = "Error en la base de datos: " . $e->getMessage();
             }
+
+            // 🔎 Verificación de que el correo no esté repetido
+            $stmt = $conexion->prepare("SELECT id FROM empresas WHERE correo = :correo LIMIT 1");
+            $stmt->execute([':correo' => $datos['correo']]);
+            if ($stmt->fetch()) {
+                $errores['correo'] = "El correo ya está registrado.";
+            }
+
+            // 🔎 Verificación de que el teléfono no esté repetido
+            $stmt = $conexion->prepare("SELECT id FROM empresas WHERE telefono = :telefono LIMIT 1");
+            $stmt->execute([':telefono' => $datos['telefono']]);
+            if ($stmt->fetch()) {
+                $errores['telefono'] = "El teléfono ya está registrado.";
+            }
+
+            // Si después de verificar unicidad no hay errores, insertamos
+            if (empty($errores)) {
+                // Hasheamos la contraseña antes de guardar
+                $contrasenaHash = password_hash($datos['contrasena'], PASSWORD_DEFAULT);
+
+                // Query de inserción
+                $sql = "INSERT INTO empresas (
+                            tipo_documento, numero_identidad, nickname, telefono,
+                            correo, direccion, actividad_economica, estado, contrasena
+                        ) VALUES (
+                            :tipo_documento, :numero_identidad, :nickname, :telefono,
+                            :correo, :direccion, :actividad_economica, :estado, :contrasena
+                        )";
+
+                $stmt = $conexion->prepare($sql);
+
+                // Asignamos los valores a la query
+                foreach ($campos as $campo) {
+                    $stmt->bindValue(":$campo", $datos[$campo]);
+                }
+                $stmt->bindValue(':contrasena', $contrasenaHash);
+
+                // Ejecutamos el INSERT
+                $stmt->execute();
+
+                // Mensaje de éxito
+                $exito = "Empresa registrada exitosamente.";
+                $datos = [];
+            }
+
+        } catch (PDOException $e) {
+            $errores['general'] = "Error en la base de datos: " . $e->getMessage();
         }
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
