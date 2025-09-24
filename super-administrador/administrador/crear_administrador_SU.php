@@ -76,14 +76,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // ---------------------------
     if (empty($erroresCampo)) {
         $hash = password_hash($contrasena, PASSWORD_DEFAULT);
-        $stmt_insert = $conn->prepare("INSERT INTO admin (tipo_documento, numero_documento, nombres, apellidos, nickname, correo_electronico, contrasena, rol_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt_insert->bind_param("ssssssssi", $tipo_documento, $numero_documento, $nombres, $apellidos, $nickname, $correo_electronico, $hash, $rol_id);
+        $estado_habilitacion = "Activo"; // valor por defecto
+
+        $stmt_insert = $conn->prepare("
+            INSERT INTO admin 
+            (tipo_documento, numero_documento, nombres, apellidos, nickname, correo_electronico, contrasena, rol_id, estado_habilitacion) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ");
+        $stmt_insert->bind_param(
+            "sssssssis", 
+            $tipo_documento, 
+            $numero_documento, 
+            $nombres, 
+            $apellidos, 
+            $nickname, 
+            $correo_electronico, 
+            $hash, 
+            $rol_id, 
+            $estado_habilitacion
+        );
 
         if ($stmt_insert->execute()) {
             echo "<script>alert('✅ Administrador creado con éxito.'); window.location.href='../super_menu.html';</script>";
             exit;
         } else {
-            $erroresCampo['general'] = "Error al crear el administrador.";
+            $erroresCampo['general'] = "Error al crear el administrador: " . $stmt_insert->error;
         }
         $stmt_insert->close();
     }
@@ -103,6 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
     <style>
         .error-text { color: red; font-size: 0.85em; margin-top: 2px; display: block; }
+        .mensaje-error { color: red; font-weight: bold; margin-bottom: 10px; }
     </style>
 </head>
 <body>
