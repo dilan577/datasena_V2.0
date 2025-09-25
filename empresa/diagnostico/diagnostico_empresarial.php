@@ -173,7 +173,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <select name="beneficios" required><option>Sí</option><option>No</option></select>
 
             <button type="submit" class="btn">Enviar Diagnóstico</button>
-            <button type="button" class="btn" onclick="window.location.href='../empresa_menu.html'">⬅ Regresar</button>
+            <button type="button" class="btn" onclick="window.location.href='../empresa_menu.html'">↩️Regresar</button>
         </form>
     </main>
 

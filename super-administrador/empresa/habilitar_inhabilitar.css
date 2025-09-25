@@ -76,7 +76,7 @@ html, body {
     height: 100%;
     overflow-x: hidden;
     font-family: Arial, sans-serif;
-    background: var(--gray-900);;
+    background: var(--gray-900);
     color: var(--black);
     display: flex;
     flex-direction: column;
@@ -101,6 +101,7 @@ html {
   text-align: center;
 }
 
+/* Logo del govco en la barra superior */
 .barra-superior-govco a {
   content: url(https://cdn.www.gov.co/assets/images/logo.svg);
   height: 1.875rem;
@@ -111,7 +112,6 @@ html {
   outline: max(0.125rem, 0.15em) solid #FFFFFF;
   border-radius: 0.313rem;
 }
-
 
 @media (max-width: 991px) {
   .barra-superior-govco {
@@ -127,25 +127,27 @@ h1 {
     color: var(--black);
 }
 
-
-/* Encabezado */
+/* Encabezado con flex para alinear texto y logo */
 header {
-    text-align: center;
-    padding: 20px;;
+    display: flex;
+    justify-content: space-between; /* texto a la izquierda, logo a la derecha */
+    align-items: flex-start;        /* alinea elementos arriba */
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
     color: var(--black);
     font-size: 24px;
     font-weight: bold;
 }
 
-/* Logo */
-img.img{
-    position: absolute;
-    top: 50px;
-    right: 30px;
-    width: 80px;
+img.img {
+    width: 40px;    /* tamaño más pequeño */
     height: auto;
+    margin: 0;      /* sin margen para que quede pegado arriba */
 }
 
+
+/* Etiquetas */
 label {
     color: #0d3c77;
     font-size: 1.1em;
@@ -265,6 +267,7 @@ footer {
   font-size: 0.9rem;
   box-shadow: var(--shadow);
 }
+
 table {
     margin-bottom: 50px; /* separa la tabla del footer */
 }
