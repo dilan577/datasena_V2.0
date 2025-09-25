@@ -106,6 +106,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && !empty($_POS
             $errores[] = "El correo electrónico ya está en uso por otra empresa.";
         }
         $check->close();
+
+        // Validar teléfono duplicado
+        $check = $conexion->prepare("SELECT id FROM empresas WHERE telefono = ? AND id != ?");
+        $check->bind_param("si", $telefono, $id);
+        $check->execute();
+        $check->store_result();
+        if ($check->num_rows > 0) {
+            $errores[] = "El número de teléfono ya está en uso por otra empresa.";
+        }
+        $check->close();
     }
 
     // ================= ACTUALIZAR SI NO HAY ERRORES =================

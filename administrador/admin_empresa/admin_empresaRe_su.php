@@ -1,22 +1,25 @@
-super-administrador/empresa/habilitar_inhabilitar.php<?php
+<?php
 $errores = [];
 $datos = [];
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Lista de campos obligatorios
     $campos = [
         'tipo_documento', 'numero_identidad', 'nickname',
-        'telefono', 'correo', 'dirección',
-        'actividad_económica', 'estado'
+        'telefono', 'correo', 'direccion',
+        'actividad_economica', 'estado'
     ];
 
+    // Recorremos los campos para validar que no vengan vacíos
     foreach ($campos as $campo) {
         $datos[$campo] = trim($_POST[$campo] ?? '');
-        if (empty($datos[$campo])) {
+        if ($datos[$campo] === '' || $datos[$campo] === null) {
             $errores[$campo] = "Este campo es obligatorio.";
         }
+
     }
 
-    // Validaciones adicionales
+    // Capturamos las contraseñas aparte
     $datos['contrasena'] = trim($_POST['contrasena'] ?? '');
     $datos['confirmar_contrasena'] = trim($_POST['confirmar_contrasena'] ?? '');
 
@@ -25,71 +28,95 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $errores['correo'] = "Correo electrónico no válido.";
     }
 
-    // Validación de teléfono (10 dígitos)
+    // Validación de teléfono (exactamente 10 dígitos)
     if (!empty($datos['telefono']) && !preg_match('/^\d{10}$/', $datos['telefono'])) {
-        $errores['telefono'] = "Debe tener exactamente 10 dígitos.";
+        $errores['telefono'] = "El teléfono debe tener exactamente 10 dígitos.";
     }
 
     // Validación de número de documento (8 a 12 dígitos)
     if (!empty($datos['numero_identidad']) && !preg_match('/^\d{8,12}$/', $datos['numero_identidad'])) {
-        $errores['numero_identidad'] = "Debe tener entre 8 y 12 dígitos numéricos.";
+        $errores['numero_identidad'] = "El número de identidad debe tener entre 8 y 12 dígitos numéricos.";
     }
 
-    // Validación de nickname (letras, números y espacios)
+    // Validación de nickname (letras, números y espacios permitidos)
     if (!empty($datos['nickname']) && !preg_match('/^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ]+$/u', $datos['nickname'])) {
-        $errores['nickname'] = "Solo se permiten letras, números y espacios.";
+        $errores['nickname'] = "El nombre de la empresa solo puede contener letras, números y espacios.";
     }
 
     // Validación de contraseña segura
     if (empty($datos['contrasena'])) {
         $errores['contrasena'] = "La contraseña es obligatoria.";
     } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#+_\-])[A-Za-z\d@$!%*?&#+_\-]{8,}$/', $datos['contrasena'])) {
-        $errores['contrasena'] = "Debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial.";
+        $errores['contrasena'] = "La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial.";
     }
 
     // Confirmación de contraseña
     if (empty($datos['confirmar_contrasena'])) {
-        $errores['confirmar_contrasena'] = "Por favor confirme su contraseña.";
+        $errores['confirmar_contrasena'] = "Por favor, confirme su contraseña.";
     } elseif ($datos['contrasena'] !== $datos['confirmar_contrasena']) {
         $errores['confirmar_contrasena'] = "Las contraseñas no coinciden.";
     }
 
-    // Si todo está bien, insertar en base de datos
+    // Si no hay errores hasta ahora, procedemos a validar unicidad en la base de datos
     if (empty($errores)) {
         try {
+            // Conexión con la base de datos usando PDO
             $conexion = new PDO("mysql:host=localhost;dbname=datasena_db;charset=utf8", "root", "");
             $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $contrasenaHash = password_hash($datos['contrasena'], PASSWORD_DEFAULT);
-
-            $sql = "INSERT INTO empresas (
-                        tipo_documento, numero_identidad, nickname, telefono,
-                        correo, dirección, actividad_económica, estado, contrasena
-                    ) VALUES (
-                        :tipo_documento, :numero_identidad, :nickname, :telefono,
-                        :correo, :dirección, :actividad_económica, :estado, :contrasena
-                    )";
-
-            $stmt = $conexion->prepare($sql);
-            foreach ($campos as $campo) {
-                $stmt->bindValue(":$campo", $datos[$campo]);
+            // 🔎 Verificación de que el número de identidad no esté repetido
+            $stmt = $conexion->prepare("SELECT id FROM empresas WHERE numero_identidad = :numero_identidad LIMIT 1");
+            $stmt->execute([':numero_identidad' => $datos['numero_identidad']]);
+            if ($stmt->fetch()) {
+                $errores['numero_identidad'] = "El número de documento ya está registrado.";
             }
-            $stmt->bindValue(':contrasena', $contrasenaHash);
-            $stmt->execute();
 
-            $exito = "Empresa registrada exitosamente.";
-            $datos = [];
+            // 🔎 Verificación de que el correo no esté repetido
+            $stmt = $conexion->prepare("SELECT id FROM empresas WHERE correo = :correo LIMIT 1");
+            $stmt->execute([':correo' => $datos['correo']]);
+            if ($stmt->fetch()) {
+                $errores['correo'] = "El correo ya está registrado.";
+            }
+
+            // 🔎 Verificación de que el teléfono no esté repetido
+            $stmt = $conexion->prepare("SELECT id FROM empresas WHERE telefono = :telefono LIMIT 1");
+            $stmt->execute([':telefono' => $datos['telefono']]);
+            if ($stmt->fetch()) {
+                $errores['telefono'] = "El teléfono ya está registrado.";
+            }
+
+            // Si después de verificar unicidad no hay errores, insertamos
+            if (empty($errores)) {
+                // Hasheamos la contraseña antes de guardar
+                $contrasenaHash = password_hash($datos['contrasena'], PASSWORD_DEFAULT);
+
+                // Query de inserción
+                $sql = "INSERT INTO empresas (
+                            tipo_documento, numero_identidad, nickname, telefono,
+                            correo, direccion, actividad_economica, estado, contrasena
+                        ) VALUES (
+                            :tipo_documento, :numero_identidad, :nickname, :telefono,
+                            :correo, :direccion, :actividad_economica, :estado, :contrasena
+                        )";
+
+                $stmt = $conexion->prepare($sql);
+
+                // Asignamos los valores a la query
+                foreach ($campos as $campo) {
+                    $stmt->bindValue(":$campo", $datos[$campo]);
+                }
+                $stmt->bindValue(':contrasena', $contrasenaHash);
+
+                // Ejecutamos el INSERT
+                $stmt->execute();
+
+                // Mensaje de éxito
+                $exito = "Empresa registrada exitosamente.";
+                $datos = [];
+            }
 
         } catch (PDOException $e) {
-            if ($e->getCode() == 23000) {
-                if (strpos($e->getMessage(), 'numero_identidad') !== false) {
-                    $errores['general'] = "El número de identidad ya está registrado.";
-                } else {
-                    $errores['general'] = "Error de integridad en la base de datos.";
-                }
-            } else {
-                $errores['general'] = "Error en base de datos: " . $e->getMessage();
-            }
+            $errores['general'] = "Error en la base de datos: " . $e->getMessage();
         }
     }
 }
@@ -102,26 +129,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <title>Registro de Empresa</title>
     <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../super-administrador/empresa/empresaRe_su.css">
+    <link rel="stylesheet" href="../../administrador/admin_empresa/admin_empresaRe_su.css">
 </head>
 <body>
+<!--barra del gov superior-->
 <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
-
 <h1>DATASENA</h1>
-<img src="../../img/logo-sena.png" alt="Logo" class="img" />
-
+<img src="../../img/logo-sena.png" alt="Logo SENA" class="img" />
 <div class="forma-container">
     <h3>Registro de Empresa</h3>
-
     <?php if (!empty($errores['general'])): ?>
-        <script>alert("<?= htmlspecialchars($errores['general']) ?>");</script>
+        <div class="mensaje-error">❌ <?= htmlspecialchars($errores['general']) ?></div>
     <?php endif; ?>
     <?php if (!empty($exito)): ?>
         <div class="mensaje-exito">✅ <?= htmlspecialchars($exito) ?></div>
     <?php endif; ?>
-
     <form action="" method="POST">
         <div class="forma-grid">
             <!-- Primera columna -->
@@ -141,9 +165,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <div class="mensaje-error">❌ <?= htmlspecialchars($errores['tipo_documento']) ?></div>
                     <?php endif; ?>
                 </div>
-
                 <div class="forma-row">
-                    <label for="numero_identidad">🔢 Número de documento:</label>
+                    <label for="numero_identidad">🔢 Número de Documento:</label>
                     <input type="text" id="numero_identidad" name="numero_identidad"
                         pattern="\d{8,12}" title="Debe tener entre 8 y 12 dígitos numéricos"
                         value="<?= htmlspecialchars($datos['numero_identidad'] ?? '') ?>" required>
@@ -151,15 +174,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <div class="mensaje-error">❌ <?= htmlspecialchars($errores['numero_identidad']) ?></div>
                     <?php endif; ?>
                 </div>
-
                 <div class="forma-row">
-                    <label for="nickname">🏢 Nombre de la empresa:</label>
+                    <label for="nickname">🏢 Nombre de la Empresa:</label>
                     <input type="text" id="nickname" name="nickname" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ]+" title="Solo letras, números y espacios" value="<?= htmlspecialchars($datos['nickname'] ?? '') ?>" required>
                     <?php if (!empty($errores['nickname'])): ?>
                         <div class="mensaje-error">❌ <?= htmlspecialchars($errores['nickname']) ?></div>
                     <?php endif; ?>
                 </div>
-
                 <div class="forma-row">
                     <label for="telefono">📞 Teléfono:</label>
                     <input type="tel" id="telefono" name="telefono" pattern="\d{10}" title="Debe tener 10 dígitos" value="<?= htmlspecialchars($datos['telefono'] ?? '') ?>" required>
@@ -167,15 +188,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <div class="mensaje-error">❌ <?= htmlspecialchars($errores['telefono']) ?></div>
                     <?php endif; ?>
                 </div>
-
                 <div class="forma-row">
-                    <label for="correo">✉️ Correo electrónico:</label>
+                    <label for="correo">✉️ Correo Electrónico:</label>
                     <input type="email" id="correo" name="correo" value="<?= htmlspecialchars($datos['correo'] ?? '') ?>" required>
                     <?php if (!empty($errores['correo'])): ?>
                         <div class="mensaje-error">❌ <?= htmlspecialchars($errores['correo']) ?></div>
                     <?php endif; ?>
                 </div>
-
                 <div class="forma-row">
                     <label for="direccion">📍 Dirección:</label>
                     <input type="text" id="direccion" name="direccion" value="<?= htmlspecialchars($datos['direccion'] ?? '') ?>" required>
@@ -184,21 +203,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <?php endif; ?>
                 </div>
             </div>
-
             <!-- Segunda columna -->
             <div>
                 <div class="forma-row">
-                    <label for="actividad_económica">💼 Actividad Económica:</label>
-                    <input type="text" id="actividad_económica" name="actividad_económica" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ,.]+" title="Solo letras, números, comas y puntos" value="<?= htmlspecialchars($datos['actividad_económica'] ?? '') ?>" required>
-                    <?php if (!empty($errores['actividad_económica'])): ?>
-                        <div class="mensaje-error">❌ <?= htmlspecialchars($errores['actividad_económica']) ?></div>
+                    <label for="actividad_economica">💼 Actividad Económica:</label>
+                    <input type="text" id="actividad_economica" name="actividad_economica" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ,.]+" title="Solo letras, números, comas y puntos" value="<?= htmlspecialchars($datos['actividad_economica'] ?? '') ?>" required>
+                    <?php if (!empty($errores['actividad_economica'])): ?>
+                        <div class="mensaje-error">❌ <?= htmlspecialchars($errores['actividad_economica']) ?></div>
                     <?php endif; ?>
                 </div>
-
                 <div class="forma-row">
                     <label for="estado">⚙️ Estado:</label>
                     <select id="estado" name="estado" required>
-                        <option value="">Seleccione</option>
+                        <option value="">Seleccione...</option>
                         <option value="1" <?= ($datos['estado'] ?? '') == '1' ? 'selected' : '' ?>>Activo</option>
                         <option value="0" <?= ($datos['estado'] ?? '') == '0' ? 'selected' : '' ?>>Inactivo</option>
                     </select>
@@ -206,7 +223,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <div class="mensaje-error">❌ <?= htmlspecialchars($errores['estado']) ?></div>
                     <?php endif; ?>
                 </div>
-
                 <div class="forma-row">
                     <label for="contrasena">🔒 Contraseña:</label>
                     <input type="password" id="contrasena" name="contrasena" required>
@@ -214,7 +230,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <div class="mensaje-error">❌ <?= htmlspecialchars($errores['contrasena']) ?></div>
                     <?php endif; ?>
                 </div>
-
                 <div class="forma-row">
                     <label for="confirmar_contrasena">🔁 Confirmar Contraseña:</label>
                     <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" required>
@@ -224,17 +239,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 </div>
             </div>
         </div>
-
         <div class="logout-buttons-container">
             <button type="submit" class="logout-btn">✅ Crear</button>
             <button type="button" class="logout-btn" onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
         </div>
     </form>
 </div>
-
-<footer>&copy;  2025 Todos los derechos reservados - Proyecto SENA</footer>
-</body>
+<footer>&copy; 2025 Todos los derechos reservados - Proyecto SENA</footer>
+<!--barra del gov inferior-->
 <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
+</body>
 </html>
+                        

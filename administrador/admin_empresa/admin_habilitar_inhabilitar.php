@@ -1,4 +1,5 @@
 <?php
+// Conexión a la base de datos
 $conexion = new mysqli("localhost", "root", "", "datasena_db");
 if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
@@ -9,7 +10,7 @@ $todas_empresas = [];
 $mensaje = "";
 $mensaje_tipo = "";
 
-// Actualizar estado
+// ✅ Actualizar estado de la empresa
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_estado'])) {
     $cc = $_POST['cc'] ?? '';
     $nuevo_estado = $_POST['nuevo_estado'] ?? '';
@@ -17,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_estado']))
     if (!empty($cc) && !empty($nuevo_estado)) {
         $stmt = $conexion->prepare("UPDATE empresas SET estado_habilitacion = ? WHERE numero_identidad = ?");
         $stmt->bind_param("ss", $nuevo_estado, $cc);
+
         if ($stmt->execute() && $stmt->affected_rows > 0) {
             $mensaje = "✅ Estado actualizado correctamente.";
             $mensaje_tipo = "exito";
@@ -28,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_estado']))
     }
 }
 
-// Buscar empresa solo si NO es mostrar todos y el campo cc no está vacío
+// ✅ Buscar empresa específica
 if (!isset($_GET['mostrar_todos']) && !empty($_GET['cc'])) {
     $cc = $_GET['cc'];
     $stmt = $conexion->prepare("SELECT * FROM empresas WHERE numero_identidad = ?");
@@ -44,10 +46,11 @@ if (!isset($_GET['mostrar_todos']) && !empty($_GET['cc'])) {
     }
 }
 
-// Mostrar todas
+// ✅ Mostrar todas las empresas
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['mostrar_todos'])) {
     $sql = "SELECT * FROM empresas";
     $resultado = $conexion->query($sql);
+
     if ($resultado && $resultado->num_rows > 0) {
         while ($fila = $resultado->fetch_assoc()) {
             $todas_empresas[] = $fila;
@@ -69,6 +72,8 @@ $conexion->close();
     <link rel="stylesheet" href="admin_habilitar_inhabilitar.css">
 </head>
 <body>
+
+<!-- Barra GOV.CO superior -->
 <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
@@ -81,21 +86,23 @@ $conexion->close();
 </header>
 
 <main>
+    <!-- Formulario de búsqueda -->
     <div class="search-box">
         <form method="get">
             <label for="buscar_cc">Número de Documento:</label>
-            <input type="text" id="buscar_cc" name="cc">
+            <input type="text" id="buscar_cc" name="cc" placeholder="Ejemplo: 123456789">
             <button type="submit">🔍 Buscar</button>
             <button type="submit" name="mostrar_todos">📋 Mostrar Todos</button>
             <button type="button" class="logout-btn" onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
         </form>
     </div>
 
+    <!-- Mensajes -->
     <?php if (!empty($mensaje)): ?>
         <div class="mensaje <?= $mensaje_tipo ?>"><?= htmlspecialchars($mensaje) ?></div>
     <?php endif; ?>
 
-    <!-- Mostrar empresa encontrada -->
+    <!-- Empresa encontrada -->
     <?php if ($empresas): ?>
         <section class="empresa-detalle">
             <h2>Datos de la Empresa</h2>
@@ -106,11 +113,12 @@ $conexion->close();
                 <li><strong>Teléfono:</strong> <?= htmlspecialchars($empresas['telefono']) ?></li>
                 <li><strong>Correo:</strong> <?= htmlspecialchars($empresas['correo']) ?></li>
                 <li><strong>Dirección:</strong> <?= htmlspecialchars($empresas['direccion']) ?></li>
-                <li><strong>Actividad:</strong> <?= htmlspecialchars($empresas['actividad_económica']) ?></li>
+                <li><strong>Actividad:</strong> <?= htmlspecialchars($empresas['actividad_economica']) ?></li>
                 <li><strong>Estado Actual:</strong> <?= $empresas['estado_habilitacion'] === 'Activo' ? '✅ Habilitado' : '❌ Inhabilitado' ?></li>
                 <li><strong>Fecha de Registro:</strong> <?= htmlspecialchars($empresas['fecha_registro']) ?></li>
             </ul>
 
+            <!-- Formulario para cambiar estado -->
             <form method="post" class="form-estado">
                 <input type="hidden" name="cc" value="<?= htmlspecialchars($empresas['numero_identidad']) ?>">
                 <label for="nuevo_estado">Cambiar Estado:</label>
@@ -131,50 +139,52 @@ $conexion->close();
         <p class="mensaje info">🧭 Ingrese un número de documento para buscar una empresa.</p>
     <?php endif; ?>
 
-    <!-- Mostrar tabla si hay empresas -->
-<?php if (!empty($todas_empresas)): ?>
-    <h2>📋 Todas las Empresas</h2>
-    <div style="overflow-x: auto; margin-bottom: 50px;"> <!-- 👈 le damos aire abajo -->
-        <table border="1" cellpadding="6" cellspacing="0" style="width:100%; background: #fff;">
-            <thead style="background-color: #0078c0; color: white;">
-            <tr>
-                <th>Tipo Doc</th>
-                <th>Identidad</th>
-                <th>Nombre</th>
-                <th>Teléfono</th>
-                <th>Correo</th>
-                <th>Dirección</th>
-                <th>Actividad</th>
-                <th>Estado</th>
-                <th>Fecha Registro</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($todas_empresas as $e): ?>
+    <!-- Tabla con todas las empresas -->
+    <?php if (!empty($todas_empresas)): ?>
+        <h2>📋 Todas las Empresas</h2>
+        <div style="overflow-x: auto; margin-bottom: 50px;">
+            <table border="1" cellpadding="6" cellspacing="0" style="width:100%; background: #fff;">
+                <thead style="background-color: #0078c0; color: white;">
                 <tr>
-                    <td><?= htmlspecialchars($e['tipo_documento']) ?></td>
-                    <td><?= htmlspecialchars($e['numero_identidad']) ?></td>
-                    <td><?= htmlspecialchars($e['nickname']) ?></td>
-                    <td><?= htmlspecialchars($e['telefono']) ?></td>
-                    <td><?= htmlspecialchars($e['correo']) ?></td>
-                    <td><?= htmlspecialchars($e['direccion']) ?></td>
-                    <td><?= htmlspecialchars($e['actividad_economica']) ?></td>
-                    <td><?= htmlspecialchars($e['estado_habilitacion']) ?></td>
-                    <td><?= htmlspecialchars($e['fecha_registro']) ?></td>
+                    <th>Tipo Doc</th>
+                    <th>Identidad</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Dirección</th>
+                    <th>Actividad</th>
+                    <th>Estado</th>
+                    <th>Fecha Registro</th>
                 </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-<?php endif; ?>
+                </thead>
+                <tbody>
+                <?php foreach ($todas_empresas as $e): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($e['tipo_documento']) ?></td>
+                        <td><?= htmlspecialchars($e['numero_identidad']) ?></td>
+                        <td><?= htmlspecialchars($e['nickname']) ?></td>
+                        <td><?= htmlspecialchars($e['telefono']) ?></td>
+                        <td><?= htmlspecialchars($e['correo']) ?></td>
+                        <td><?= htmlspecialchars($e['direccion']) ?></td>
+                        <td><?= htmlspecialchars($e['actividad_economica']) ?></td>
+                        <td><?= htmlspecialchars($e['estado_habilitacion']) ?></td>
+                        <td><?= htmlspecialchars($e['fecha_registro']) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php endif; ?>
 </main>
 
 <footer>
     <p>&copy; 2025 Todos los derechos reservados - Proyecto SENA</p>
 </footer>
 
+<!-- Barra GOV.CO inferior -->
 <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
+
 </body>
 </html>

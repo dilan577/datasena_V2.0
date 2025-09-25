@@ -101,7 +101,6 @@ $conexion = null;
                 <thead style="background-color: #0078c0; color: white;">
 
                     <tr>
-                        <th>ID</th>
                         <th>Nombre del Programa</th>
                         <th>Tipo de Programa</th>
                         <th>Número de Ficha</th>
@@ -112,7 +111,6 @@ $conexion = null;
                 <tbody>
                     <?php foreach ($programas as $p): ?>
                         <tr>
-                            <td><?= htmlspecialchars($p['id']) ?></td>
                             <td><?= htmlspecialchars($p['nombre_programa']) ?></td>
                             <td><?= htmlspecialchars($p['tipo_programa']) ?></td>
                             <td><?= htmlspecialchars($p['numero_ficha']) ?></td>

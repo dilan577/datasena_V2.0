@@ -15,10 +15,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($nombre_programa) || empty($numero_ficha) || empty($tipo_programa) || empty($activacion)) {
         $mensaje = "❌ Todos los campos son obligatorios.";
     }
-    // ✅ Validación número de ficha: solo números y mayor que 0
-    elseif (!ctype_digit($numero_ficha) || (int)$numero_ficha <= 0) {
-        $mensaje = "❌ El número de ficha debe ser un número entero positivo.";
-    } else {
+    // ✅ Validación: nombre solo letras y espacios
+    elseif (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u', $nombre_programa)) {
+        $mensaje = "❌ El nombre del programa solo puede contener letras y espacios.";
+    }
+    // ✅ Validación: código solo números
+    elseif (!preg_match('/^[0-9]+$/', $numero_ficha)) {
+        $mensaje = "❌ El código del programa solo puede contener números.";
+    }
+    // ✅ Validación número de ficha mayor que 0
+    elseif ((int)$numero_ficha <= 0) {
+        $mensaje = "❌ El número de ficha debe ser mayor que 0.";
+    }
+    else {
         // ✅ Asignar duración en meses
         switch ($tipo_programa) {
             case "Tecnico":   $duracion_programa = 18; break;

@@ -6,44 +6,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("❌ Error de conexión: " . $conexion->connect_error);
     }
 
-    $nombre_programa     = trim($_POST['nombre_programa'] ?? '');
-    $numero_ficha        = trim($_POST['codigo_programa'] ?? '');
-    $tipo_programa       = trim($_POST['nivel_formacion'] ?? '');
-    $activacion          = trim($_POST['estado'] ?? '');
+    $nombre_programa = trim($_POST['nombre_programa'] ?? '');
+    $numero_ficha    = trim($_POST['codigo_programa'] ?? '');
+    $tipo_programa   = trim($_POST['nivel_formacion'] ?? '');
+    $activacion      = trim($_POST['estado'] ?? '');
 
+    // ✅ Validación campos vacíos
     if (empty($nombre_programa) || empty($numero_ficha) || empty($tipo_programa) || empty($activacion)) {
         $mensaje = "❌ Todos los campos son obligatorios.";
-    } else {
-        // Asignar duración según nivel
+    }
+    // ✅ Validación: nombre solo letras y espacios
+    elseif (!preg_match('/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/u', $nombre_programa)) {
+        $mensaje = "❌ El nombre del programa solo puede contener letras y espacios.";
+    }
+    // ✅ Validación: código solo números
+    elseif (!preg_match('/^[0-9]+$/', $numero_ficha)) {
+        $mensaje = "❌ El código del programa solo puede contener números.";
+    }
+    // ✅ Validación número de ficha mayor que 0
+    elseif ((int)$numero_ficha <= 0) {
+        $mensaje = "❌ El número de ficha debe ser mayor que 0.";
+    }
+    else {
+        // ✅ Asignar duración en meses
         switch ($tipo_programa) {
-            case "Tecnico":
-                $duracion_programa = "1.5 años";
-                break;
-            case "Tecnologo":
-                $duracion_programa = "2 años";
-                break;
-            case "Operario":
-                $duracion_programa = "6 meses";
-                break;
-            default:
-                $duracion_programa = "No especificada";
+            case "Tecnico":   $duracion_programa = 18; break;
+            case "Tecnologo": $duracion_programa = 24; break;
+            case "Operario":  $duracion_programa = 6;  break;
+            default:          $duracion_programa = 0;
         }
 
-        // Validar duplicado
-        $verificar_sql = "SELECT id FROM programas WHERE numero_ficha = ?";
-        $verificar_stmt = $conexion->prepare($verificar_sql);
-        $verificar_stmt->bind_param("s", $numero_ficha);
-        $verificar_stmt->execute();
-        $verificar_stmt->store_result();
+        // ✅ Normalizar estado (solo "activo" o "inactivo")
+        $activacion = strtolower($activacion) === "activo" ? "activo" : "inactivo";
 
-        if ($verificar_stmt->num_rows > 0) {
+        // ✅ Verificar duplicado por ficha
+        $check_ficha = $conexion->prepare("SELECT id FROM programas WHERE numero_ficha = ?");
+        $check_ficha->bind_param("s", $numero_ficha);
+        $check_ficha->execute();
+        $check_ficha->store_result();
+
+        // ✅ Verificar duplicado por nombre
+        $check_nombre = $conexion->prepare("SELECT id FROM programas WHERE nombre_programa = ?");
+        $check_nombre->bind_param("s", $nombre_programa);
+        $check_nombre->execute();
+        $check_nombre->store_result();
+
+        if ($check_ficha->num_rows > 0) {
             $mensaje = "❌ El número de ficha ya está registrado.";
+        } elseif ($check_nombre->num_rows > 0) {
+            $mensaje = "❌ El nombre del programa ya está registrado.";
         } else {
+            // ✅ Insertar programa
             $sql = "INSERT INTO programas (nombre_programa, tipo_programa, numero_ficha, duracion_programa, activacion)
                     VALUES (?, ?, ?, ?, ?)";
             $stmt = $conexion->prepare($sql);
             if ($stmt) {
-                $stmt->bind_param("sssss", $nombre_programa, $tipo_programa, $numero_ficha, $duracion_programa, $activacion);
+                $stmt->bind_param("sssis", $nombre_programa, $tipo_programa, $numero_ficha, $duracion_programa, $activacion);
                 if ($stmt->execute()) {
                     $mensaje = "✅ Programa registrado con éxito.";
                 } else {
@@ -54,12 +72,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mensaje = "❌ Error al preparar la consulta.";
             }
         }
-        $verificar_stmt->close();
+
+        $check_ficha->close();
+        $check_nombre->close();
     }
 
     $conexion->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">

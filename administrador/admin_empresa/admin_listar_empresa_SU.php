@@ -12,19 +12,24 @@ $mensaje = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buscar'])) {
     $dato = trim($_POST['dato_busqueda']);
 
-    $sql = "SELECT * FROM empresas WHERE numero_identidad = ? OR nickname = ?";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bind_param("ss", $dato, $dato);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
+    // Evita búsquedas vacías
+    if (!empty($dato)) {
+        $sql = "SELECT * FROM empresas WHERE numero_identidad = ? OR nickname = ?";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("ss", $dato, $dato);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
 
-    if ($resultado->num_rows > 0) {
-        $empresa = $resultado->fetch_assoc();
+        if ($resultado->num_rows > 0) {
+            $empresa = $resultado->fetch_assoc();
+        } else {
+            $mensaje = "⚠️ No se encontró empresa con ese número de identidad o nickname.";
+        }
+
+        $stmt->close();
     } else {
-        $mensaje = "⚠️ No se encontró empresa con ese número de identidad o nickname.";
+        $mensaje = "⚠️ Debes ingresar un dato para buscar.";
     }
-
-    $stmt->close();
 }
 
 // Mostrar todas las empresas
@@ -32,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mostrar_todos'])) {
     $sql = "SELECT * FROM empresas";
     $resultado = $conexion->query($sql);
 
-    if ($resultado->num_rows > 0) {
+    if ($resultado && $resultado->num_rows > 0) {
         while ($fila = $resultado->fetch_assoc()) {
             $todas_empresas[] = $fila;
         }
@@ -55,9 +60,9 @@ $conexion->close();
 <body>
 
     <!--barra del gov superior-->
-<nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
-  <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
-</nav>
+    <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
+        <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+    </nav>
 
     <h1>DATASENA</h1>
     <img src="../../img/logo-sena.png" alt="Logo SENA" class="img" />
@@ -77,6 +82,7 @@ $conexion->close();
             <button class="logout-btn" onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
         </form>
         <hr />
+
         <?php if (!empty($empresa)): ?>
             <div class="empresa-card">
                 <p><strong>Tipo de documento:</strong> <?= htmlspecialchars($empresa['tipo_documento']) ?></p>
@@ -86,6 +92,8 @@ $conexion->close();
                 <p><strong>Correo:</strong> <?= htmlspecialchars($empresa['correo']) ?></p>
                 <p><strong>Dirección:</strong> <?= htmlspecialchars($empresa['direccion']) ?></p>
                 <p><strong>Actividad Económica:</strong> <?= htmlspecialchars($empresa['actividad_economica']) ?></p>
+                <p><strong>Estado:</strong> <?= $empresa['estado'] == 1 ? 'Activo' : 'Inactivo' ?></p>
+                <p><strong>Fecha Registro:</strong> <?= htmlspecialchars($empresa['fecha_registro']) ?></p>
             </div>
         <?php endif; ?>
 
@@ -116,7 +124,7 @@ $conexion->close();
                                 <td><?= htmlspecialchars($e['correo']) ?></td>
                                 <td><?= htmlspecialchars($e['direccion']) ?></td>
                                 <td><?= htmlspecialchars($e['actividad_economica']) ?></td>
-                                <td><?= htmlspecialchars($e['estado']) ?></td>
+                                <td><?= $e['estado'] == 1 ? 'Activo' : 'Inactivo' ?></td>
                                 <td><?= htmlspecialchars($e['fecha_registro']) ?></td>
                             </tr>
                         <?php endforeach; ?>
@@ -131,8 +139,8 @@ $conexion->close();
     </footer>
 
     <!--barra del gov inferior-->
-<nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
-  <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
-</nav>
+    <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
+        <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+    </nav>
 </body>
 </html>

@@ -72,7 +72,7 @@ $conexion->close();
                 <p><strong>Correo electrónico:</strong> <?= htmlspecialchars($empresa['correo']) ?></p>
                 <p><strong>Dirección:</strong> <?= htmlspecialchars($empresa['direccion']) ?></p>
                 <p><strong>Actividad económica:</strong> <?= htmlspecialchars($empresa['actividad_economica']) ?></p>
-                <p><strong>Estado:</strong> <?= htmlspecialchars($empresa['estado']) ?></p>
+                <p><strong>Estado:</strong> <?= $empresa['estado'] == 1 ? 'Activo' : 'Inactivo' ?></p>
                 <p><strong>Fecha de registro:</strong> <?= htmlspecialchars($empresa['fecha_registro']) ?></p>
             </div>
         <?php endif; ?>
@@ -103,7 +103,7 @@ $conexion->close();
                                 <td><?= htmlspecialchars($e['correo']) ?></td>
                                 <td><?= htmlspecialchars($e['direccion']) ?></td>
                                 <td><?= htmlspecialchars($e['actividad_economica']) ?></td>
-                                <td><?= htmlspecialchars($e['estado']) ?></td>
+                                <td><?= $e['estado'] == 1 ? 'Activo' : 'Inactivo' ?></td>
                                 <td><?= htmlspecialchars($e['fecha_registro']) ?></td>
                             </tr>
                         <?php endforeach; ?>

@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Recorremos los campos para validar que no vengan vacíos
     foreach ($campos as $campo) {
         $datos[$campo] = trim($_POST[$campo] ?? '');
-        if (empty($datos[$campo])) {
+        if ($datos[$campo] === '' || $datos[$campo] === null) {
             $errores[$campo] = "Este campo es obligatorio.";
         }
     }

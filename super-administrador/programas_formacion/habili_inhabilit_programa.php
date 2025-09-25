@@ -11,24 +11,37 @@ $mensaje_tipo = "";
 
 // Actualizar estado
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_estado'])) {
-    $numero_ficha = $_POST['numero_ficha'] ?? '';
-    $nuevo_estado = $_POST['nuevo_estado'] ?? '';
+    $numero_ficha = trim($_POST['numero_ficha'] ?? '');
+    $nuevo_estado = trim($_POST['nuevo_estado'] ?? '');
 
     if (!empty($numero_ficha) && !empty($nuevo_estado)) {
         $stmt = $conexion->prepare("UPDATE programas SET activacion = ? WHERE numero_ficha = ?");
         $stmt->bind_param("ss", $nuevo_estado, $numero_ficha);
-        if ($stmt->execute() && $stmt->affected_rows > 0) {
+        $stmt->execute();
+
+        if ($stmt->affected_rows > 0) {
             $mensaje = "✅ Estado actualizado correctamente.";
             $mensaje_tipo = "exito";
         } else {
-            $mensaje = "⚠️ No se encontró el programa o no hubo cambios.";
-            $mensaje_tipo = "error";
+            $mensaje = "ℹ️ No hubo cambios (el estado ya era el mismo).";
+            $mensaje_tipo = "info";
         }
         $stmt->close();
+
+        // Traer el programa actualizado
+        $stmt = $conexion->prepare("SELECT * FROM programas WHERE numero_ficha = ?");
+        $stmt->bind_param("s", $numero_ficha);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $programa = $result->fetch_assoc();
+        $stmt->close();
+    } else {
+        $mensaje = "❌ Debe ingresar ficha y seleccionar un estado.";
+        $mensaje_tipo = "error";
     }
 }
 
-// Prioridad absoluta: si se presionó "Mostrar Todos"
+// Mostrar todos
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['mostrar_todos'])) {
     $sql = "SELECT * FROM programas";
     $result = $conexion->query($sql);
@@ -41,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['mostrar_todos'])) {
         $mensaje_tipo = "info";
     }
 }
-// Si NO se presionó "Mostrar Todos" y hay búsqueda individual
+// Búsqueda individual (solo si no hubo POST de actualización)
 elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && !isset($_GET['mostrar_todos']) && !empty($_GET['numero_ficha'])) {
     $numero_ficha = $_GET['numero_ficha'];
     $stmt = $conexion->prepare("SELECT * FROM programas WHERE numero_ficha = ?");
@@ -122,9 +135,9 @@ $conexion->close();
                     </div>
                 </form>
             </section>
-            <?php elseif (!empty($_GET['numero_ficha']) && !$programa && !isset($_GET['mostrar_todos'])): ?>
-                <p class="mensaje error">❌ Programa no encontrado.</p>
-            <?php elseif (empty($todos) && !isset($_GET['mostrar_todos'])): ?>
+        <?php elseif (!empty($_GET['numero_ficha']) && !$programa && !isset($_POST['actualizar_estado'])): ?>
+            <p class="mensaje error">❌ Programa no encontrado.</p>
+        <?php elseif (empty($todos) && !isset($_GET['mostrar_todos'])): ?>
             <p class="mensaje info">🧭 Ingrese un número de ficha o use "Mostrar Todos".</p>
         <?php endif; ?>
 

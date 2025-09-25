@@ -85,7 +85,6 @@ $conexion = null;
         <!-- Mostrar un programa en vertical -->
         <?php $p = $programas[0]; ?>
         <div class="programa-card">
-            <p><strong>ID:</strong> <?= htmlspecialchars($p['id']) ?></p>
             <p><strong>Nombre del Programa:</strong> <?= htmlspecialchars($p['nombre_programa']) ?></p>
             <p><strong>Tipo de Programa:</strong> <?= htmlspecialchars($p['tipo_programa']) ?></p>
             <p><strong>Número de Ficha:</strong> <?= htmlspecialchars($p['numero_ficha']) ?></p>
@@ -96,10 +95,9 @@ $conexion = null;
         <!-- Mostrar varios programas en tabla -->
         <h3>📋 Programas Registrados</h3>
         <div class="user-list" style="overflow-x:auto;">
-            <table border="1" cellpadding="6" cellspacing="0">
-                <thead>
+            <table border="1" cellpadding="6" cellspacing="0" style="width:100%; background:#fff; border-collapse: collapse;">
+                <thead style="background-color: #0078c0; color: white;">
                     <tr>
-                        <th>ID</th>
                         <th>Nombre del Programa</th>
                         <th>Tipo de Programa</th>
                         <th>Número de Ficha</th>
@@ -110,7 +108,6 @@ $conexion = null;
                 <tbody>
                     <?php foreach ($programas as $p): ?>
                         <tr>
-                            <td><?= htmlspecialchars($p['id']) ?></td>
                             <td><?= htmlspecialchars($p['nombre_programa']) ?></td>
                             <td><?= htmlspecialchars($p['tipo_programa']) ?></td>
                             <td><?= htmlspecialchars($p['numero_ficha']) ?></td>
