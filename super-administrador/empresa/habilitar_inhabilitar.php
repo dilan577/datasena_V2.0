@@ -67,10 +67,12 @@ $conexion->close();
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
 <h1>DATASENA</h1>
-<img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
+
 <header>
     <h1>Panel de Habilitación de Empresas</h1>
+    <img src="../../img/logo-sena.png" alt="Logo SENA">
 </header>
+
 <main>
     <div class="search-box">
         <form method="get">
@@ -117,11 +119,10 @@ $conexion->close();
     <?php elseif (empty($todas_empresas)): ?>
         <p class="mensaje info">🧭 Ingrese un número de documento para buscar una empresa.</p>
     <?php endif; ?>
-    <!-- Mostrar tabla si hay empresas -->
-    <!-- Mostrar tabla si hay empresas -->
+
 <?php if (!empty($todas_empresas)): ?>
     <h2>📋 Todas las Empresas</h2>
-    <div style="overflow-x: auto; margin-bottom: 50px;"> <!-- 👈 le damos aire abajo -->
+    <div> <!-- 👈 le damos aire abajo -->
         <table border="1" cellpadding="6" cellspacing="0" style="width:100%; background: #fff;">
             <thead style="background-color: #0078c0; color: white;">
             <tr>

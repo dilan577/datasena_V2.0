@@ -112,7 +112,6 @@ html {
   border-radius: 0.313rem;
 }
 
-
 @media (max-width: 991px) {
   .barra-superior-govco {
     justify-content: center;
@@ -122,19 +121,21 @@ html {
 
 /* Encabezado */
 header {
-    text-align: center;
-    font-size: 2em;
-    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;      /* PARA QUE EL LOGO SE POSICIONE RELATIVO AL HEADER */
+    padding: 15px 50px;      /* DEJA ESPACIO A LA DERECHA PARA EL LOGO */
+    font-size: 1.2em;
     font-weight: bold;
     color: var(--black);
 }
 
-/* Logo central */
-/* Logo */
-img.img{
-    position: absolute;
-    top: 50px;
-    right: 25px;
+img.img {
+    position: absolute;      /* POSICIÓN ABSOLUTA RELATIVA AL HEADER */
+    top: 50%;               /* CENTRAR VERTICAL */
+    right: 20px;            /* SEPARACIÓN A LA DERECHA */
+    transform: translateY(-50%); /* CENTRAR EXACTO */
     width: 80px;
     height: auto;
 }
@@ -142,7 +143,7 @@ img.img{
 /* Contenedor del contenido */
 .form-container {
     max-width: 800px;
-    background-color:var(--white);
+    background-color: var(--white);
     margin: 40px auto;
     padding: 30px;
     border-radius: 12px;
