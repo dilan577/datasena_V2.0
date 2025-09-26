@@ -1,16 +1,21 @@
 <?php
 // -------------------------
-// Inicialización de variables
+// Inicialización de variables (evita warnings)
 // -------------------------
-$mensaje_exito = false;   // Bandera para mostrar si el diagnóstico fue guardado con éxito
-$recomendaciones = [];    // Arreglo para almacenar recomendaciones de programas
-$errores = [];            // Lista de errores de validación
+$empresa = $nit = $sector = $tamano = $ubicacion = "";
+$empleados = $contrataciones = $contrato_frec = $tiene_proceso = "";
+$perfiles_def = $publicacion = $aprendices = $programa_apoyo = "";
+$perfiles_neces = [];
+$infraestructura = $apoyo_selec = $beneficios = "";
+
+$mensaje_exito = false;
+$recomendaciones = [];
+$errores = [];
 
 // -------------------------
-// Validación del método POST
+// Procesar POST
 // -------------------------
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Captura de datos enviados desde el formulario
     $empresa          = trim($_POST['empresa'] ?? '');
     $nit              = trim($_POST['nit'] ?? '');
     $sector           = $_POST['sector'] ?? '';
@@ -28,43 +33,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $infraestructura  = $_POST['infraestructura'] ?? '';
     $apoyo_selec      = $_POST['apoyo_seleccion'] ?? '';
     $beneficios       = $_POST['beneficios'] ?? '';
-
-    // -------------------------
-    // Validaciones
-    // -------------------------
-    if ($empresa === '') $errores[] = "El nombre de la empresa es obligatorio.";
-    if ($nit === '' || !preg_match("/^[0-9]+$/", $nit)) $errores[] = "El NIT es obligatorio y debe ser numérico.";
-    if ($ubicacion === '') $errores[] = "La ubicación es obligatoria.";
-    if ($empleados === '' || !filter_var($empleados, FILTER_VALIDATE_INT) || $empleados < 0) 
-        $errores[] = "El número de empleados debe ser un entero positivo.";
-    if ($contrataciones === '' || !filter_var($contrataciones, FILTER_VALIDATE_INT) || $contrataciones < 0) 
-        $errores[] = "El número de contrataciones debe ser un entero positivo.";
-    if (empty($perfiles_neces)) $errores[] = "Debe seleccionar al menos un perfil necesario.";
-
-    // -------------------------
-    // Si no hay errores, simulamos guardado
-    // -------------------------
-    if (empty($errores)) {
-        // Aquí debería ir la consulta SQL para guardar el diagnóstico en la base de datos
-        // Ejemplo:
-        /*
-        $sql = "INSERT INTO diagnosticos (...) VALUES (...)";
-        mysqli_query($conn, $sql);
-        */
-
-        $mensaje_exito = true;
-
-        // Simulación de programas recomendados según perfiles
-        foreach ($perfiles_neces as $perfil) {
-            $recomendaciones[] = [
-                'nombre_programa'   => "Programa de " . htmlspecialchars($perfil),
-                'tipo_programa'     => "Técnico",
-                'duracion_programa' => "12 meses"
-            ];
-        }
-    }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
