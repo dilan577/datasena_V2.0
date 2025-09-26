@@ -140,10 +140,10 @@ header {
     font-weight: bold;
 }
 
-img.img {
-    width: 40px;    /* tamaño más pequeño */
+.logo-sena {
+    width: 15%;    /* tamaño más pequeño */
     height: auto;
-    margin: 0;      /* sin margen para que quede pegado arriba */
+    margin: 0;  /* sin margen para que quede pegado arriba */
 }
 
 

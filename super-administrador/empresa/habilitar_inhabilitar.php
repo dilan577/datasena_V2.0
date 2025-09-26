@@ -70,7 +70,7 @@ $conexion->close();
 
 <header>
     <h1>Panel de Habilitación de Empresas</h1>
-    <img src="../../img/logo-sena.png" alt="Logo SENA">
+    <img src="../../img/logo-sena.png"  class="logo-sena" alt="Logo SENA">
 </header>
 
 <main>
