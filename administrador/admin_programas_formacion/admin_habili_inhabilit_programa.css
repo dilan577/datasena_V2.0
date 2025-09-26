@@ -165,6 +165,51 @@ label {
     border-radius: 6px;
     font-size: 1em;
 }
+.tabla-contenedor {
+    max-width: 95%;                
+    margin: 20px auto;             
+    padding: 20px;                 
+    background: #f4f6f9;           /* gris claro igual al formulario */
+    border-radius: 12px;           
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+    text-align: center;            
+}
+
+.tabla-contenedor h2 {
+    margin-bottom: 15px;
+    color: #000;                   /* título negro */
+    font-size: 20px;
+}
+
+.tabla-contenedor table {
+    margin: 0 auto;                
+    width: 90%;                    
+    border-collapse: collapse;     
+    background: #ffffff;           
+    border-radius: 8px;            
+    overflow: hidden;              
+}
+
+.tabla-contenedor th {
+    background: #0074b8;           /* azul SENA */
+    color: #ffffff;                
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.tabla-contenedor td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd; 
+    color: #333;                   
+}
+
+/* efecto hover en filas */
+.tabla-contenedor tr:hover {
+    background: #e6f2ff;           /* azul muy suave al pasar el mouse */
+    transition: 0.3s;
+}
 
 .search-box button{
     background-color: var(--secundary-1-900);
