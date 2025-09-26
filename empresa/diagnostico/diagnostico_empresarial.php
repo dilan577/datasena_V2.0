@@ -4,19 +4,20 @@
 // -------------------------
 $mensaje_exito = false;   // Bandera para mostrar si el diagnóstico fue guardado con éxito
 $recomendaciones = [];    // Arreglo para almacenar recomendaciones de programas
+$errores = [];            // Lista de errores de validación
 
 // -------------------------
 // Validación del método POST
 // -------------------------
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Captura de datos enviados desde el formulario (operador ?? asegura valores por defecto si no se envían)
-    $empresa          = $_POST['empresa'] ?? '';
-    $nit              = $_POST['nit'] ?? '';
+    // Captura de datos enviados desde el formulario
+    $empresa          = trim($_POST['empresa'] ?? '');
+    $nit              = trim($_POST['nit'] ?? '');
     $sector           = $_POST['sector'] ?? '';
     $tamano           = $_POST['tamano'] ?? '';
-    $ubicacion        = $_POST['ubicacion'] ?? '';
-    $empleados        = $_POST['empleados'] ?? 0;
-    $contrataciones   = $_POST['contrataciones'] ?? 0;
+    $ubicacion        = trim($_POST['ubicacion'] ?? '');
+    $empleados        = $_POST['empleados'] ?? '';
+    $contrataciones   = $_POST['contrataciones'] ?? '';
     $contrato_frec    = $_POST['contrato_frecuente'] ?? '';
     $tiene_proceso    = $_POST['tiene_proceso'] ?? '';
     $perfiles_def     = $_POST['perfiles_definidos'] ?? '';
@@ -29,25 +30,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $beneficios       = $_POST['beneficios'] ?? '';
 
     // -------------------------
-    // Simulación de guardado en BD
+    // Validaciones
     // -------------------------
-    // Aquí debería ir la consulta SQL para guardar el diagnóstico en la base de datos
-    // Ejemplo:
-    /*
-    $sql = "INSERT INTO diagnosticos (...) VALUES (...)";
-    mysqli_query($conn, $sql);
-    */
+    if ($empresa === '') $errores[] = "El nombre de la empresa es obligatorio.";
+    if ($nit === '' || !preg_match("/^[0-9]+$/", $nit)) $errores[] = "El NIT es obligatorio y debe ser numérico.";
+    if ($ubicacion === '') $errores[] = "La ubicación es obligatoria.";
+    if ($empleados === '' || !filter_var($empleados, FILTER_VALIDATE_INT) || $empleados < 0) 
+        $errores[] = "El número de empleados debe ser un entero positivo.";
+    if ($contrataciones === '' || !filter_var($contrataciones, FILTER_VALIDATE_INT) || $contrataciones < 0) 
+        $errores[] = "El número de contrataciones debe ser un entero positivo.";
+    if (empty($perfiles_neces)) $errores[] = "Debe seleccionar al menos un perfil necesario.";
 
-    // Marcamos como exitoso el registro
-    $mensaje_exito = true;
+    // -------------------------
+    // Si no hay errores, simulamos guardado
+    // -------------------------
+    if (empty($errores)) {
+        // Aquí debería ir la consulta SQL para guardar el diagnóstico en la base de datos
+        // Ejemplo:
+        /*
+        $sql = "INSERT INTO diagnosticos (...) VALUES (...)";
+        mysqli_query($conn, $sql);
+        */
 
-    // -------------------------
-    // Simulación de programas recomendados según los perfiles seleccionados
-    // -------------------------
-    if (!empty($perfiles_neces)) {
+        $mensaje_exito = true;
+
+        // Simulación de programas recomendados según perfiles
         foreach ($perfiles_neces as $perfil) {
             $recomendaciones[] = [
-                'nombre_programa'   => "Programa de $perfil",
+                'nombre_programa'   => "Programa de " . htmlspecialchars($perfil),
                 'tipo_programa'     => "Técnico",
                 'duracion_programa' => "12 meses"
             ];
@@ -60,12 +70,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8" />
     <title>Diagnóstico Empresarial</title>
-    <!-- Icono de pestaña -->
     <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon" />
-    <!-- Archivo de estilos personalizados -->
     <link rel="stylesheet" href="diagnostico_empresarial.css" />
-
-    <!-- Librería Select2 para selects avanzados -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
@@ -75,167 +81,180 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
 
-    <!-- Encabezado principal -->
-    <header>DATASENA</header>
-    <img src="../../img/logo-sena.png" class="logo-img" alt="Logo SENA" />
+<header>DATASENA</header>
+<img src="../../img/logo-sena.png" class="logo-img" alt="Logo SENA" />
 
-    <main class="form-container">
-        <h2>Formulario de Diagnóstico Empresarial</h2>
+<main class="form-container">
+    <h2>Formulario de Diagnóstico Empresarial</h2>
 
-        <!-- Mensaje de éxito al guardar -->
-        <?php if ($mensaje_exito): ?>
-            <div class="toast-success">✅ Diagnóstico guardado correctamente</div>
-            <!-- Script para ocultar el mensaje después de 4 segundos -->
-            <script>setTimeout(() => document.querySelector(".toast-success")?.remove(), 4000);</script>
-        <?php endif; ?>
-
-        <!-- Formulario principal -->
-        <form method="POST" class="form-grid">
-            <!-- Campos del formulario -->
-            <label>Nombre Empresa:</label>
-            <input type="text" name="empresa" required />
-
-            <label>NIT:</label>
-            <input type="text" name="nit" required />
-
-            <label>Sector:</label>
-            <select name="sector" required>
-                <option>Agroindustria</option>
-                <option>Comercio</option>
-                <option>Tecnología</option>
-                <option>Servicios</option>
-                <option>Otros</option>
-            </select>
-
-            <label>Tamaño:</label>
-            <select name="tamano" required>
-                <option>Microempresa (1-10)</option>
-                <option>Pequeña empresa (11-50)</option>
-                <option>Mediana empresa (51-200)</option>
-                <option>Grande (>200)</option>
-            </select>
-
-            <label>Ubicación:</label>
-            <input type="text" name="ubicacion" required />
-
-            <label>Total empleados:</label>
-            <input type="number" name="empleados" required />
-
-            <label>Contrataciones último año:</label>
-            <input type="number" name="contrataciones" required />
-
-            <label>Tipo contrato frecuente:</label>
-            <select name="contrato_frecuente" required>
-                <option>Fijo</option>
-                <option>Indefinido</option>
-                <option>Prestación de servicios</option>
-                <option>Aprendices SENA</option>
-            </select>
-
-            <label>¿Tiene proceso de selección formal?</label>
-            <select name="tiene_proceso" required><option>Sí</option><option>No</option></select>
-
-            <label>¿Perfiles definidos?</label>
-            <select name="perfiles_definidos" required><option>Sí</option><option>No</option></select>
-
-            <label>Medios publicación vacantes:</label>
-            <select name="publicacion" required>
-                <option>Redes sociales</option>
-                <option>Servicio Público de Empleo</option>
-                <option>Referidos</option>
-                <option>Otras</option>
-            </select>
-
-            <label>¿Vincular aprendices?</label>
-            <select name="aprendices" required><option>Sí</option><option>No</option></select>
-
-            <label>¿Programa de apoyo?</label>
-            <select name="programa_apoyo" required><option>Sí</option><option>No</option></select>
-
-            <!-- Select con opción múltiple y Select2 -->
-            <label>Perfiles necesarios:</label>
-            <select name="perfiles_necesarios[]" multiple required style="width: 100%;">
-                <!-- Opciones de perfiles -->
-                <option value="Programación">Programación</option>
-                <option value="Textiles">Textiles</option>
-                <option value="Mecánica">Mecánica</option>
-                <option value="Logística">Logística</option>
-                <option value="Contabilidad">Contabilidad</option>
-                <option value="Electricidad">Electricidad</option>
-                <option value="Electrónica">Electrónica</option>
-                <option value="Gestión empresarial">Gestión empresarial</option>
-                <option value="Diseño gráfico">Diseño gráfico</option>
-                <option value="Soporte técnico">Soporte técnico</option>
-                <option value="Seguridad y salud en el trabajo">Seguridad y salud en el trabajo</option>
-                <option value="Administración">Administración</option>
-                <option value="Ambiental">Ambiental</option>
-                <option value="Telecomunicaciones">Telecomunicaciones</option>
-                <option value="Desarrollo de software">Desarrollo de software</option>
-                <option value="Redes de datos">Redes de datos</option>
-                <option value="Diseño de productos">Diseño de productos</option>
-                <option value="Gestión documental">Gestión documental</option>
-                <option value="Servicio al cliente">Servicio al cliente</option>
-                <option value="Diseño industrial">Diseño industrial</option>
-                <option value="Producción multimedia">Producción multimedia</option>
-                <option value="Diseño web">Diseño web</option>
-                <option value="Tecnología en automatización">Tecnología en automatización</option>
-            </select>
-
-            <label>¿Tiene infraestructura para formar?</label>
-            <select name="infraestructura" required><option>Sí</option><option>No</option></select>
-
-            <label>¿Requiere apoyo en selección?</label>
-            <select name="apoyo_seleccion" required><option>Sí</option><option>No</option></select>
-
-            <label>¿Desea orientación tributaria?</label>
-            <select name="beneficios" required><option>Sí</option><option>No</option></select>
-
-            <!-- Botones -->
-            <button type="submit" class="btn">Enviar Diagnóstico</button>
-            <button type="button" class="btn" onclick="window.location.href='../empresa_menu.html'">↩️Regresar</button>
-        </form>
-    </main>
-
-    <!-- Bloque de resultados -->
-    <?php if (!empty($recomendaciones)): ?>
-        <div class="form-container">
-            <h3>🎓 Programas recomendados:</h3>
+    <!-- Mostrar errores si existen -->
+    <?php if (!empty($errores)): ?>
+        <div class="toast-error">
+            ❌ Se encontraron errores:
             <ul>
-                <?php foreach ($recomendaciones as $prog): ?>
-                    <li><strong><?= htmlspecialchars($prog['nombre_programa']) ?></strong> - 
-                        <?= htmlspecialchars($prog['tipo_programa']) ?> 
-                        (<?= htmlspecialchars($prog['duracion_programa']) ?>)
-                    </li>
+                <?php foreach ($errores as $error): ?>
+                    <li><?= htmlspecialchars($error) ?></li>
                 <?php endforeach; ?>
             </ul>
         </div>
-    <?php elseif ($mensaje_exito): ?>
-        <!-- Si se guardó el diagnóstico pero no hubo coincidencias -->
-        <p class="mensaje info">ℹ️ No se encontraron programas que coincidan con los perfiles ingresados.<p>
     <?php endif; ?>
 
-    <!-- Pie de página -->
-    <footer>
-        <a>&copy; Todos los derechos reservados al SENA</a>
-    </footer>
+    <!-- Mensaje de éxito al guardar -->
+    <?php if ($mensaje_exito): ?>
+        <div class="toast-success">✅ Diagnóstico guardado correctamente</div>
+        <script>setTimeout(() => document.querySelector(".toast-success")?.remove(), 4000);</script>
+    <?php endif; ?>
 
-    <!-- Barra inferior GOV.CO -->
-    <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
-        <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
-    </nav>
+    <!-- Formulario principal -->
+    <form method="POST" class="form-grid">
+        <label>Nombre Empresa:</label>
+        <input type="text" name="empresa" value="<?= htmlspecialchars($empresa ?? '') ?>" required />
 
-    <!-- jQuery y Select2 para mejorar el select múltiple -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script>
-      // Activación de Select2 en el campo de perfiles
-      $(document).ready(function() {
-        $('select[name="perfiles_necesarios[]"]').select2({
-          placeholder: "Selecciona los perfiles necesarios",
-          allowClear: true,
-          width: '100%'
-        });
-      });
-    </script>
+        <label>NIT:</label>
+        <input type="text" name="nit" value="<?= htmlspecialchars($nit ?? '') ?>" required />
+
+        <label>Sector:</label>
+        <select name="sector" required>
+            <option <?= ($sector=="Agroindustria"?"selected":"") ?>>Agroindustria</option>
+            <option <?= ($sector=="Comercio"?"selected":"") ?>>Comercio</option>
+            <option <?= ($sector=="Tecnología"?"selected":"") ?>>Tecnología</option>
+            <option <?= ($sector=="Servicios"?"selected":"") ?>>Servicios</option>
+            <option <?= ($sector=="Otros"?"selected":"") ?>>Otros</option>
+        </select>
+
+        <label>Tamaño:</label>
+        <select name="tamano" required>
+            <option <?= ($tamano=="Microempresa (1-10)"?"selected":"") ?>>Microempresa (1-10)</option>
+            <option <?= ($tamano=="Pequeña empresa (11-50)"?"selected":"") ?>>Pequeña empresa (11-50)</option>
+            <option <?= ($tamano=="Mediana empresa (51-200)"?"selected":"") ?>>Mediana empresa (51-200)</option>
+            <option <?= ($tamano=="Grande (>200)"?"selected":"") ?>>Grande (>200)</option>
+        </select>
+
+        <label>Ubicación:</label>
+        <input type="text" name="ubicacion" value="<?= htmlspecialchars($ubicacion ?? '') ?>" required />
+
+        <label>Total empleados:</label>
+        <input type="number" name="empleados" value="<?= htmlspecialchars($empleados ?? '') ?>" required />
+
+        <label>Contrataciones último año:</label>
+        <input type="number" name="contrataciones" value="<?= htmlspecialchars($contrataciones ?? '') ?>" required />
+
+        <label>Tipo contrato frecuente:</label>
+        <select name="contrato_frecuente" required>
+            <option <?= ($contrato_frec=="Fijo"?"selected":"") ?>>Fijo</option>
+            <option <?= ($contrato_frec=="Indefinido"?"selected":"") ?>>Indefinido</option>
+            <option <?= ($contrato_frec=="Prestación de servicios"?"selected":"") ?>>Prestación de servicios</option>
+            <option <?= ($contrato_frec=="Aprendices SENA"?"selected":"") ?>>Aprendices SENA</option>
+        </select>
+
+        <label>¿Tiene proceso de selección formal?</label>
+        <select name="tiene_proceso" required>
+            <option <?= ($tiene_proceso=="Sí"?"selected":"") ?>>Sí</option>
+            <option <?= ($tiene_proceso=="No"?"selected":"") ?>>No</option>
+        </select>
+
+        <label>¿Perfiles definidos?</label>
+        <select name="perfiles_definidos" required>
+            <option <?= ($perfiles_def=="Sí"?"selected":"") ?>>Sí</option>
+            <option <?= ($perfiles_def=="No"?"selected":"") ?>>No</option>
+        </select>
+
+        <label>Medios publicación vacantes:</label>
+        <select name="publicacion" required>
+            <option <?= ($publicacion=="Redes sociales"?"selected":"") ?>>Redes sociales</option>
+            <option <?= ($publicacion=="Servicio Público de Empleo"?"selected":"") ?>>Servicio Público de Empleo</option>
+            <option <?= ($publicacion=="Referidos"?"selected":"") ?>>Referidos</option>
+            <option <?= ($publicacion=="Otras"?"selected":"") ?>>Otras</option>
+        </select>
+
+        <label>¿Vincular aprendices?</label>
+        <select name="aprendices" required>
+            <option <?= ($aprendices=="Sí"?"selected":"") ?>>Sí</option>
+            <option <?= ($aprendices=="No"?"selected":"") ?>>No</option>
+        </select>
+
+        <label>¿Programa de apoyo?</label>
+        <select name="programa_apoyo" required>
+            <option <?= ($programa_apoyo=="Sí"?"selected":"") ?>>Sí</option>
+            <option <?= ($programa_apoyo=="No"?"selected":"") ?>>No</option>
+        </select>
+
+        <!-- Select múltiple con Select2 -->
+        <label>Perfiles necesarios:</label>
+        <select name="perfiles_necesarios[]" multiple required style="width: 100%;">
+            <?php 
+            $opciones = ["Programación","Textiles","Mecánica","Logística","Contabilidad","Electricidad",
+                        "Electrónica","Gestión empresarial","Diseño gráfico","Soporte técnico",
+                        "Seguridad y salud en el trabajo","Administración","Ambiental","Telecomunicaciones",
+                        "Desarrollo de software","Redes de datos","Diseño de productos","Gestión documental",
+                        "Servicio al cliente","Diseño industrial","Producción multimedia","Diseño web",
+                        "Tecnología en automatización"];
+            foreach ($opciones as $op): ?>
+                <option value="<?= htmlspecialchars($op) ?>" <?= in_array($op,$perfiles_neces)?"selected":"" ?>>
+                    <?= htmlspecialchars($op) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+
+        <label>¿Tiene infraestructura para formar?</label>
+        <select name="infraestructura" required>
+            <option <?= ($infraestructura=="Sí"?"selected":"") ?>>Sí</option>
+            <option <?= ($infraestructura=="No"?"selected":"") ?>>No</option>
+        </select>
+
+        <label>¿Requiere apoyo en selección?</label>
+        <select name="apoyo_seleccion" required>
+            <option <?= ($apoyo_selec=="Sí"?"selected":"") ?>>Sí</option>
+            <option <?= ($apoyo_selec=="No"?"selected":"") ?>>No</option>
+        </select>
+
+        <label>¿Desea orientación tributaria?</label>
+        <select name="beneficios" required>
+            <option <?= ($beneficios=="Sí"?"selected":"") ?>>Sí</option>
+            <option <?= ($beneficios=="No"?"selected":"") ?>>No</option>
+        </select>
+
+        <!-- Botones -->
+        <button type="submit" class="btn">Enviar Diagnóstico</button>
+        <button type="button" class="btn" onclick="window.location.href='../empresa_menu.html'">↩️Regresar</button>
+    </form>
+</main>
+
+<!-- Bloque de resultados -->
+<?php if (!empty($recomendaciones)): ?>
+    <div class="form-container">
+        <h3>🎓 Programas recomendados:</h3>
+        <ul>
+            <?php foreach ($recomendaciones as $prog): ?>
+                <li><strong><?= $prog['nombre_programa'] ?></strong> - 
+                    <?= $prog['tipo_programa'] ?> 
+                    (<?= $prog['duracion_programa'] ?>)
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php elseif ($mensaje_exito): ?>
+    <p class="mensaje info">ℹ️ No se encontraron programas que coincidan con los perfiles ingresados.<p>
+<?php endif; ?>
+
+<footer>
+    <a>&copy; Todos los derechos reservados al SENA</a>
+</footer>
+
+<nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
+    <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+</nav>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('select[name="perfiles_necesarios[]"]').select2({
+      placeholder: "Selecciona los perfiles necesarios",
+      allowClear: true,
+      width: '100%'
+    });
+  });
+</script>
 </body>
 </html>
