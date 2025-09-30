@@ -80,19 +80,24 @@ body {
 }
 
 header {
-    font-size: 2.4rem;
-    text-align: center;
-    padding: 20px;
-    color: var(--black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;      /* PARA QUE EL LOGO SE POSICIONE RELATIVO AL HEADER */
+    padding: 15px 50px;      /* DEJA ESPACIO A LA DERECHA PARA EL LOGO */
+    font-size: 1.2em;
     font-weight: bold;
+    color: var(--black);
 }
 
-.logo-img {
-    position: absolute;
-    top: 50px;
-    right: 10px;
+img.img {
+    position: absolute;      /* POSICIÓN ABSOLUTA RELATIVA AL HEADER */
+    top: 50%;               /* CENTRAR VERTICAL */
+    right: 20px;            /* SEPARACIÓN A LA DERECHA */
+    transform: translateY(-50%); /* CENTRAR EXACTO */
     width: 80px;
-    height: auto
+    height: auto;
+    margin-top: -6.5rem;
 }
 
 .form-container {

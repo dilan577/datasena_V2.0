@@ -85,9 +85,10 @@ $conexion->close();
 </nav>
 
     <h1>DATASENA</h1>
-    <img src="../../img/logo-sena.png" alt="Logo SENA" class="img" />
-
+    
     <header>
+        <img src="../../img/logo-sena.png" alt="Logo SENA" class="img" />
+
         <h1>Panel de Habilitación de Programas</h1>
     </header>
 

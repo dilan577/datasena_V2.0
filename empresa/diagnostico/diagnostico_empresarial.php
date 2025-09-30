@@ -52,8 +52,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
 
-<header>DATASENA</header>
-<img src="../../img/logo-sena.png" class="logo-img" alt="Logo SENA" />
+<header>DATASENA    
+    <img src="../../img/logo-sena.png" class="logo-img" alt="Logo SENA" />  
+</header>
+
 
 <main class="form-container">
     <h2>Formulario de Diagnóstico Empresarial</h2>

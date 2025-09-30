@@ -131,13 +131,28 @@ h1{
 
 /* Logo central */
 /* Logo */
-img.img{
-    position: absolute;
-    top: 50px;
-    right: 25px;
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;      /* PARA QUE EL LOGO SE POSICIONE RELATIVO AL HEADER */
+    padding: 15px 50px;      /* DEJA ESPACIO A LA DERECHA PARA EL LOGO */
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--black);
+}
+
+img.img {
+    position: absolute;      /* POSICIÓN ABSOLUTA RELATIVA AL HEADER */
+    top: 50%;               /* CENTRAR VERTICAL */
+    right: 20px;            /* SEPARACIÓN A LA DERECHA */
+    transform: translateY(-50%); /* CENTRAR EXACTO */
     width: 80px;
     height: auto;
+    margin-top: -1rem;
 }
+
+
 
 /* Contenedor del contenido */
 .form-container {

@@ -54,8 +54,11 @@ $conexion = null;
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
 
-    <header>DATASENA</header>
-    <img src="../../img/logo-sena.png" alt="Logo SENA" class="img" />
+    <header>
+        <h1>DATASENA</h1>
+        <img src="../../img/logo-sena.png" alt="Logo SENA" class="img" />
+
+    </header>
 
     <div class="form-container">
         <h2>Listar Programas</h2>

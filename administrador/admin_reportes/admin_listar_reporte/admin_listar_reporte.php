@@ -78,8 +78,9 @@ $conexion->close();
     <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
     </nav>
 
-    <header>DATASENA <br> Ver Reportes</header>
-    <img src="../../../img/logo-sena.png" alt="Logo SENA" class="img" />
+    <header>Ver Reportes
+        <img src="../../../img/logo-sena.png" alt="Logo SENA" class="img" />
+    </header>
 
     <div class="form-container">
         <h2>📁 Buscar Reportes por Tipo</h2>
