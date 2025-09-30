@@ -124,38 +124,41 @@ $conexion->close();
 
 <?php if (!empty($todas_empresas)): ?>
     <h2>📋 Todas las Empresas</h2>
-    <div> <!-- 👈 le damos aire abajo -->
-        <table border="1" cellpadding="6" cellspacing="0" style="width:100%; background: #fff;">
-            <thead style="background-color: #0078c0; color: white;">
-            <tr>
-                <th>Tipo Doc</th>
-                <th>Identidad</th>
-                <th>Nombre</th>
-                <th>Teléfono</th>
-                <th>Correo</th>
-                <th>Dirección</th>
-                <th>Actividad</th>
-                <th>Estado</th>
-                <th>Fecha Registro</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach ($todas_empresas as $e): ?>
-                <tr>
-                    <td><?= htmlspecialchars($e['tipo_documento']) ?></td>
-                    <td><?= htmlspecialchars($e['numero_identidad']) ?></td>
-                    <td><?= htmlspecialchars($e['nickname']) ?></td>
-                    <td><?= htmlspecialchars($e['telefono']) ?></td>
-                    <td><?= htmlspecialchars($e['correo']) ?></td>
-                    <td><?= htmlspecialchars($e['direccion']) ?></td>
-                    <td><?= htmlspecialchars($e['actividad_economica']) ?></td>
-                    <td><?= htmlspecialchars($e['estado_habilitacion']) ?></td>
-                    <td><?= htmlspecialchars($e['fecha_registro']) ?></td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+        <div class="tabla-contenedor">
+            <div style="overflow-x:auto;">
+                <table border="1" cellpadding="6" cellspacing="0" style="width:100%; background: #fff;">
+                    <thead style="background-color: #0078c0; color: white;">
+                    <tr>
+                        <th>Tipo Doc</th>
+                        <th>Identidad</th>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Dirección</th>
+                        <th>Actividad</th>
+                        <th>Estado</th>
+                        <th>Fecha Registro</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($todas_empresas as $e): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($e['tipo_documento']) ?></td>
+                            <td><?= htmlspecialchars($e['numero_identidad']) ?></td>
+                            <td><?= htmlspecialchars($e['nickname']) ?></td>
+                            <td><?= htmlspecialchars($e['telefono']) ?></td>
+                            <td><?= htmlspecialchars($e['correo']) ?></td>
+                            <td><?= htmlspecialchars($e['direccion']) ?></td>
+                            <td><?= htmlspecialchars($e['actividad_economica']) ?></td>
+                            <td><?= htmlspecialchars($e['estado_habilitacion']) ?></td>
+                            <td><?= htmlspecialchars($e['fecha_registro']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>    
+
 <?php endif; ?>
 
 </main>

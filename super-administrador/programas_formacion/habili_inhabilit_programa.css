@@ -160,6 +160,16 @@ label {
     padding: 20px;
 }
 
+.tabla-contenedor {
+    max-width: 95%;                
+    margin: 20px auto;             
+    padding: 20px;                 
+    background: #f4f6f9;           /* gris claro igual al formulario */
+    border-radius: 12px;           
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+    text-align: center;            
+}
+
 .search-box input {
     padding: 10px;
     width: 280px;

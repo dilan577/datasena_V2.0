@@ -143,30 +143,32 @@ $conexion->close();
 
         <?php if (!empty($todos)): ?>
             <h3>📋 Programas Registrados</h3>
-            <div style="overflow-x:auto;">
-                <table border="1" cellpadding="6" cellspacing="0" style="width:100%; background:#fff; border-collapse: collapse;">
-                    <thead style="background-color: #0078c0; color: white;">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Tipo</th>
-                            <th>Número Ficha</th>
-                            <th>Duración</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($todos as $p): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($p['nombre_programa']) ?></td>
-                                <td><?= htmlspecialchars($p['tipo_programa']) ?></td>
-                                <td><?= htmlspecialchars($p['numero_ficha']) ?></td>
-                                <td><?= htmlspecialchars($p['duracion_programa']) ?></td>
-                                <td><?= $p['activacion'] === 'activo' ? '✅ Habilitado' : '❌ Inhabilitado' ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
+              <div class="tabla-contenedor">
+                    <div style="overflow-x:auto;">
+                        <table border="1" cellpadding="6" cellspacing="0" style="width:100%; background:#fff; border-collapse: collapse;">
+                            <thead style="background-color: #0078c0; color: white;">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Tipo</th>
+                                    <th>Número Ficha</th>
+                                    <th>Duración</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($todos as $p): ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($p['nombre_programa']) ?></td>
+                                        <td><?= htmlspecialchars($p['tipo_programa']) ?></td>
+                                        <td><?= htmlspecialchars($p['numero_ficha']) ?></td>
+                                        <td><?= htmlspecialchars($p['duracion_programa']) ?></td>
+                                        <td><?= $p['activacion'] === 'activo' ? '✅ Habilitado' : '❌ Inhabilitado' ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
         <?php endif; ?>
     </main>
 
