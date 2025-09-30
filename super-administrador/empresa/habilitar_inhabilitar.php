@@ -66,11 +66,13 @@ $conexion->close();
 <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
+
 <h1>DATASENA</h1>
 
-<header>
+<header class="encabezado">
+    <img src="../../img/logo-sena.png"  class="img" alt="img">
     <h1>Panel de Habilitación de Empresas</h1>
-    <img src="../../img/logo-sena.png"  class="logo-sena" alt="Logo SENA">
+    
 </header>
 
 <main>
