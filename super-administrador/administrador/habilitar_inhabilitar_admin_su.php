@@ -114,36 +114,38 @@ $conexion->close();
         <!-- Todos -->
         <?php if (!empty($todos)): ?>
             <h3>📋 Lista de Administradores Registrados</h3>
-            <div style="overflow-x:auto;">
-                <table border="1" cellpadding="6" cellspacing="0" style="width:100%; border-collapse:collapse; background: #fff;">
-                    <thead style="background-color: #0078c0; color: white;">
-                        <tr>
-                            <th>Tipo Doc.</th>
-                            <th>Número de Documento</th>
-                            <th>Nombres</th>
-                            <th>Apellidos</th>
-                            <th>Correo Electrónico</th>
-                            <th>Nickname</th>
-                            <th>Estado</th>
-                            <th>Fecha de Creación</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($todos as $a): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($a['tipo_documento']) ?></td>
-                                <td><?= htmlspecialchars($a['numero_documento']) ?></td>
-                                <td><?= htmlspecialchars($a['nombres']) ?></td>
-                                <td><?= htmlspecialchars($a['apellidos']) ?></td>
-                                <td><?= htmlspecialchars($a['correo_electronico']) ?></td>
-                                <td><?= htmlspecialchars($a['nickname']) ?></td>
-                                <td><?= htmlspecialchars($a['estado_habilitacion']) ?></td>
-                                <td><?= htmlspecialchars($a['fecha_creacion']) ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
+                <div class="tabla-contenedor">
+                    <div style="overflow-x:auto;">
+                        <table border="1" cellpadding="6" cellspacing="0" style="width:100%; border-collapse:collapse; background: #fff;">
+                            <thead style="background-color: #0078c0; color: white;">
+                                <tr>
+                                    <th>Tipo Doc.</th>
+                                    <th>Número de Documento</th>
+                                    <th>Nombres</th>
+                                    <th>Apellidos</th>
+                                    <th>Correo Electrónico</th>
+                                    <th>Nickname</th>
+                                    <th>Estado</th>
+                                    <th>Fecha de Creación</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($todos as $a): ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($a['tipo_documento']) ?></td>
+                                        <td><?= htmlspecialchars($a['numero_documento']) ?></td>
+                                        <td><?= htmlspecialchars($a['nombres']) ?></td>
+                                        <td><?= htmlspecialchars($a['apellidos']) ?></td>
+                                        <td><?= htmlspecialchars($a['correo_electronico']) ?></td>
+                                        <td><?= htmlspecialchars($a['nickname']) ?></td>
+                                        <td><?= htmlspecialchars($a['estado_habilitacion']) ?></td>
+                                        <td><?= htmlspecialchars($a['fecha_creacion']) ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
         <?php endif; ?>
 
     </main>

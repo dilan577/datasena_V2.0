@@ -167,6 +167,16 @@ label {
     font-size: 1em;
 }
 
+.tabla-contenedor {
+    max-width: 95%;                
+    margin: 20px auto;             
+    padding: 20px;                 
+    background: #f4f6f9;           /* gris claro igual al formulario */
+    border-radius: 12px;           
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+    text-align: center;            
+}
+
 .search-box button {
     background-color: var(--secundary-2-700);
     color: var(--white);
