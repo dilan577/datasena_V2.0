@@ -78,7 +78,8 @@ $conexion->close();
     <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
     </nav>
 
-    <header>Ver Reportes
+    <header>
+        <h1>Ver Reportes</h1>
         <img src="../../../img/logo-sena.png" alt="Logo SENA" class="img" />
     </header>
 
