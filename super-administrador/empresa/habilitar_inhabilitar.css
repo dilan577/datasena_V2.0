@@ -73,14 +73,14 @@
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
+    min-height: 100%;       /* en vez de height fijo */
     overflow-x: hidden;
     font-family: Arial, sans-serif;
     background: var(--gray-900);
     color: var(--black);
-    display: flex;
-    flex-direction: column;
+    
 }
+
 
 /* Fuente iconografica */
 @font-face {
@@ -128,22 +128,26 @@ h1 {
 }
 
 /* Encabezado con flex para alinear texto y logo */
+
 header {
     display: flex;
-    justify-content: space-between; /* texto a la izquierda, logo a la derecha */
-    align-items: flex-start;        /* alinea elementos arriba */
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 20px;
-    color: var(--black);
-    font-size: 24px;
+    justify-content: center;
+    align-items: center;
+    position: relative;      /* PARA QUE EL LOGO SE POSICIONE RELATIVO AL HEADER */
+    padding: 15px 50px;      /* DEJA ESPACIO A LA DERECHA PARA EL LOGO */
+    font-size: 1.2em;
     font-weight: bold;
+    color: var(--black);
 }
 
-.logo-sena {
-    width: 15%;    /* tamaño más pequeño */
+img.img {
+    position: absolute;      /* POSICIÓN ABSOLUTA RELATIVA AL HEADER */
+    top: 50%;               /* CENTRAR VERTICAL */
+    right: 20px;            /* SEPARACIÓN A LA DERECHA */
+    transform: translateY(-50%); /* CENTRAR EXACTO */
+    width: 80px;
     height: auto;
-    margin: 0;  /* sin margen para que quede pegado arriba */
+    margin-top: -6.5rem;
 }
 
 

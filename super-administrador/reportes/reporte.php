@@ -43,12 +43,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
     <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
     </nav>
-
+    
     <h1>DATASENA</h1>
-    <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
+    
 
     <div class="contenedor">
-        <header>📋 Reportar Empresa, Administrador o Programa</header>
+        <header>
+            <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
+            📋 Reportar Empresa, Administrador o Programa</header>
 
         <form method="POST">
             <label>Tipo de reporte:</label>
