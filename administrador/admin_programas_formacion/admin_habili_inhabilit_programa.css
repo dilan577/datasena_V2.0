@@ -191,7 +191,8 @@ label {
     border-collapse: collapse;     
     background: #ffffff;           
     border-radius: 8px;            
-    overflow: hidden;              
+    overflow: hidden;   
+    border: var(--gray-500);          
 }
 
 .tabla-contenedor th {
