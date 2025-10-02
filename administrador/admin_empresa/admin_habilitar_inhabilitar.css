@@ -81,6 +81,9 @@ html, body {
     display: flex;
     flex-direction: column;
 }
+*, *::before, *::after {
+    box-sizing: border-box;
+}
 
 /* Fuente iconografica */
 @font-face {
@@ -114,10 +117,12 @@ html {
 
 
 @media (max-width: 991px) {
-  .barra-superior-govco {
-    justify-content: center;
-    padding: 0;
-  }
+    .barra-superior-govco {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
 }
 
 h1 {
@@ -129,28 +134,29 @@ h1 {
 
 
 /* Encabezado */
+/* Encabezado */
 header {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;      /* PARA QUE EL LOGO SE POSICIONE RELATIVO AL HEADER */
-    padding: 15px 50px;      /* DEJA ESPACIO A LA DERECHA PARA EL LOGO */
+    position: relative;
+    padding: 20px 50px;
     font-size: 1.2em;
     font-weight: bold;
     color: var(--black);
+    /* Sin cambios de color ni fondo — se mantiene como está */
 }
 
 img.img {
-    position: absolute;      /* POSICIÓN ABSOLUTA RELATIVA AL HEADER */
-    top: 50%;               /* CENTRAR VERTICAL */
-    right: 20px;            /* SEPARACIÓN A LA DERECHA */
-    transform: translateY(-50%); /* CENTRAR EXACTO */
-    width: 80px;
+    position: absolute;
+    top: -29%;
+    right: 20px;
+    transform: translateY(-50%);
+    width: 65px;
     height: auto;
-    margin-top: -6.5rem;
+    z-index: 10;
+    /* Elimina cualquier margin-top o top fijo */
 }
-
-
 
 label {
     color: #0d3c77;
@@ -161,8 +167,8 @@ label {
 
 /* Búsqueda */
 .search-box {
-    text-align: center;
-    padding: 20px;
+   text-align: center;
+    padding: 30px 20px;  /* Aumenta el padding superior e inferior */
 }
 
 .search-box input {
@@ -183,19 +189,43 @@ label {
     text-align: center;            
 }
 
-.search-box button {
-    background-color: var(--secundary-2-700);
-    color: var(--white);
-    padding: 10px 20px;
+/* Botones de búsqueda */
+.search-box button,
+.botones button {
+    background-color: var(--secundary-2-700); /* Morado oscuro */
+    color: white;
+    padding: 10px 16px;
     border: none;
-    border-radius: 6px;
-    margin-left: 10px;
-    cursor: pointer;
+    border-radius: 8px;
     font-weight: bold;
+    cursor: pointer;
+    margin: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1em;
 }
 
-.search-box button:hover {
-    background-color: var(--secundary-2-400);
+.search-box button:hover,
+.botones button:hover {
+    background-color: var(--secundary-2-400); /* Morado más claro */
+}
+
+/* Iconos dentro de los botones (opcional si usas fuente iconográfica) */
+.search-box button::before,
+.botones button::before {
+    content: ""; /* O usa un ícono de la fuente govco-font si tienes */
+    font-size: 0.9em;
+    margin-right: 4px;
+}
+
+/* Estilo específico para "Regresar" */
+.botones button:last-child {
+    background-color: var(--secundary-2-700);
+}
+
+.botones button:last-child::before {
+    content: "↩️"; /* O usa el ícono de regresar */
 }
 
 /* Detalles */
@@ -280,4 +310,127 @@ footer {
   margin-top: auto;
   font-size: 0.9rem;
   box-shadow: var(--shadow);
+}
+/* ===== RESPONSIVO: TABLET Y MÓVIL ===== */
+
+/* Tablet y móvil grande */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+        margin-top: 15px;
+    }
+
+    header {
+        padding: 12px 40px;
+        font-size: 1.1em;
+    }
+
+    img.img {
+        top: 20px;
+        right: 15px;
+        width: 70px;
+    }
+
+    .search-box input {
+        width: 240px;
+    }
+
+    .tabla-contenedor,
+    .empresa-detalle {
+        padding: 15px;
+        margin: 15px auto;
+    }
+
+    .botones button,
+    .search-box button {
+        padding: 8px 16px;
+        font-size: 0.95em;
+    }
+}
+
+/* Móvil pequeño (Galaxy S24, iPhone SE, etc.) */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
+        margin-top: 20px;
+    }
+
+    header {
+        padding: 10px 30px;
+        font-size: 1em;
+    }
+
+    img.img {
+        top: -18%;
+        right: 12px;
+        width: 65px;
+        transform: translateY(-50%);
+    }   
+
+    .search-box {
+        padding: 15px 10px;
+    }
+
+    .search-box input {
+        width: 90%;
+        max-width: 220px;
+        box-sizing: border-box;
+    }
+
+    .search-box button {
+        margin-left: 8px;
+        padding: 8px 14px;
+        font-size: 0.9em;
+    }
+
+    .tabla-contenedor,
+    .empresa-detalle {
+        padding: 12px;
+        margin: 12px auto;
+        font-size: 0.95em;
+    }
+
+    .form-estado select {
+        width: 90%;
+        max-width: 220px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .botones {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .botones button {
+        width: 90%;
+        max-width: 220px;
+        padding: 10px;
+        margin: 0;
+    }
+
+    footer {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Móvil muy pequeño */
+@media (max-width: 360px) {
+    img.img {
+        top: 50%;
+        right: 10px;
+        width: 60px;
+        transform: translateY(-50%);
+    }
+
+    header {
+        padding: 8px 20px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
 }

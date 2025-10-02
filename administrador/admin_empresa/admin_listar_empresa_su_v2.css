@@ -81,6 +81,9 @@ html, body {
     flex-direction: column;
     background: var(--gray-900); 
 }
+*, *::before, *::after {
+    box-sizing: border-box;
+}
 
 /* Fuente iconografica */
 @font-face {
@@ -149,7 +152,7 @@ img.img {
     transform: translateY(-50%); /* CENTRAR EXACTO */
     width: 80px;
     height: auto;
-    margin-top: -1rem;
+    /* margin-top: -1rem; */
 }
 
 
@@ -250,3 +253,125 @@ footer {
   box-shadow: var(--shadow);
 }
 
+/* ===== RESPONSIVO: TABLET Y MÓVIL ===== */
+
+/* Tablet y móvil grande */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+        margin-top: 15px;
+    }
+
+    header {
+        padding: 12px 40px;
+        font-size: 1.1em;
+    }
+
+    img.img {
+        top: 45px;
+        right: 15px;
+        width: 65px;
+    }
+
+    .search-box input {
+        width: 240px;
+        padding: 10px;
+    }
+
+    .tabla-contenedor {
+        padding: 15px;
+        margin: 15px auto;
+    }
+
+    .empresa-detalle {
+        padding: 15px;
+        margin: 15px auto;
+    }
+
+    .botones button,
+    .search-box button {
+        padding: 8px 16px;
+        font-size: 0.95em;
+    }
+}
+
+/* Móvil pequeño (Galaxy S24, iPhone SE, etc.) */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
+        margin-top: 10px;
+    }
+
+    header {
+        padding: 10px 30px;
+        font-size: 1em;
+    }
+
+    img.img {
+        top: 42px;
+        right: 12px;
+        width: 65px;
+    }
+
+    .search-box {
+        padding: 15px 10px;
+    }
+
+    .search-box input {
+        width: 90%;
+        max-width: 220px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .search-box button {
+        margin-left: 8px;
+        padding: 8px 14px;
+        font-size: 0.9em;
+    }
+
+    .tabla-contenedor,
+    .empresa-detalle {
+        padding: 12px;
+        margin: 12px auto;
+        font-size: 0.95em;
+    }
+
+    .form-estado select {
+        width: 90%;
+        max-width: 220px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .botones {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .botones button {
+        width: 90%;
+        max-width: 220px;
+        padding: 10px;
+        margin: 0;
+    }
+}
+
+/* Móvil muy pequeño */
+@media (max-width: 360px) {
+    img.img {
+        top: 40px;
+        right: 10px;
+        width: 65px;
+    }
+
+    header {
+        padding: 8px 20px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+}

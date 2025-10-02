@@ -78,6 +78,10 @@ body {
     background: var(--gray-900); 
     background-attachment: fixed;
     color: var(--black);
+    /* --- Añade estas 3 líneas --- */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 /* Encabezado */
@@ -93,7 +97,7 @@ img.img{
     position: absolute;
     top: 50px;
     right: 10px;
-    width: 80px;
+    width: 65px;
     height: auto;
 }
 
@@ -259,5 +263,112 @@ html {
     background-color: white;   /* Fondo blanco en cada celda */
     border: 1px solid #ddd;    /* Bordes de cada cuadro */
 }
+/* ===== RESPONSIVO: TABLET Y MÓVIL ===== */
 
+/* Tablet */
+@media (max-width: 768px) {
+    /* Ajustar contenedor del formulario */
+    .form-container {
+        margin: 70px 15px;
+        padding: 20px;
+    }
+
+    /* Logo: bajar un poco más en móvil para no solapar */
+    img.img {
+        top: 60px;
+        right: 10px;
+        width: 70px;
+    }
+
+    /* Títulos más pequeños */
+    header {
+        font-size: 2rem;
+        padding: 15px;
+    }
+
+    h1, h2, h3 {
+        font-size: 2rem;
+    }
+
+    /* Botones finales: apilar en móvil */
+    .botones-finales {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .botones-finales .logout-btn {
+        width: 100%;
+        max-width: 250px;
+    }
+}
+
+/* Móvil pequeño (Galaxy S24, iPhone SE, etc.) */
+@media (max-width: 480px) {
+    /* Ajustar más el formulario */
+    .form-container {
+        margin: 60px 10px;
+        padding: 15px;
+    }
+
+    /* Logo */
+    img.img {
+        top: 55px;
+        width: 65px;
+    }
+
+    /* Encabezado */
+    header {
+        font-size: 1.8rem;
+        padding: 12px;
+    }
+
+    h1, h2, h3 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    /* Inputs y selects: asegurar ancho */
+    input[type="text"],
+    input[type="email"],
+    input[type="search"],
+    select {
+        font-size: 16px; /* Evita zoom en iOS */
+    }
+
+    /* Tabla: hacer scroll horizontal si es necesario */
+    .tabla-contenedor {
+        overflow-x: auto;
+        padding: 10px;
+        margin-top: 15px;
+    }
+
+    .tabla-programas {
+        min-width: 500px; /* Previene colapso en móviles */
+        font-size: 14px;
+    }
+
+    .tabla-programas thead th,
+    .tabla-programas tbody td {
+        padding: 8px;
+    }
+
+    
+}
+
+/* Móvil muy pequeño */
+@media (max-width: 360px) {
+    img.img {
+        top: 50px;
+        width: 65px;
+    }
+
+    header {
+        font-size: 1.6rem;
+        padding: 10px;
+    }
+
+    h1, h2, h3 {
+        font-size: 1.6rem;
+    }
+}
     

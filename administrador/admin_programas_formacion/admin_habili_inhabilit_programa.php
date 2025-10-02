@@ -72,6 +72,7 @@ $conexion->close();
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Habilitar/Inhabilitar Programa</title>
     <link rel="stylesheet" href="../../administrador/admin_programas_formacion/admin_habili_inhabilit_programa.css" />
     <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon" />

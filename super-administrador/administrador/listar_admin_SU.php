@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buscar_todos'])) {
                 correo_electronico,     -- Email
                 estado_habilitacion,    -- Estado de habilitación
                 fecha_creacion          -- Fecha de creación
-            FROM admin";                -- No tiene WHERE, trae todos los registros
+            FROM admin";               
     
     // Ejecuta la consulta
     $resultado = $conexion->query($sql);

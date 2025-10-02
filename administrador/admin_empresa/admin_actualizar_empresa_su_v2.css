@@ -71,29 +71,35 @@
 
 }
 /* Fondo general */
+/* === CAMBIO 1: body === */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     background: var(--gray-900); 
     background-attachment: fixed;
     color: var(--black);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
-
 /* Encabezado */
 header {
     font-size: 2.4rem;
     text-align: center;
     padding: 20px;
     color: var(--black);
+    position: relative; /* ← ¡ESTO ES CLAVE! */
 }
 
 /* Logo */
-img.img{
+/* Logo - Ajustado para que quede un poco más abajo, como en la captura */
+img.img {
     position: absolute;
-    top: 50px;
-    right: 10px;
+    top: 70px;   /* Ajusta este valor si necesitas más o menos espacio */
+    right: 15px; /* Un poco más alejado del borde derecho */
     width: 80px;
     height: auto;
+    z-index: 10; /* Para asegurar que no se pierda detrás de otros elementos */
 }
 
 /* Contenedor del formulario */
@@ -171,15 +177,22 @@ select {
     margin-top: 30px;
 }
 
+
+
+/* === CAMBIO 2: footer === */
 footer {
   color: var(--white);
   font-weight: bold;
   background-color: var(--primary-900);
   text-align: center;
   padding: 12px;
-  margin-top: auto;
   font-size: 0.9rem;
   box-shadow: var(--shadow);
+  position: sticky;
+  bottom: 0;
+  z-index: 1000;
+  width: 100%;
+  margin-top: auto;
 }
 
 /* Fuente iconografica */
@@ -231,4 +244,68 @@ html {
 .botones-finales .logout-btn {
     padding: 10px 25px;
     font-size: 16px;
+}
+/* ... (todo tu código anterior permanece igual hasta aquí) ... */
+
+/* ===== RESPONSIVIDAD ADICIONAL PARA DISPOSITIVOS MÓVILES ===== */
+
+/* Pantallas pequeñas (móviles en vertical, como Galaxy S24 ~390px) */
+@media (max-width: 480px) {
+  /* Ajustar el contenedor del formulario para que no se sienta apretado */
+  .form-container {
+    margin: 70px 15px; /* Reducir márgenes laterales */
+    padding: 20px;     /* Un poco menos de padding */
+  }
+
+  /* Hacer que el formulario sea de una sola columna en móviles */
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  /* Ajustar el logo para que no interfiera en móviles */
+  img.img {
+    width: 65px;
+    top: 50px;
+    right: 10px;
+  }
+
+  /* Ajustar tamaños de fuente para títulos en móviles */
+  h1 {
+    font-size: var(--font-size-h2); /* 2.4rem → más legible */
+  }
+
+  h2 {
+    font-size: var(--font-size-h3); /* 2.0rem */
+  }
+
+  /* Centrar y ajustar botones finales */
+  .botones-finales {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .botones-finales .logout-btn {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  /* Footer más compacto */
+  footer {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Pantallas medianas (tablets y móviles grandes) */
+@media (max-width: 768px) {
+  header {
+    font-size: 2rem;
+    padding: 15px;
+  }
+
+  .form-container {
+    margin: 80px 10px;
+  }
 }
