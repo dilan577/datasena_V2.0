@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dato_busqueda']) && !
                 estado_habilitacion,    -- Estado: Activo o Inactivo
                 fecha_creacion          -- Fecha de registro
             FROM admin
-            WHERE numero_documento = ? OR nickname = ?";  -- Busca por documento O nickname
+            WHERE numero_documento = ? OR nickname = ?";
     
     // Prepara la consulta para prevenir inyección SQL
     $stmt = $conexion->prepare($sql);
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buscar_todos'])) {
                 correo_electronico,     -- Email
                 estado_habilitacion,    -- Estado de habilitación
                 fecha_creacion          -- Fecha de creación
-            FROM admin";                -- No tiene WHERE, trae todos los registros
+            FROM admin";                
     
     // Ejecuta la consulta directamente (sin parámetros, no necesita prepared statement)
     $resultado = $conexion->query($sql);
