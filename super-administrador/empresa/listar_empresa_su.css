@@ -142,15 +142,15 @@ img.img {
 
 /* Contenedor del contenido */
 .form-container {
-    max-width: 800px;
+    max-width: 900px;        /* un poco más ancho */
     background-color: var(--white);
-    margin: 40px auto;
-    padding: 30px;
+    margin: 10px auto;       /* menos espacio arriba/abajo */
+    padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 0 12px var(--secundary-2-950);
-    flex-grow: 1;
-    width: 90%;
+    box-shadow: 0 0 8px var(--secundary-2-950);
+    width: 95%;              /* casi todo el ancho */
 }
+
 
 /* Título */
 h2 {

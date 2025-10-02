@@ -98,13 +98,16 @@ img.img{
 
 /* Contenedor del formulario */
 .form-container {
-    background-color: rgba(255, 255, 255, 0.85);
-    padding: 30px;
+    max-width: 900px;        /* un poco más ancho */
+    background-color: var(--white);
+    margin: 10px auto;       /* menos espacio arriba/abajo */
+    padding: 20px;
     border-radius: 12px;
-    max-width: 900px;
-    margin: 90px auto;
-    box-shadow: 0 0 15px var(--secundary-2-950);
+    box-shadow: 0 0 8px var(--secundary-2-950);
+    width: 95%;              /* casi todo el ancho */
 }
+
+
 
 h1, h2, h3{
     text-align: center;
@@ -170,6 +173,7 @@ select {
     margin-top: 30px;
 }
 
+/* Footer */
 footer {
   color: var(--white);
   font-weight: bold;
@@ -187,6 +191,17 @@ footer {
   src: url("../assets/icons/fonts/govco-font-icons.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
+}
+/* Reset básico */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    background: var(--gray-900); 
 }
 
 html {
