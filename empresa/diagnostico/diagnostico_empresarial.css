@@ -85,20 +85,21 @@ header {
     align-items: center;
     position: relative;      /* PARA QUE EL LOGO SE POSICIONE RELATIVO AL HEADER */
     padding: 15px 50px;      /* DEJA ESPACIO A LA DERECHA PARA EL LOGO */
-    font-size: 1.2em;
+    font-size: 2.4rem;
     font-weight: bold;
     color: var(--black);
 }
 
 img.img {
-    position: absolute;      /* POSICIÓN ABSOLUTA RELATIVA AL HEADER */
-    top: 50%;               /* CENTRAR VERTICAL */
-    right: 20px;            /* SEPARACIÓN A LA DERECHA */
-    transform: translateY(-50%); /* CENTRAR EXACTO */
+    position: absolute;      
+    top: 50%;               
+    right: 20px;            
+    transform: translateY(-50%); 
     width: 80px;
     height: auto;
     margin-top: -6.5rem;
 }
+
 
 .form-container {
     background: var(--white);
@@ -226,4 +227,12 @@ html {
     min-height: 45px;
     padding: 4px;
     font-size: 1em;
+}
+.logo-img {
+    position: absolute; /* Posición absoluta dentro del header */
+    top: 10px;          /* Distancia desde arriba */
+    right: 20px;        /* Distancia desde la derecha */
+    width: 80px;        /* Tamaño pequeño */
+    height: auto;       /* Mantener proporción */
+    margin: 0;          /* Quitamos margen innecesario */
 }
