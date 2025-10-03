@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+// Validar que esté logueado y que sea superadministrador
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'super') {
+    header("Location: ../inicio_sesion.html");
+    exit();
+}
 $mensaje = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conexion = new mysqli("localhost", "root", "", "datasena_db");

@@ -1,4 +1,11 @@
-    <?php
+<?php
+session_start();
+
+// Validar que esté logueado y que sea superadministrador
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'super') {
+    header("Location: ../inicio_sesion.html");
+    exit();
+}
     // Conexión a la base de datos
     $conexion = new mysqli("localhost", "root", "", "datasenn_db");
 

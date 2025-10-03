@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+// Validar que esté logueado y que sea superadministrador
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
+    header("Location: ../inicio_sesion.html");
+    exit();
+}   
 // Establece la codificación de caracteres en UTF-8 para garantizar el correcto manejo de tildes, ñ y otros caracteres especiales.
 header('Content-Type: text/html; charset=utf-8');
 

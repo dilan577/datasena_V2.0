@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+// Validar que esté logueado y que sea superadministrador
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'empresa') {
+    header("Location: ../inicio_sesion.html");
+    exit();
+}
 // -------------------------
 // Inicialización de variables (evita warnings)
 // -------------------------

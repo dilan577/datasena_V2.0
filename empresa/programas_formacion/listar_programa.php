@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+// Validar que esté logueado y que sea superadministrador
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'empresa') {
+    header("Location: ../inicio_sesion.html");
+    exit();
+}   
 try {
     $conexion = new PDO("mysql:host=localhost;dbname=datasena_db", "root", "");
     $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

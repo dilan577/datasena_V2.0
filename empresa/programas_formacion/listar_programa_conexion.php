@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    header("Location: inicio_sesion.html");
+    exit();
+}
 // Establecemos la cabecera de respuesta como JSON.
 // Esto indica al cliente (navegador, app, etc.) que el contenido es un objeto JSON.
 header('Content-Type: application/json');

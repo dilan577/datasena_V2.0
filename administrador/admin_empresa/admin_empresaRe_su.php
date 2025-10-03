@@ -1,4 +1,14 @@
 <?php
+// ================= VALIDACIÓN DE SESIÓN =================
+session_start();
+
+// Validar que esté logueado y que sea superadministrador
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
+    header("Location: ../inicio_sesion.html");
+    exit();
+}   
+// ========================================================
+
 $errores = [];
 $datos = [];
 
@@ -16,7 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if ($datos[$campo] === '' || $datos[$campo] === null) {
             $errores[$campo] = "Este campo es obligatorio.";
         }
-
     }
 
     // Capturamos las contraseñas aparte
@@ -135,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body>
 <!--barra del gov superior-->
 <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
-  <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+  <a href="https://www.gov.co/ " target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
 <h1>DATASENA</h1>
 <img src="../../img/logo-sena.png" alt="Logo SENA" class="img" />
@@ -249,8 +258,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <footer>&copy; 2025 Todos los derechos reservados - Proyecto SENA</footer>
 <!--barra del gov inferior-->
 <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
-  <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+  <a href="https://www.gov.co/ " target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
 </body>
 </html>
-                        

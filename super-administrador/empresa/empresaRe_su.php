@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+// Validar que esté logueado y que sea superadministrador
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'super') {
+    header("Location: ../inicio_sesion.html");
+    exit();
+}
 // Inicializamos arrays para almacenar errores y los datos enviados por el formulario.
 $errores = [];
 $datos = [];

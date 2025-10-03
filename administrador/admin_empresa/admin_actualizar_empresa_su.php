@@ -1,9 +1,20 @@
 <?php
+// ================= VALIDACIÓN DE SESIÓN =================
+session_start();
+
+// Validar que esté logueado y que sea superadministrador
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
+    header("Location: ../inicio_sesion.html");
+    exit();
+}   
+// ========================================================
+
 // Conexión
 $conexion = new mysqli("localhost", "root", "", "datasena_db");
 if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
 }
+
 // Variables
 $empresas = [
     'id' => '',
@@ -18,7 +29,8 @@ $empresas = [
 ];
 $todas_empresas = [];
 $mensaje = "";
-$numero_error = ""; // nuevo para mensajes de duplicado
+$numero_error = "";
+
 // Actualizar empresa
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && !empty($_POST['id'])) {
     $errores = [];
@@ -32,14 +44,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && !empty($_POS
     $actividad_economica = trim($_POST['actividad_economica']);
 
     // ================= VALIDACIONES =================
-
-    // Tipo de documento válido
     $tipos_validos = ['NIT','Registro Mercantil','Registro Cámara de Comercio Extranjera','Pasaporte Empresarial','RUT','Licencia Municipal'];
     if (!in_array($tipo_documento, $tipos_validos)) {
         $errores[] = "Tipo de documento inválido.";
     }
 
-    // Número de identidad: solo dígitos, entre 8 y 12, no negativo
     if (!preg_match('/^\d{8,12}$/', $numero_identidad)) {
         $errores[] = "Número de identidad debe tener entre 8 y 12 dígitos.";
     }
@@ -47,12 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && !empty($_POS
         $errores[] = "Número de identidad no puede ser negativo.";
     }
 
-    // Nombre empresa: letras, números y espacios
     if (!preg_match('/^[A-Za-zÁÉÍÓÚñáéíóú0-9 ]+$/u', $nickname)) {
         $errores[] = "El nombre de la empresa solo puede contener letras, números y espacios.";
     }
 
-    // Teléfono: exactamente 10 dígitos y positivo
     if (!preg_match('/^\d{10}$/', $telefono)) {
         $errores[] = "El teléfono debe tener exactamente 10 dígitos.";
     }
@@ -60,24 +67,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && !empty($_POS
         $errores[] = "El teléfono no puede ser negativo.";
     }
 
-    // Correo válido
     if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
         $errores[] = "Correo electrónico inválido.";
     }
 
-    // Dirección: mínimo 5 caracteres
     if (empty($direccion) || strlen($direccion) < 5) {
         $errores[] = "La dirección debe tener al menos 5 caracteres.";
     }
 
-    // Actividad económica: letras, números, comas y puntos
     if (!preg_match('/^[A-Za-zÁÉÍÓÚñáéíóú0-9 ,.]+$/u', $actividad_economica)) {
         $errores[] = "Actividad económica contiene caracteres inválidos.";
     }
 
     // ================= VALIDAR DUPLICADOS =================
     if (empty($errores)) {
-        // Validar numero_identidad duplicado
         $check = $conexion->prepare("SELECT id FROM empresas WHERE numero_identidad = ? AND id != ?");
         $check->bind_param("si", $numero_identidad, $id);
         $check->execute();
@@ -87,7 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && !empty($_POS
         }
         $check->close();
 
-        // Validar nickname duplicado
         $check = $conexion->prepare("SELECT id FROM empresas WHERE nickname = ? AND id != ?");
         $check->bind_param("si", $nickname, $id);
         $check->execute();
@@ -97,7 +99,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && !empty($_POS
         }
         $check->close();
 
-        // Validar correo duplicado
         $check = $conexion->prepare("SELECT id FROM empresas WHERE correo = ? AND id != ?");
         $check->bind_param("si", $correo, $id);
         $check->execute();
@@ -107,7 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && !empty($_POS
         }
         $check->close();
 
-        // Validar teléfono duplicado
         $check = $conexion->prepare("SELECT id FROM empresas WHERE telefono = ? AND id != ?");
         $check->bind_param("si", $telefono, $id);
         $check->execute();
@@ -148,6 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buscar'])) {
     }
     $stmt->close();
 }
+
 // Mostrar todas
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mostrar_todos'])) {
     $sql = "SELECT * FROM empresas";
@@ -174,7 +175,7 @@ $conexion->close();
 <body>
 <!--barra del gov superior-->
 <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
-  <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+  <a href="https://www.gov.co/ " target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
 <h1>DATASENA</h1>
 <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
@@ -281,7 +282,7 @@ $conexion->close();
 </footer>
 <!--barra del gov inferior-->
 <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
-  <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+  <a href="https://www.gov.co/ " target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
 </nav>
 <script>
 (function(){
