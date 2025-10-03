@@ -3,17 +3,21 @@ $conexion = new mysqli("localhost", "root", "", "datasena_db");
 if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
 }
+
 $empresas = null;
 $todas_empresas = [];
 $mensaje = "";
 $mensaje_tipo = "";
+
 // Actualizar estado
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_estado'])) {
     $cc = $_POST['cc'] ?? '';
     $nuevo_estado = $_POST['nuevo_estado'] ?? '';
+    
     if (!empty($cc) && !empty($nuevo_estado)) {
         $stmt = $conexion->prepare("UPDATE empresas SET estado_habilitacion = ? WHERE numero_identidad = ?");
         $stmt->bind_param("ss", $nuevo_estado, $cc);
+        
         if ($stmt->execute() && $stmt->affected_rows > 0) {
             $mensaje = "✅ Estado actualizado correctamente.";
             $mensaje_tipo = "exito";
@@ -24,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_estado']))
         $stmt->close();
     }
 }
+
 // Buscar empresa solo si NO es mostrar todos y el campo cc no está vacío
 if (!isset($_GET['mostrar_todos']) && !empty($_GET['cc'])) {
     $cc = $_GET['cc'];
@@ -33,15 +38,18 @@ if (!isset($_GET['mostrar_todos']) && !empty($_GET['cc'])) {
     $result = $stmt->get_result();
     $empresas = $result->fetch_assoc();
     $stmt->close();
+    
     if (!$empresas) {
         $mensaje = "❌ Empresa no encontrada.";
         $mensaje_tipo = "error";
     }
 }
+
 // Mostrar todas
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['mostrar_todos'])) {
     $sql = "SELECT * FROM empresas";
     $resultado = $conexion->query($sql);
+    
     if ($resultado && $resultado->num_rows > 0) {
         while ($fila = $resultado->fetch_assoc()) {
             $todas_empresas[] = $fila;
@@ -51,12 +59,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['mostrar_todos'])) {
         $mensaje_tipo = "info";
     }
 }
+
 $conexion->close();
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Habilitar/Inhabilitar Empresa</title>
     <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
     <link rel="stylesheet" href="habilitar_inhabilitar.css">
@@ -72,7 +82,6 @@ $conexion->close();
 <header class="encabezado">
     <img src="../../img/logo-sena.png"  class="img" alt="img">
     <h1>Panel de Habilitación de Empresas</h1>
-    
 </header>
 
 <main>
@@ -85,9 +94,11 @@ $conexion->close();
             <button type="button" class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
         </form>
     </div>
+    
     <?php if (!empty($mensaje)): ?>
         <div class="mensaje <?= $mensaje_tipo ?>"><?= htmlspecialchars($mensaje) ?></div>
     <?php endif; ?>
+    
     <!-- Mostrar empresa encontrada -->
     <?php if ($empresas): ?>
         <section class="empresa-detalle">
@@ -103,6 +114,7 @@ $conexion->close();
                 <li><strong>Estado Actual:</strong> <?= $empresas['estado_habilitacion'] === 'Activo' ? '✅ Habilitada' : '❌ Inhabilitada' ?></li>
                 <li><strong>Fecha de Registro:</strong> <?= htmlspecialchars($empresas['fecha_registro']) ?></li>
             </ul>
+            
             <form method="post" class="form-estado">
                 <input type="hidden" name="cc" value="<?= htmlspecialchars($empresas['numero_identidad']) ?>">
                 <label for="nuevo_estado">Cambiar Estado: </label>
@@ -122,12 +134,11 @@ $conexion->close();
         <p class="mensaje info">🧭 Ingrese un número de documento para buscar una empresa.</p>
     <?php endif; ?>
 
-<?php if (!empty($todas_empresas)): ?>
-    <h2>📋 Todas las Empresas</h2>
+    <?php if (!empty($todas_empresas)): ?>
+        <h2>📋 Todas las Empresas</h2>
         <div class="tabla-contenedor">
-            <div style="overflow-x:auto;">
-                <table border="1" cellpadding="6" cellspacing="0" style="width:100%; background: #fff;">
-                    <thead style="background-color: #0078c0; color: white;">
+            <table border="1" cellpadding="6" cellspacing="0">
+                <thead>
                     <tr>
                         <th>Tipo Doc</th>
                         <th>Identidad</th>
@@ -139,8 +150,8 @@ $conexion->close();
                         <th>Estado</th>
                         <th>Fecha Registro</th>
                     </tr>
-                    </thead>
-                    <tbody>
+                </thead>
+                <tbody>
                     <?php foreach ($todas_empresas as $e): ?>
                         <tr>
                             <td><?= htmlspecialchars($e['tipo_documento']) ?></td>
@@ -154,17 +165,16 @@ $conexion->close();
                             <td><?= htmlspecialchars($e['fecha_registro']) ?></td>
                         </tr>
                     <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
         </div>    
-
-<?php endif; ?>
-
+    <?php endif; ?>
 </main>
+
 <footer>
     <p>&copy; 2025 Todos los derechos reservados - Proyecto SENA</p>
 </footer>
+
 <!--barra del gov inferior-->
 <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
   <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>

@@ -71,7 +71,6 @@
 
 }
 /* Fondo general */
-/* === CAMBIO 1: body === */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -82,24 +81,24 @@ body {
     display: flex;
     flex-direction: column;
 }
+
 /* Encabezado */
 header {
     font-size: 2.4rem;
     text-align: center;
     padding: 20px;
     color: var(--black);
-    position: relative; /* ← ¡ESTO ES CLAVE! */
+    position: relative;
 }
 
 /* Logo */
-/* Logo - Ajustado para que quede un poco más abajo, como en la captura */
 img.img {
     position: absolute;
-    top: 70px;   /* Ajusta este valor si necesitas más o menos espacio */
-    right: 15px; /* Un poco más alejado del borde derecho */
+    top: 70px;
+    right: 15px;
     width: 80px;
     height: auto;
-    z-index: 10; /* Para asegurar que no se pierda detrás de otros elementos */
+    z-index: 10;
 }
 
 /* Contenedor del formulario */
@@ -108,8 +107,9 @@ img.img {
     padding: 30px;
     border-radius: 12px;
     max-width: 900px;
-    margin: 90px auto;
+    margin: 90px auto 20px; /* ← CAMBIO: menos margen inferior */
     box-shadow: 0 0 15px var(--secundary-2-950);
+    flex: 1; /* ← NUEVO: hace que el contenedor crezca y empuje el footer */
 }
 
 h1, h2, h3{
@@ -177,135 +177,122 @@ select {
     margin-top: 30px;
 }
 
-
-
-/* === CAMBIO 2: footer === */
+/* === FOOTER FIJADO EN LA PARTE INFERIOR === */
 footer {
-  color: var(--white);
-  font-weight: bold;
-  background-color: var(--primary-900);
-  text-align: center;
-  padding: 12px;
-  font-size: 0.9rem;
-  box-shadow: var(--shadow);
-  position: sticky;
-  bottom: 0;
-  z-index: 1000;
-  width: 100%;
-  margin-top: auto;
+    color: var(--white);
+    font-weight: bold;
+    background-color: var(--primary-900);
+    text-align: center;
+    padding: 12px;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow);
+    width: 100%;
+    margin-top: auto; /* ← CLAVE: empuja el footer hacia abajo */
+    position: relative; /* ← CAMBIO: en lugar de sticky */
+    z-index: 1000;
 }
 
 /* Fuente iconografica */
 @font-face {
-  font-family: "govco-font";
-  src: url("../assets/icons/fonts/govco-font-icons.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
+    font-family: "govco-font";
+    src: url("../assets/icons/fonts/govco-font-icons.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
 }
 
 html {
-  font-size: 100%; /* 100% = 16px */
+    font-size: 100%;
 }
 
 .barra-superior-govco {
-  background-color: #3366cc;
-  width: 100%;
-  height: 2.5rem;
-  text-align: center;
+    background-color: #3366cc;
+    width: 100%;
+    height: 2.5rem;
+    text-align: center;
 }
 
 .barra-superior-govco a {
-  content: url(https://cdn.www.gov.co/assets/images/logo.svg);
-  height: 1.875rem;
-  width: 8.5rem;
+    content: url(https://cdn.www.gov.co/assets/images/logo.svg);
+    height: 1.875rem;
+    width: 8.5rem;
 }
 
 .barra-superior-govco a:focus-visible {
-  outline: max(0.125rem, 0.15em) solid #FFFFFF;
-  border-radius: 0.313rem;
+    outline: max(0.125rem, 0.15em) solid #FFFFFF;
+    border-radius: 0.313rem;
 }
 
-
 @media (max-width: 991px) {
-  .barra-superior-govco {
-    justify-content: center;
-    padding: 0;
-  }
+    .barra-superior-govco {
+        justify-content: center;
+        padding: 0;
+    }
 }
 
 .botones-finales {
     display: flex;
-    justify-content: center;  /* Centra horizontalmente */
-    gap: 40px;                /* Separación entre botones */
-    margin-top: 30px;         /* Espacio con el campo anterior */
-    grid-column: 1 / -1;      /* Abarca todo el ancho del grid */
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+    grid-column: 1 / -1;
 }
 
 .botones-finales .logout-btn {
     padding: 10px 25px;
     font-size: 16px;
 }
-/* ... (todo tu código anterior permanece igual hasta aquí) ... */
 
-/* ===== RESPONSIVIDAD ADICIONAL PARA DISPOSITIVOS MÓVILES ===== */
+/* ===== RESPONSIVIDAD ADICIONAL ===== */
 
-/* Pantallas pequeñas (móviles en vertical, como Galaxy S24 ~390px) */
 @media (max-width: 480px) {
-  /* Ajustar el contenedor del formulario para que no se sienta apretado */
-  .form-container {
-    margin: 70px 15px; /* Reducir márgenes laterales */
-    padding: 20px;     /* Un poco menos de padding */
-  }
+    .form-container {
+        margin: 70px 15px 15px; /* ← Ajuste en márgenes */
+        padding: 20px;
+    }
 
-  /* Hacer que el formulario sea de una sola columna en móviles */
-  .form-grid {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
 
-  /* Ajustar el logo para que no interfiera en móviles */
-  img.img {
-    width: 65px;
-    top: 50px;
-    right: 10px;
-  }
+    img.img {
+        width: 65px;
+        top: 50px;
+        right: 10px;
+    }
 
-  /* Ajustar tamaños de fuente para títulos en móviles */
-  h1 {
-    font-size: var(--font-size-h2); /* 2.4rem → más legible */
-  }
+    h1 {
+        font-size: var(--font-size-h2);
+    }
 
-  h2 {
-    font-size: var(--font-size-h3); /* 2.0rem */
-  }
+    h2 {
+        font-size: var(--font-size-h3);
+    }
 
-  /* Centrar y ajustar botones finales */
-  .botones-finales {
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-  }
+    .botones-finales {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
 
-  .botones-finales .logout-btn {
-    width: 100%;
-    max-width: 250px;
-  }
+    .botones-finales .logout-btn {
+        width: 100%;
+        max-width: 250px;
+    }
 
-  /* Footer más compacto */
-  footer {
-    padding: 10px;
-    font-size: 0.85rem;
-  }
+    footer {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
 }
 
-/* Pantallas medianas (tablets y móviles grandes) */
 @media (max-width: 768px) {
-  header {
-    font-size: 2rem;
-    padding: 15px;
-  }
+    header {
+        font-size: 2rem;
+        padding: 15px;
+    }
 
-  .form-container {
-    margin: 80px 10px;
-  }
+    .form-container {
+        margin: 80px 10px 15px; /* ← Ajuste en márgenes */
+    }
 }

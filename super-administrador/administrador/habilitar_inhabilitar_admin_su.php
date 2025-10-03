@@ -124,11 +124,13 @@ $conexion->close();
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Habilitar/Inhabilitar Administrador</title>
     <!-- Favicon de la página -->
     <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
     <!-- Hoja de estilos personalizada -->
     <link rel="stylesheet" href="habilitar_admin.css">
+
 </head>
 <body>
 

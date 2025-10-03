@@ -10,19 +10,21 @@ $mensaje = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tipo_reporte'])) {
     $tipo = $_POST['tipo_reporte'];
 
-    // Validar tipo
+    // Corregir el valor admin a administrador
+    if ($tipo === 'admin') {
+        $tipo = 'administrador';
+    }
+
     if (!in_array($tipo, ['empresa', 'administrador', 'programa'])) {
         $mensaje = "⚠️ Tipo de reporte inválido.";
     } else {
-        // Consultar reportes del tipo seleccionado
         $stmt = $conexion->prepare("SELECT * FROM reportes WHERE tipo_reporte = ?");
         $stmt->bind_param("s", $tipo);
         $stmt->execute();
         $resultado = $stmt->get_result();
 
         if ($resultado->num_rows > 0) {
-            // Traer nombres para mostrar
-            // Dependiendo del tipo, se obtiene el nombre de la tabla correspondiente
+            // Para cada reporte, obtener el nombre correspondiente al id_referenciado
             $tabla = '';
             $campo_nombre = '';
             if ($tipo === 'empresa') {
@@ -37,10 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['tipo_reporte'])) {
             }
 
             while ($fila = $resultado->fetch_assoc()) {
-                // Obtener nombre real
                 $id_ref = $fila['id_referenciado'];
 
-                // Consulta para obtener el nombre
                 $sql_nombre = "SELECT $campo_nombre AS nombre FROM $tabla WHERE id = ?";
                 $stmt_nombre = $conexion->prepare($sql_nombre);
                 $stmt_nombre->bind_param("i", $id_ref);
@@ -66,22 +66,25 @@ $conexion->close();
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Ver Reportes</title>
-    <link rel="shortcut icon" href="../../../img/Logotipo_Datasena.png" type="image/x-icon">
-    <link rel="stylesheet" href="listar_reporte.css">
+    <link rel="shortcut icon" href="../../../img/Logotipo_Datasena.png" type="image/x-icon" />
+    <link rel="stylesheet" href="listar_reporte.css" />
 </head>
 <body>
-
+    
     <!--barra del gov superior-->
     <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
     <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
     </nav>
 
     <header>
-        <h1>Ver Reportes<h1> 
-        <img src="../../../img/logo-sena.png" alt="Logo SENA" class="img">
+        <h1>Ver Reportes</h1>
+        <img src="../../../img/logo-sena.png" alt="Logo SENA" class="img" />
     </header>
+
     <div class="form-container">
         <h2>📁 Buscar Reportes por Tipo</h2>
 
@@ -118,8 +121,8 @@ $conexion->close();
                 <p><strong>📝 Observación:</strong> <?= htmlspecialchars($r['observacion']) ?></p>
                 <p><strong>📅 Fecha:</strong> <?= $r['fecha_reporte'] ?></p>
                 <p>
-                    <a class="logout-btn" style="background-color:#28a745;" href="../descargas_pdf.php?id=<?= $r['id'] ?>" target="_blank">📄 PDF</a>
-                    <a class="logout-btn" style="background-color:#6c757d;" href="../descargas_xml.php?id=<?= $r['id'] ?>" target="_blank">📦 XML</a>
+                    <a class="logout-btn" style="background-color:#28a745;" href="../admin_descargas_pdf.php?id=<?= $r['id'] ?>" target="_blank">📄 PDF</a>
+                    <a class="logout-btn" style="background-color:#6c757d;" href="../admin_descargas_xml.php?id=<?= $r['id'] ?>" target="_blank">📦 XML</a>
                 </p>
             </div>
         <?php endforeach; ?>

@@ -235,3 +235,59 @@ footer {
   font-size: 0.9rem;
   box-shadow: var(--shadow);
 }
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 15px;
+                margin: 10px;
+            }
+            
+            form[style*="display:flex"] {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            form[style*="display:flex"] label {
+                margin-bottom: 8px;
+                text-align: center;
+            }
+            
+            .logout-btn {
+                width: 100%;
+                margin: 5px 0;
+            }
+            
+            table {
+                font-size: 12px;
+            }
+            
+            table th,
+            table td {
+                padding: 4px;
+            }
+            
+            .empresa-card {
+                padding: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            table {
+                font-size: 10px;
+            }
+            
+            .form-container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            h2 {
+                font-size: 18px;
+            }
+            
+            h3 {
+                font-size: 16px;
+            }
+        }

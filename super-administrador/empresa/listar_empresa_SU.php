@@ -3,9 +3,11 @@ $conexion = new mysqli("localhost", "root", "", "datasena_db");
 if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
 }
+
 $empresa = null;
 $todas_empresas = [];
 $mensaje = "";
+
 // Buscar empresa
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buscar'])) {
     $dato = trim($_POST['dato_busqueda']);
@@ -21,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buscar'])) {
     }
     $stmt->close();
 }
+
 // Mostrar todas las empresas
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mostrar_todos'])) {
     $sql = "SELECT * FROM empresas";
@@ -33,15 +36,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mostrar_todos'])) {
         $mensaje = "⚠️ No hay empresas registradas.";
     }
 }
+
 $conexion->close();
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listar Empresas</title>
     <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
-    <link rel="stylesheet" href="listar_empresa_su.css">
+    <link rel="stylesheet" href="../../administrador/admin_empresa/admin_listar_empresa_su_v2.css">
+
 </head>
 <body>
 <!--barra del gov superior-->
@@ -82,7 +88,7 @@ $conexion->close();
             <h3>📋 Lista de Empresas Registradas</h3>
             <div style="overflow-x:auto;">
                 <table border="1" cellpadding="6" cellspacing="0" style="width:100%; border-collapse:collapse; background:#fff;">
-                <thead style="background-color: #0078c0; color: white;">
+                    <thead style="background-color: #0078c0; color: white;">
                         <tr>
                             <th>Tipo de Documento</th>
                             <th>Número de Identidad</th>

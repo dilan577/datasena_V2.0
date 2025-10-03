@@ -72,11 +72,14 @@
 }
 /* Fondo general */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     margin: 0;
     background: var(--gray-900); 
     background-attachment: fixed;
     color: var(--black);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Encabezado */
@@ -85,29 +88,29 @@ header {
     text-align: center;
     padding: 20px;
     color: var(--black);
+    position: relative;
 }
 
 /* Logo */
-img.img{
+img.img {
     position: absolute;
-    top: 50px;
-    right: 10px;
+    top: 70px;
+    right: 15px;
     width: 80px;
     height: auto;
+    z-index: 10;
 }
 
 /* Contenedor del formulario */
 .form-container {
-    max-width: 900px;        /* un poco más ancho */
     background-color: var(--white);
-    margin: 10px auto;       /* menos espacio arriba/abajo */
-    padding: 20px;
+    padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 0 8px var(--secundary-2-950);
-    width: 95%;              /* casi todo el ancho */
+    max-width: 900px;
+    margin: 90px auto 20px; /* ← CAMBIO: menos margen inferior */
+    box-shadow: 0 0 15px var(--secundary-2-950);
+    flex: 1; /* ← NUEVO: hace que el contenedor crezca y empuje el footer */
 }
-
-
 
 h1, h2, h3{
     text-align: center;
@@ -126,6 +129,7 @@ label {
 input[type="text"],
 input[type="email"],
 input[type="search"],
+input[type="tel"],
 select {
     width: 100%;
     padding: 10px;
@@ -173,77 +177,122 @@ select {
     margin-top: 30px;
 }
 
-/* Footer */
+/* === FOOTER FIJADO EN LA PARTE INFERIOR === */
 footer {
-  color: var(--white);
-  font-weight: bold;
-  background-color: var(--primary-900);
-  text-align: center;
-  padding: 12px;
-  margin-top: auto;
-  font-size: 0.9rem;
-  box-shadow: var(--shadow);
+    color: var(--white);
+    font-weight: bold;
+    background-color: var(--primary-900);
+    text-align: center;
+    padding: 12px;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow);
+    width: 100%;
+    margin-top: auto; /* ← CLAVE: empuja el footer hacia abajo */
+    position: relative; /* ← CAMBIO: en lugar de sticky */
+    z-index: 1000;
 }
-
 
 /* Fuente iconografica */
 @font-face {
-  font-family: "govco-font";
-  src: url("../assets/icons/fonts/govco-font-icons.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-/* Reset básico */
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow-x: hidden;
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    flex-direction: column;
-    background: var(--gray-900); 
+    font-family: "govco-font";
+    src: url("../assets/icons/fonts/govco-font-icons.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
 }
 
 html {
-  font-size: 100%; /* 100% = 16px */
+    font-size: 100%;
 }
 
 .barra-superior-govco {
-  background-color: #3366cc;
-  width: 100%;
-  height: 2.5rem;
-  text-align: center;
+    background-color: #3366cc;
+    width: 100%;
+    height: 2.5rem;
+    text-align: center;
 }
 
 .barra-superior-govco a {
-  content: url(https://cdn.www.gov.co/assets/images/logo.svg);
-  height: 1.875rem;
-  width: 8.5rem;
+    content: url(https://cdn.www.gov.co/assets/images/logo.svg);
+    height: 1.875rem;
+    width: 8.5rem;
 }
 
 .barra-superior-govco a:focus-visible {
-  outline: max(0.125rem, 0.15em) solid #FFFFFF;
-  border-radius: 0.313rem;
+    outline: max(0.125rem, 0.15em) solid #FFFFFF;
+    border-radius: 0.313rem;
 }
 
-
 @media (max-width: 991px) {
-  .barra-superior-govco {
-    justify-content: center;
-    padding: 0;
-  }
+    .barra-superior-govco {
+        justify-content: center;
+        padding: 0;
+    }
 }
 
 .botones-finales {
     display: flex;
-    justify-content: center;  /* Centra horizontalmente */
-    gap: 40px;                /* Separación entre botones */
-    margin-top: 30px;         /* Espacio con el campo anterior */
-    grid-column: 1 / -1;      /* Abarca todo el ancho del grid */
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+    grid-column: 1 / -1;
 }
 
 .botones-finales .logout-btn {
     padding: 10px 25px;
     font-size: 16px;
+}
+
+/* ===== RESPONSIVIDAD ADICIONAL ===== */
+
+@media (max-width: 480px) {
+    .form-container {
+        margin: 70px 15px 15px; /* ← Ajuste en márgenes */
+        padding: 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    img.img {
+        width: 65px;
+        top: 50px;
+        right: 10px;
+    }
+
+    h1 {
+        font-size: var(--font-size-h2);
+    }
+
+    h2 {
+        font-size: var(--font-size-h3);
+    }
+
+    .botones-finales {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .botones-finales .logout-btn {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    footer {
+        padding: 10px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        font-size: 2rem;
+        padding: 15px;
+    }
+
+    .form-container {
+        margin: 80px 10px 15px; /* ← Ajuste en márgenes */
+    }
 }

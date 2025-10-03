@@ -1,7 +1,7 @@
 <?php
 $conexion = new mysqli("localhost", "root", "", "datasena_db");
 if ($conexion->connect_error) {
-    die("Error de conexión: " . $conexion->connect_error);
+    die("❌ Error de conexión: " . $conexion->connect_error);
 }
 
 $programa = null;
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar_estado']))
         }
         $stmt->close();
 
-        // Traer el programa actualizado
+        // Traer de nuevo el programa actualizado para mostrarlo
         $stmt = $conexion->prepare("SELECT * FROM programas WHERE numero_ficha = ?");
         $stmt->bind_param("s", $numero_ficha);
         $stmt->execute();
@@ -63,11 +63,6 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && !isset($_GET['mostrar_todos']) &
     $result = $stmt->get_result();
     $programa = $result->fetch_assoc();
     $stmt->close();
-
-    if (!$programa) {
-        $mensaje = "❌ Programa no encontrado.";
-        $mensaje_tipo = "error";
-    }
 }
 
 $conexion->close();
@@ -76,11 +71,12 @@ $conexion->close();
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Habilitar/Inhabilitar Programa</title>
-    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
-    <link rel="stylesheet" href="habili_inhabilit_programa.css">
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habilitar/Inhabilitar Programa</title>
+    <link rel="stylesheet" href="../../administrador/admin_programas_formacion/admin_habili_inhabilit_programa.css" />
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
 
@@ -92,7 +88,8 @@ $conexion->close();
     <h1>DATASENA</h1>
     
     <header>
-        <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
+        <img src="../../img/logo-sena.png" alt="Logo SENA" class="img" />
+
         <h1>Panel de Habilitación de Programas</h1>
     </header>
 
@@ -135,9 +132,9 @@ $conexion->close();
                     </div>
                 </form>
             </section>
-        <?php elseif (!empty($_GET['numero_ficha']) && !$programa && !isset($_POST['actualizar_estado'])): ?>
-            <p class="mensaje error">❌ Programa no encontrado.</p>
-        <?php elseif (empty($todos) && !isset($_GET['mostrar_todos'])): ?>
+            <?php elseif (!empty($_GET['numero_ficha']) && !$programa && !isset($_GET['mostrar_todos'])): ?>
+                <p class="mensaje error">❌ Programa no encontrado.</p>
+            <?php elseif (empty($todos) && !isset($_GET['mostrar_todos'])): ?>
             <p class="mensaje info">🧭 Ingrese un número de ficha o use "Mostrar Todos".</p>
         <?php endif; ?>
 
@@ -176,10 +173,9 @@ $conexion->close();
         <p>&copy; 2025 Todos los derechos reservados - Proyecto SENA</p>
     </footer>
 
-<!--barra del gov inferior-->
-<nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
-  <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
-</nav>
-
+    <!--barra del gov inferior-->
+    <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
+    <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+    </nav>
 </body>
 </html>

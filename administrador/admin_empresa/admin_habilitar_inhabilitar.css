@@ -73,17 +73,14 @@
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
-    overflow-x: hidden;
-    font-family: Arial, sans-serif;
-    background: var(--gray-900);;
-    color: var(--black);
-    display: flex;
+    min-height: 100vh;             /* Ocupa toda la altura de la ventana */
+    display: flex;                  /* Flex para apilar verticalmente */
     flex-direction: column;
+    font-family: Arial, sans-serif;
+    background: var(--gray-900);
+    color: var(--black);
 }
-*, *::before, *::after {
-    box-sizing: border-box;
-}
+
 
 /* Fuente iconografica */
 @font-face {
@@ -98,16 +95,16 @@ html {
 }
 
 .barra-superior-govco {
-  background-color: #3366cc;
-  width: 100%;
-  height: 2.5rem;
-  text-align: center;
+    background-color: #3366cc;
+    width: 100%;
+    height: 2.5rem;
+    text-align: center;
 }
 
 .barra-superior-govco a {
-  content: url(https://cdn.www.gov.co/assets/images/logo.svg);
-  height: 1.875rem;
-  width: 8.5rem;
+    content: url(https://cdn.www.gov.co/assets/images/logo.svg);
+    height: 1.875rem;
+    width: 8.5rem;
 }
 
 .barra-superior-govco a:focus-visible {
@@ -115,14 +112,11 @@ html {
   border-radius: 0.313rem;
 }
 
-
 @media (max-width: 991px) {
-    .barra-superior-govco {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0;
-    }
+  .barra-superior-govco {
+    justify-content: center;
+    padding: 0;
+  }
 }
 
 h1 {
@@ -132,32 +126,31 @@ h1 {
     color: var(--black);
 }
 
+/* Encabezado con flex para alinear texto y logo */
 
-/* Encabezado */
-/* Encabezado */
 header {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    padding: 20px 50px;
+    position: relative;      /* PARA QUE EL LOGO SE POSICIONE RELATIVO AL HEADER */
+    padding: 15px 50px;      /* DEJA ESPACIO A LA DERECHA PARA EL LOGO */
     font-size: 1.2em;
     font-weight: bold;
     color: var(--black);
-    /* Sin cambios de color ni fondo — se mantiene como está */
 }
 
 img.img {
-    position: absolute;
-    top: -29%;
-    right: 20px;
-    transform: translateY(-50%);
-    width: 65px;
+    position: absolute;      /* POSICIÓN ABSOLUTA RELATIVA AL HEADER */
+    top: 50%;               /* CENTRAR VERTICAL */
+    right: 20px;            /* SEPARACIÓN A LA DERECHA */
+    transform: translateY(-50%); /* CENTRAR EXACTO */
+    width: 80px;
     height: auto;
-    z-index: 10;
-    /* Elimina cualquier margin-top o top fijo */
+    margin-top: -6.5rem;
 }
 
+
+/* Etiquetas */
 label {
     color: #0d3c77;
     font-size: 1.1em;
@@ -167,8 +160,17 @@ label {
 
 /* Búsqueda */
 .search-box {
-   text-align: center;
-    padding: 30px 20px;  /* Aumenta el padding superior e inferior */
+    text-align: center;
+    padding: 20px;
+}
+
+.tabla-contenedor {
+    max-width: 95%;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f4f6f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .search-box input {
@@ -179,63 +181,28 @@ label {
     font-size: 1em;
 }
 
-.tabla-contenedor {
-    max-width: 95%;                
-    margin: 20px auto;             
-    padding: 20px;                 
-    background: #f4f6f9;           /* gris claro igual al formulario */
-    border-radius: 12px;           
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
-    text-align: center;            
-}
-
-/* Botones de búsqueda */
-.search-box button,
-.botones button {
-    background-color: var(--secundary-2-700); /* Morado oscuro */
-    color: white;
-    padding: 10px 16px;
+.search-box button {
+    background-color: var(--secundary-2-500);
+    color: var(--white);
+    padding: 10px 20px;
     border: none;
-    border-radius: 8px;
-    font-weight: bold;
+    border-radius: 6px;
+    margin-left: 10px;
     cursor: pointer;
-    margin: 8px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 1em;
+    font-weight: bold;
 }
 
-.search-box button:hover,
-.botones button:hover {
-    background-color: var(--secundary-2-400); /* Morado más claro */
+.search-box button:hover {
+    background-color: var(--secundary-2-400);
 }
 
-/* Iconos dentro de los botones (opcional si usas fuente iconográfica) */
-.search-box button::before,
-.botones button::before {
-    content: ""; /* O usa un ícono de la fuente govco-font si tienes */
-    font-size: 0.9em;
-    margin-right: 4px;
-}
-
-/* Estilo específico para "Regresar" */
-.botones button:last-child {
-    background-color: var(--secundary-2-700);
-}
-
-.botones button:last-child::before {
-    content: "↩️"; /* O usa el ícono de regresar */
-}
-
-/* Detalles */
 .empresa-detalle {
-    background-color: var(--white);
+    background-color: white;
     margin: 20px auto;
     padding: 20px;
     border-radius: 12px;
     max-width: 700px;
-    box-shadow: 0 4px 10px var(--black);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .empresa-detalle ul {
@@ -256,7 +223,7 @@ label {
 
 .form-estado select {
     padding: 10px;
-    border: 2px solid var(--black);
+    border: 2px solid black;
     border-radius: 6px;
     font-size: 1em;
 }
@@ -301,136 +268,239 @@ label {
     color: #0d3c77;
 }
 
-/* Footer */
 footer {
-  color: var(--white);
-  font-weight: bold;
-  background-color: var(--primary-900);
-  text-align: center;
-  margin-top: auto;
-  font-size: 0.9rem;
-  box-shadow: var(--shadow);
+    color: var(--white);
+    background-color: var(--primary-900);
+    text-align: center;
+    padding: 1px;        /* Espacio interno */
+    font-weight: bold;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow);
 }
-/* ===== RESPONSIVO: TABLET Y MÓVIL ===== */
 
-/* Tablet y móvil grande */
+.barra-gov-bottom {
+    background-color: var(--secundary-3-950);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+}
+main {
+    flex: 1;
+}
+
+/* =========================== */
+/* MEJORAS PARA RESPONSIVIDAD  */
+/* =========================== */
+
+/* Responsividad para el formulario de búsqueda */
+.search-box form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+}
+
+.search-box label {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.search-box input {
+    flex: 1;
+    min-width: 250px;
+    max-width: 400px;
+    margin: 0;
+}
+
+.search-box button {
+    margin: 5px;
+    white-space: nowrap;
+}
+
+/* Responsividad para los detalles de la empresa */
+.empresa-detalle ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.empresa-detalle li {
+    background: var(--gray-950);
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid var(--secundary-2-500);
+    margin-bottom: 0;
+}
+
+/* Responsividad para el formulario de estado */
+.form-estado {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    align-items: center;
+}
+
+.form-estado label {
+    margin: 0;
+}
+
+.form-estado select {
+    min-width: 200px;
+}
+
+/* Responsividad para la tabla */
+.tabla-contenedor {
+    overflow-x: auto;
+}
+
+.tabla-contenedor table {
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+}
+
+.tabla-contenedor th,
+.tabla-contenedor td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid var(--gray-700);
+}
+
+.tabla-contenedor th {
+    background-color: var(--secundary-3-500);
+    color: var(--white);
+}
+
+.tabla-contenedor tr:nth-child(even) {
+    background-color: var(--gray-950);
+}
+
+/* Responsividad para el header */
 @media (max-width: 768px) {
-    h1 {
-        font-size: 2rem;
-        margin-top: 15px;
-    }
-
     header {
-        padding: 12px 40px;
-        font-size: 1.1em;
+        padding: 15px 80px 15px 15px; /* Más espacio a la derecha para el logo */
+        flex-direction: column;
+        text-align: center;
     }
-
+    
     img.img {
-        top: 20px;
         right: 15px;
-        width: 70px;
+        width: 60px;
+        margin-top: 0;
     }
-
-    .search-box input {
-        width: 240px;
-    }
-
-    .tabla-contenedor,
-    .empresa-detalle {
-        padding: 15px;
-        margin: 15px auto;
-    }
-
-    .botones button,
-    .search-box button {
-        padding: 8px 16px;
-        font-size: 0.95em;
+    
+    h1 {
+        font-size: 1.8em;
+        margin-top: 10px;
     }
 }
 
-/* Móvil pequeño (Galaxy S24, iPhone SE, etc.) */
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.8rem;
-        margin-top: 20px;
+/* Media Queries para tablets */
+@media (max-width: 768px) {
+    .search-box form {
+        flex-direction: column;
+        align-items: stretch;
     }
+    
+    .search-box input {
+        min-width: auto;
+        width: 100%;
+        max-width: none;
+        margin-bottom: 10px;
+    }
+    
+    .search-box button {
+        margin: 5px 0;
+        width: 100%;
+    }
+    
+    .empresa-detalle {
+        margin: 15px;
+        padding: 15px;
+    }
+    
+    .empresa-detalle ul {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-estado {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .form-estado select {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .tabla-contenedor {
+        margin: 10px auto;
+        padding: 10px;
+    }
+}
 
+/* Media Queries para móviles */
+@media (max-width: 480px) {
+    .search-box {
+        padding: 15px;
+    }
+    
+    .search-box input {
+        width: 100%;
+    }
+    
+    .empresa-detalle {
+        margin: 10px;
+        padding: 15px;
+        max-width: none;
+    }
+    
+    .tabla-contenedor table {
+        min-width: 700px;
+    }
+    
     header {
-        padding: 10px 30px;
+        padding: 10px 70px 10px 10px;
         font-size: 1em;
     }
-
+    
     img.img {
-        top: -18%;
-        right: 12px;
-        width: 65px;
-        transform: translateY(-50%);
-    }   
-
-    .search-box {
-        padding: 15px 10px;
+        width: 50px;
+        right: 10px;
     }
-
-    .search-box input {
-        width: 90%;
-        max-width: 220px;
-        box-sizing: border-box;
-    }
-
-    .search-box button {
-        margin-left: 8px;
-        padding: 8px 14px;
-        font-size: 0.9em;
-    }
-
-    .tabla-contenedor,
-    .empresa-detalle {
-        padding: 12px;
-        margin: 12px auto;
-        font-size: 0.95em;
-    }
-
-    .form-estado select {
-        width: 90%;
-        max-width: 220px;
-        padding: 10px;
-        box-sizing: border-box;
-    }
-
-    .botones {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .botones button {
-        width: 90%;
-        max-width: 220px;
-        padding: 10px;
-        margin: 0;
-    }
-
-    footer {
-        padding: 10px;
-        font-size: 0.85rem;
+    
+    h1 {
+        font-size: 1.5em;
     }
 }
 
-/* Móvil muy pequeño */
-@media (max-width: 360px) {
-    img.img {
-        top: 50%;
-        right: 10px;
-        width: 60px;
-        transform: translateY(-50%);
+/* Responsividad para botones en general */
+@media (max-width: 480px) {
+    .botones button {
+        width: 100%;
+        margin: 5px 0;
     }
-
-    header {
-        padding: 8px 20px;
+    
+    .search-box button {
+        padding: 12px 20px;
+        font-size: 1em;
     }
+}
 
-    h1 {
-        font-size: 1.6rem;
+/* Mejora para mensajes en móviles */
+.mensaje {
+    margin: 15px 20px;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+@media (max-width: 480px) {
+    .mensaje {
+        margin: 10px 15px;
+        padding: 12px;
     }
 }

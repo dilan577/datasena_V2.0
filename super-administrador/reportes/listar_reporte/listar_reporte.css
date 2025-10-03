@@ -84,6 +84,10 @@ html, body {
     background: var(--gray-900);
 }
 
+/* -----------------------------------
+   BARRA .GOV
+----------------------------------- */
+/* Barras gov */
 /* Fuente iconografica */
 @font-face {
   font-family: "govco-font";
@@ -138,13 +142,12 @@ header {
 
 img.img {
     position: absolute;      /* POSICIÓN ABSOLUTA RELATIVA AL HEADER */
-    top: 50%;               /* CENTRAR VERTICAL */
-    right: 20px;            /* SEPARACIÓN A LA DERECHA */
+    top: 60%;               /* CENTRAR VERTICAL */
+    right: 0.5rem;            /* SEPARACIÓN A LA DERECHA */
     transform: translateY(-50%); /* CENTRAR EXACTO */
-    width: 80px;
+    width: 65px;
     height: auto;
-    margin-top: -1rem; 
-    
+    margin-top: -1rem;
 }
 
 /* -----------------------------------
@@ -265,20 +268,20 @@ textarea {
 ----------------------------------- */
 footer {
   color: var(--white);
-  font-weight: bold;
   background-color: var(--primary-900);
   text-align: center;
   padding: 12px;
   margin-top: auto;
+  font-weight: bold;
   font-size: 0.9rem;
   box-shadow: var(--shadow);
 }
 
 .empresa-card {
-    background-color: var(--white);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 0 6px var(--black);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
     margin: 20px 0;
 }
 

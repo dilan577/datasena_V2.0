@@ -43,9 +43,10 @@ $conexion = null;
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listar Programas</title>
-    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
-    <link rel="stylesheet" href="listar_programa.css" />
+    <link rel="stylesheet" href="../../administrador/admin_programas_formacion/admin_listar_programa.css" />
+    <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon" />
 </head>
 <body>
 
@@ -59,7 +60,6 @@ $conexion = null;
         <img src="../../img/logo-sena.png" alt="Logo SENA" class="img" />
 
     </header>
-    
 
     <div class="form-container">
         <h2>Listar Programas</h2>
@@ -103,7 +103,6 @@ $conexion = null;
         <div class="user-list" style="overflow-x:auto;">
             <table border="1" cellpadding="6" cellspacing="0">
                 <thead style="background-color: #0078c0; color: white;">
-
                     <tr>
                         <th>Nombre del Programa</th>
                         <th>Tipo de Programa</th>
@@ -130,13 +129,12 @@ $conexion = null;
     </div>
 
     <footer>
-        <a>&copy; 2025 Todos los derechos reservados - Proyecto SENA</a>
+        <a>&copy;  2025 Todos los derechos reservados - Proyecto SENA</a>
     </footer>
 
-<!--barra del gov inferior-->
-<nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
-  <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
-</nav>
-
+    <!--barra del gov inferior-->
+    <nav class="navbar navbar-expand-lg barra-superior-govco" aria-label="Barra superior">
+    <a href="https://www.gov.co/" target="_blank" aria-label="Portal del Estado Colombiano - GOV.CO"></a>
+    </nav>
 </body>
 </html>

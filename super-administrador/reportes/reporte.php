@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         <?php endif; ?>
 
-        <div class="acciones-extra">
+            <div class="acciones-extra">
             <button onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
         </div>
     </div>
