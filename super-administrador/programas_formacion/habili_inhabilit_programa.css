@@ -143,7 +143,7 @@ img.img {
     top: 50%;               /* CENTRAR VERTICAL */
     right: 20px;            /* SEPARACIÓN A LA DERECHA */
     transform: translateY(-50%); /* CENTRAR EXACTO */
-    width: 80px;
+    width: 65px;
     height: auto;
     margin-top: -7rem;
 }
