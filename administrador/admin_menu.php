@@ -32,7 +32,7 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
     <div class="dropdown">
         <button onclick="toggleDropdown('menuLateral')" class="dropdown-btn">&#9776;</button>
         <div id="menuLateral" class="dropdown-content">
-            <button onclick="location.href='../cerrar_sesion.html'">Cerrar sesión</button>
+            <button onclick="location.href='../inicio_sesion.html'">Cerrar sesión</button>
         </div>
     </div>
 
