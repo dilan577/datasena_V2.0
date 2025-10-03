@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 session_start();
 
 // Validar que esté logueado y que sea superadministrador
@@ -7,14 +6,12 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'empresa') {
     header("Location: ../inicio_sesion.html");
     exit();
 }   
-=======
 // Establecemos el tipo de codificación para evitar problemas con caracteres especiales (tildes, ñ, etc.).
 // Aunque no es obligatorio aquí, es buena práctica.
 header('Content-Type: text/html; charset=utf-8');
 
 // Intentamos conectar a la base de datos usando PDO (más seguro y moderno que MySQLi procedural).
 // Base de datos: datasena_db | Usuario: root | Sin contraseña (común en entornos locales).
->>>>>>> 0343bb3c639e5d2debaf61b3be41b959940f6f09
 try {
     $conexion = new PDO("mysql:host=localhost;dbname=datasena_db;charset=utf8", "root", "");
     // Configuramos PDO para que lance excepciones en caso de error (mejor control de errores).
