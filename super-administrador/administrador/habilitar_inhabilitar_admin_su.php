@@ -171,7 +171,7 @@ $conexion->close();
                 <!-- Botón para mostrar todos los administradores -->
                 <button type="submit" name="mostrar_todos">📋 Mostrar Todos</button>
                 <!-- Botón para regresar al menú principal -->
-                <button type="button" class="logout-btn" onclick="window.location.href='../ssuper_menu.php'">↩️ Regresar</button>
+                <button type="button" class="logout-btn" onclick="window.location.href='../super_menu.php'">↩️ Regresar</button>
             </form>
         </div>
         
