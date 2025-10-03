@@ -84,19 +84,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dato_busqueda']) && !
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buscar_todos'])) {
     
     // Consulta SQL que trae todos los administradores
-    $sql = "SELECT 
-                tipo_documento,         -- Tipo de documento
-                numero_documento,       -- Número de documento
-                nombres,                -- Nombres
-                apellidos,              -- Apellidos
-                nickname,               -- Nickname
-                correo_electronico,     -- Email
-                estado_habilitacion,    -- Estado de habilitación
-                fecha_creacion          -- Fecha de creación
-            FROM admin";                -- No tiene WHERE, trae todos los registros
-    
-    // Ejecuta la consulta
-    $resultado = $conexion->query($sql);
+// Consulta SQL que trae todos los administradores
+$sql = "SELECT 
+            tipo_documento,         -- Tipo de documento
+            numero_documento,       -- Número de documento
+            nombres,                -- Nombres
+            apellidos,              -- Apellidos
+            nickname,               -- Nickname
+            correo_electronico,     -- Email
+            estado_habilitacion,    -- Estado de habilitación
+            fecha_creacion          -- Fecha de creación
+        FROM admin";
+
+// Ejecuta la consulta
+$resultado = $conexion->query($sql);
+
     
     // Si hay resultados, los agrega al array $todos_admins
     if ($resultado && $resultado->num_rows > 0) {

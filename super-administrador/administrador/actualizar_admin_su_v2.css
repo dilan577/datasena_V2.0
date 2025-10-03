@@ -107,13 +107,15 @@ img.img{
 
 /* Contenedor del formulario */
 .form-container {
-    background-color: rgba(255, 255, 255, 0.85);
-    padding: 30px;
+    max-width: 900px;        /* un poco más ancho */
+    background-color: var(--white);
+    margin: 10px auto;       /* menos espacio arriba/abajo */
+    padding: 20px;
     border-radius: 12px;
-    max-width: 900px;
-    margin: 90px auto;
-    box-shadow: 0 0 15px #337ccf;;
+    box-shadow: 0 0 8px var(--secundary-2-950);
+    width: 95%;              /* casi todo el ancho */
 }
+
 
 h1, h2, h3{
     text-align: center;
@@ -198,7 +200,17 @@ footer {
   font-weight: normal;
   font-style: normal;
 }
-
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+    background: var(--gray-900);;
+    color: var(--black);
+    display: flex;
+    flex-direction: column;
+}
 html {
   font-size: 100%; /* 100% = 16px */
 }

@@ -107,12 +107,13 @@ img.img{
 
 /* Contenedor principal */
 .forma-container {
-    background-color: rgba(255, 255, 255, 0.9);
-    max-width: 1000px;
-    margin: 30px auto;
-    padding: 30px;
+    max-width: 900px;        /* un poco más ancho */
+    background-color: var(--white);
+    margin: 10px auto;       /* menos espacio arriba/abajo */
+    padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 0 16px #337ccf;
+    box-shadow: 0 0 8px var(--secundary-2-950);
+    width: 95%;   
 }
 
 /* Título */

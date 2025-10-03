@@ -72,12 +72,15 @@
 
 }
 /* Fondo general */
-body {
-    font-family: 'Arial', sans-serif;
+html, body {
     margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
     background: var(--gray-900); 
-    background-attachment: fixed;
-    color: var(--black);
 }
 
 /* Encabezado */
@@ -99,13 +102,16 @@ img.img{
 
 /* Contenedor del formulario */
 .form-container {
-    background-color: rgba(255, 255, 255, 0.85);
-    padding: 30px;
-    border-radius: 12px;
     max-width: 900px;
-    margin: 90px auto;
-    box-shadow: 0 0 15px var(--secundary-1-900);
+    width: 95%;
+    background-color: var(--white);
+    margin: auto;           /* lo centra */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 8px var(--secundary-2-950);
+    min-height: auto;   
 }
+
 
 h1, h2, h3{
     text-align: center;
@@ -249,4 +255,12 @@ table th {
     background-color: #0078c0; /* opcional: fondo gris */
     text-align: center; /* centrado */
     padding: 8px; /* espacio interno */
+}
+
+main {
+    flex: 1;  /* Crece para ocupar lo que falte entre header y footer */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* contenido arriba, no centrado */
+    padding: 20px 10px;
 }
