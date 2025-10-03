@@ -105,8 +105,8 @@ header {
 
 img.img {
     position: absolute;      /* POSICIÓN ABSOLUTA RELATIVA AL HEADER */
-    top: 50%;               /* CENTRAR VERTICAL */
-     right: 0.5rem;           /* SEPARACIÓN A LA DERECHA */
+    top: 50px;               /* CENTRAR VERTICAL */
+    right: 1.5rem;           /* SEPARACIÓN A LA DERECHA */
     transform: translateY(-50%); /* CENTRAR EXACTO */
     width: 65px;
     height: auto;
@@ -226,7 +226,7 @@ footer {
   text-align: center;
   font-weight: bold;
   margin-top: auto;
-  padding: 14px 10px;
+  /* padding: 14px 10px; */
   font-size: 0.85rem;
 }
 

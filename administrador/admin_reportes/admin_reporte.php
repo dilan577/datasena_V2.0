@@ -11,7 +11,7 @@ $mensaje = "";
 
 // Obtener empresas, admins y programas
 $empresas = $pdo->query("SELECT id AS id, nickname AS nombre FROM empresas")->fetchAll(PDO::FETCH_ASSOC);
-$admin = $pdo->query("SELECT id, CONCAT(nombres, ' ', apellidos, ' (', nickname, ')') AS nombre FROM admin")->fetchAll(PDO::FETCH_ASSOC);
+// $admin = $pdo->query("SELECT id, CONCAT(nombres, ' ', apellidos, ' (', nickname, ')') AS nombre FROM admin")->fetchAll(PDO::FETCH_ASSOC);
 $programas = $pdo->query("SELECT id, nombre_programa AS nombre FROM programas")->fetchAll(PDO::FETCH_ASSOC);
 
 // Procesar formulario
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </header>
 
     <div class="contenedor">
-        <h1>📋 Reportar Empresa, Admin o Programa</h1>
+        <h2>📋 Reportar Empresa o Programa</h2>
 
         <form method="POST">
             <label>Tipo de reporte:</label>
