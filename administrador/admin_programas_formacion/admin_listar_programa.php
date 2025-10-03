@@ -87,7 +87,7 @@ $conexion = null;
             />
             <button class="logout-btn" type="submit" name="buscar">🔍 Buscar</button>
             <button class="logout-btn" type="submit" name="mostrar_todos" onclick="document.getElementById('nombre_buscar').removeAttribute('required');">📋 Mostrar Todos</button>
-            <button type="button" class="logout-btn" onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
+            <button type="button" class="logout-btn" onclick="window.location.href='../admin_menu.php'">↩️ Regresar</button>
         </form>
 
         <hr />

@@ -88,7 +88,7 @@ $conexion->close();
             <input type="text" id="buscar_dato" name="dato_busqueda" placeholder="Número de identidad o nickname" required />
             <button class="logout-btn" type="submit" name="buscar">🔍 Buscar</button>
             <button class="logout-btn" type="submit" name="mostrar_todos" onclick="document.getElementById('buscar_dato').removeAttribute('required')">📋 Mostrar Todos</button>
-            <button class="logout-btn" onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
+            <button class="logout-btn" onclick="window.location.href='../admin_menu.php'">↩️ Regresar</button>
         </form>
         <hr />
 

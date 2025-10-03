@@ -147,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       <div class="buttons-container">
         <button type="submit" class="registrar">✅ Crear </button>
-        <button type="button" class="registrar" onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
+        <button type="button" class="registrar" onclick="window.location.href='../admin_menu.php'">↩️ Regresar</button>
       </div>
     </div>
   </form>

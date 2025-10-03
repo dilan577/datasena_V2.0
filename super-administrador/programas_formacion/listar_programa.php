@@ -120,7 +120,7 @@ $conexion = null;
         <!-- Botón para mostrar todos los programas (omite la validación 'required') -->
         <button class="logout-btn" type="submit" name="mostrar_todos" onclick="document.getElementById('nombre_buscar').removeAttribute('required');">📋 Mostrar Todos</button>
         <!-- Botón para regresar al menú principal -->
-        <button type="button" class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
+        <button type="button" class="logout-btn" onclick="window.location.href='../super_menu.php'">↩️ Regresar</button>
     </form>
 
     <hr />

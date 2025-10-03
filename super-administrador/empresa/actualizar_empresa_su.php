@@ -192,7 +192,7 @@ $conexion->close();
         <!-- Botón para mostrar todas las empresas -->
         <button class="logout-btn" type="submit" name="mostrar_todos" id="btn-todos">📋 Mostrar Todas</button>
         <!-- Botón para regresar al menú principal -->
-        <button class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
+        <button class="logout-btn" onclick="window.location.href='../super_menu.php'">↩️ Regresar</button>
     </form>
     <div style="height: 0.1cm;"></div>
     <hr style="border: 0.01px solid #ccc; width: 100%;">

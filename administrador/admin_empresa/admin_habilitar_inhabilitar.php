@@ -102,7 +102,7 @@ $conexion->close();
             <input type="text" id="buscar_cc" name="cc" placeholder="Ejemplo: 123456789">
             <button type="submit">🔍 Buscar</button>
             <button type="submit" name="mostrar_todos">📋 Mostrar Todos</button>
-            <button type="button" class="logout-btn" onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
+            <button type="button" class="logout-btn" onclick="window.location.href='../admin_menu.php'">↩️ Regresar</button>
         </form>
     </div>
 

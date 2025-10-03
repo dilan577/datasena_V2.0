@@ -107,7 +107,7 @@ $conexion->close();
                 <input type="text" id="buscar_ficha" name="numero_ficha" value="<?= htmlspecialchars($_GET['numero_ficha'] ?? '') ?>">
                 <button type="submit">🔍 Buscar</button>
                 <button type="submit" name="mostrar_todos">📋 Mostrar Todos</button>
-                <button type="button" onclick="location.href='../super_menu.html'">↩️ Regresar</button>
+                <button type="button" onclick="location.href='../super_menu.php'">↩️ Regresar</button>
             </form>
         </div>
 

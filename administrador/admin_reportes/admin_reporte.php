@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- Botón para regresar al menú de administración -->
     <div class="acciones-extra">
-        <button type="button" onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
+        <button type="button" onclick="window.location.href='../admin_menu.php'">↩️ Regresar</button>
     </div>
 </div>
 

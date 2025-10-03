@@ -112,7 +112,7 @@ $conexion->close();
                 </label>
             </div>
             <button class="logout-btn" type="submit">🔍 Buscar</button>
-            <button class="logout-btn" type="button" onclick="window.location.href='../../admin_menu.html'">↩️ Regresar</button>
+            <button class="logout-btn" type="button" onclick="window.location.href='../../admin_menu.php'">↩️ Regresar</button>
         </form>
 
         <?php if (!empty($mensaje)): ?>

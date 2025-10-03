@@ -377,7 +377,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <!-- Botón para enviar el formulario -->
                 <button type="submit" class="back_crear">✅ Crear</button>
                 <!-- Botón para regresar al menú sin guardar -->
-                <button type="button" class="back_crear" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
+                <button type="button" class="back_crear" onclick="window.location.href='../super_menu.php'">↩️ Regresar</button>
             </div>
         </form>
     </div>

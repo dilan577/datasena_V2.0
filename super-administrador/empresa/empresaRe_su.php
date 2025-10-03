@@ -292,7 +292,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <!-- Botones de acción: registrar o regresar -->
         <div class="logout-buttons-container">
             <button type="submit" class="logout-btn">✅ Registrar Empresa</button>
-            <button type="button" class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
+            <button type="button" class="logout-btn" onclick="window.location.href='../super_menu.php'">↩️ Regresar</button>
         </div>
     </form>
 </div>

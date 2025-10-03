@@ -123,7 +123,7 @@ $conexion->close();
 
                 <div class="form-row botones-finales">
                     <button class="logout-btn" type="submit">Actualizar Programa</button>
-                    <button class="logout-btn" type="button" onclick="window.location.href='../super_menu.html'">Regresar</button>
+                    <button class="logout-btn" type="button" onclick="window.location.href='../admin_menu.php'">Regresar</button>
                 </div>
             </form>
         <?php endif; ?>

@@ -138,7 +138,7 @@ $conexion->close();
                value="<?= isset($_GET['nombre_programa']) ? htmlspecialchars($_GET['nombre_programa']) : '' ?>" />
         <button type="submit" name="buscar" class="logout-btn">🔍 Buscar</button>
         <button type="submit" name="mostrar_todos" class="logout-btn">📋 Mostrar todos</button>
-        <button type="button" class="logout-btn" onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
+        <button type="button" class="logout-btn" onclick="window.location.href='../admin_menu.php'">↩️ Regresar</button>
     </form>
 
     <hr />

@@ -251,7 +251,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
         <div class="logout-buttons-container">
             <button type="submit" class="logout-btn">✅ Crear</button>
-            <button type="button" class="logout-btn" onclick="window.location.href='../admin_menu.html'">↩️ Regresar</button>
+            <button type="button" class="logout-btn" onclick="window.location.href='../admin_menu.php'">↩️ Regresar</button>
         </div>
     </form>
 </div>

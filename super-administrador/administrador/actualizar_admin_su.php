@@ -266,7 +266,7 @@ $conexion->close();
         <!-- Botón para mostrar todos los administradores -->
         <button class="logout-btn" type="submit" name="mostrar_todos" id="btn-todos">📋 Mostrar Todos</button>
         <!-- Botón para regresar al menú principal -->
-        <button class="logout-btn" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
+        <button class="logout-btn" onclick="window.location.href='../super_menu.php'">↩️ Regresar</button>
     </form>
 
     <!-- Script para remover la validación "required" cuando se presiona "Mostrar Todos" -->

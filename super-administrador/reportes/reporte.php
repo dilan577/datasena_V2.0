@@ -138,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- Botón para regresar al menú principal -->
     <div class="acciones-extra">
-        <button type="button" onclick="window.location.href='../super_menu.html'">↩️ Regresar</button>
+        <button type="button" onclick="window.location.href='../super_menu.php'">↩️ Regresar</button>
     </div>
 </div>
 

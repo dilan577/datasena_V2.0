@@ -196,7 +196,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <!-- Botones -->
         <button type="submit" class="btn">Enviar Diagnóstico</button>
-        <button type="button" class="btn" onclick="window.location.href='../empresa_menu.html'">↩️Regresar</button>
+        <button type="button" class="btn" onclick="window.location.href='../empresa_menu.php'">↩️Regresar</button>
     </form>
 </main>
 
