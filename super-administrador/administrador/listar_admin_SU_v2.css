@@ -233,8 +233,9 @@ footer {
   font-weight: bold;
   background-color: var(--primary-900);
   text-align: center;
-  padding: 12px;
+  /* padding: 12px; */
   margin-top: auto;
   font-size: 0.9rem;
   box-shadow: var(--shadow);
+  /* height: 5px; */
 }

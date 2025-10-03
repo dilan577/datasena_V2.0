@@ -141,7 +141,7 @@ header {
 
 img.img {
     position: absolute;      /* POSICIÓN ABSOLUTA RELATIVA AL HEADER */
-    top: 50%;               /* CENTRAR VERTICAL */
+    top: 50px;               /* CENTRAR VERTICAL */
     right: 20px;            /* SEPARACIÓN A LA DERECHA */
     transform: translateY(-50%); /* CENTRAR EXACTO */
     width: 80px;
