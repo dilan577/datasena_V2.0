@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+// Validar que esté logueado y que sea superadministrador
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'super') {
+    header("Location: ../inicio_sesion.html");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,6 +32,7 @@
     <div class="dropdown">
         <button onclick="toggleDropdown('menuLateral')" class="dropdown-btn">&#9776;</button>
         <div id="menuLateral" class="dropdown-content">
+            <!-- Botón para cerrar sesión -->
             <button onclick="location.href='../inicio_sesion.html'">Cerrar sesión</button>
         </div>
     </div>
@@ -58,17 +68,17 @@
                 <a href="../super-administrador/programas_formacion/habili_inhabilit_programa.php">Habilitar/Inhabilitar programa</a>
             </div>
         </div>
-            <div class="dropdown-container">
-        <button class="top-btn" onclick="toggleDropdown('reporteMenu')">Reportes</button>
-        <div id="reporteMenu" class="submenu">
-            <a href="../super-administrador/reportes/reporte.php">Crear reporte</a>
-            <a href="../super-administrador/reportes/listar_reporte/listar_reporte.php">Listar reportes</a>
+
+        <div class="dropdown-container">
+            <button class="top-btn" onclick="toggleDropdown('reporteMenu')">Reportes</button>
+            <div id="reporteMenu" class="submenu">
+                <a href="../super-administrador/reportes/reporte.php">Crear reporte</a>
+                <a href="../super-administrador/reportes/listar_reporte/listar_reporte.php">Listar reportes</a>
+            </div>
         </div>
-</div>
     </div>
 </div>
 
-<!-- CONTENIDO PRINCIPAL -->
 <!-- CONTENIDO PRINCIPAL -->
 <div class="decorated-section">
   <div class="center-box">

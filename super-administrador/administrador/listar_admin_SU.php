@@ -181,7 +181,7 @@ $conexion->close();
         <!-- Botón regresar -->
         <button type="button" 
                 class="logout-btn" 
-                onclick="window.location.href='../super_menu.html'">
+                onclick="window.location.href='../super_menu.php'">
             ↩️ Regresar
         </button>
     </form>

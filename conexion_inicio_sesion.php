@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             if ($superadmin && $password === $superadmin['contrasena']) {
                 $_SESSION['rol'] = 'super';
                 $_SESSION['usuario'] = $usuario;
-                header("Location: super-administrador/super_menu.html");
+                header("Location: super-administrador/super_menu.php");
                 exit;
             } else {
                 echo "<script>alert('❌ Usuario o contraseña incorrectos (superadmin)'); window.history.back();</script>";
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $_SESSION['rol'] = 'admin';
                 $_SESSION['usuario_id'] = $admin['id'];
                 $_SESSION['nickname'] = $admin['nickname'];
-                header("Location: administrador/admin_menu.html");
+                header("Location: administrador/admin_menu.php");
                 exit;
             } else {
                 echo "<script>alert('❌ Usuario o contraseña incorrectos (admin)'); window.history.back();</script>";
@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $_SESSION['rol'] = 'empresa';
                 $_SESSION['usuario_id'] = $empresa['id'];
                 $_SESSION['nickname'] = $empresa['nickname'];
-                header("Location: empresa/empresa_menu.html");
+                header("Location: empresa/empresa_menu.php");
                 exit;
             } else {
                 echo "<script>alert('❌ Usuario o contraseña incorrectos (empresa)'); window.history.back();</script>";

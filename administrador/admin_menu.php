@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+// Verificar que la sesión esté activa y que el rol sea administrador
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'admin') {
+    header("Location: ../inicio_sesion.html");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,7 +32,7 @@
     <div class="dropdown">
         <button onclick="toggleDropdown('menuLateral')" class="dropdown-btn">&#9776;</button>
         <div id="menuLateral" class="dropdown-content">
-            <button onclick="location.href='../inicio_sesion.html'">Cerrar sesión</button>
+            <button onclick="location.href='../cerrar_sesion.html'">Cerrar sesión</button>
         </div>
     </div>
 

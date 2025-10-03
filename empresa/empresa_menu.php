@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+// Validar que la sesión exista y el rol sea "empresa"
+if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'empresa') {
+    header("Location: ../inicio_sesion.html");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -28,7 +37,7 @@
     <div class="dropdown">
         <button onclick="toggleDropdown('menuLateral')" class="dropdown-btn">&#9776;</button>
         <div id="menuLateral" class="dropdown-content">
-            <button onclick="location.href='../inicio_sesion.html'">Cerrar sesi&oacute;n</button>
+            <button onclick="location.href='../cerrar_sesion.html'">Cerrar sesi&oacute;n</button>
         </div>
     </div>
 
@@ -47,7 +56,7 @@
         <div class="dropdown-container">
             <button class="top-btn" onclick="toggleDropdown('programaMenu')">Programas de formaci&oacute;n</button>
             <div id="programaMenu" class="submenu">
-                <a href="../empresa/programas_formacion/listar_programa.php">listar programa</a>
+                <a href="../empresa/programas_formacion/listar_programa.php">Listar programa</a>
             </div>
         </div>
     </div>
