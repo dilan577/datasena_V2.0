@@ -86,32 +86,38 @@ header {
   /* PARA QUE EL LOGO SE POSICIONE RELATIVO AL HEADER */
   padding: 15px 50px;
   /* DEJA ESPACIO A LA DERECHA PARA EL LOGO */
-  font-size: 1.2em;
+  font-size: 2.4rem;
   font-weight: bold;
   color: var(--black);
 }
 
 img.img {
-  position: absolute;
-  /* POSICIÓN ABSOLUTA RELATIVA AL HEADER */
-  top: 50%;
-  /* CENTRAR VERTICAL */
-  right: 20px;
-  /* SEPARACIÓN A LA DERECHA */
-  transform: translateY(-50%);
-  /* CENTRAR EXACTO */
-  width: 80px;
+  position: absolute;      /* POSICIÓN ABSOLUTA RELATIVA AL HEADER */
+  top: 15%;               /* CENTRAR VERTICAL */
+  right: 20px;            /* SEPARACIÓN A LA DERECHA */
+  transform: translateY(-50%); /* CENTRAR EXACTO */
+  width: 65px;
   height: auto;
-  margin-top: -6.5rem;
+  margin-top: -1rem;
+    
 }
 
 .form-container {
-  background: var(--white);
-  border-radius: 12px;
-  padding: 30px;
   max-width: 800px;
-  margin: 20px auto;
+  background-color:var(--white);
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 12px;
   box-shadow: 0 4px 12px var(--secundary-3-950);
+  flex-grow: 1;
+  width: 90%;
+}
+
+
+/* Formularios */
+form {
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 h2,
@@ -139,21 +145,20 @@ select {
   font-size: 1em;
 }
 
-button.btn {
+.logout-btn{
   background-color: var(--secundary-3-700);
-  color: var(--white);
-  padding: 12px;
-  font-weight: bold;
+  color: white;
+  padding: 10px 24px;
   border: none;
   border-radius: 8px;
+  font-weight: bold;
   cursor: pointer;
-  width: 150px;
-  margin: 0 auto;
-  box-shadow: 0 4px 12px var(--secundary-3-950);
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-button.btn:hover {
+.logout-btn:hover {
   background-color: var(--secundary-3-950);
+  transform: translateY(-2px);
 }
 
 footer {
@@ -175,9 +180,15 @@ footer {
   font-style: normal;
 }
 
-html {
-  font-size: 100%;
-  /* 100% = 16px */
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;             /* Ocupa toda la altura de la ventana */
+  display: flex;                  /* Flex para apilar verticalmente */
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+  background: var(--gray-900);
+  color: var(--black);
 }
 
 .barra-superior-govco {
