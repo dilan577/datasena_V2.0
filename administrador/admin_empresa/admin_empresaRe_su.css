@@ -208,10 +208,10 @@ header {
 
 img.img {
     position: absolute;      /* POSICIÓN ABSOLUTA RELATIVA AL HEADER */
-    top: 50%;               /* CENTRAR VERTICAL */
+    top: 49%;               /* CENTRAR VERTICAL */
     right: 20px;            /* SEPARACIÓN A LA DERECHA */
     transform: translateY(-50%); /* CENTRAR EXACTO */
-    width: 80px;
+    width: 65px;
     height: auto;
     margin-top: -13.4rem;
 }

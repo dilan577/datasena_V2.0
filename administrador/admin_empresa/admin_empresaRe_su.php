@@ -126,6 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Empresa</title>
     <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

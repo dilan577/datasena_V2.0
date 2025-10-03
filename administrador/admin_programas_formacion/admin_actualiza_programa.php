@@ -100,6 +100,8 @@ $conexion->close();
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Visualizar / Actualizar Programa</title>
     <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon" />
     <link rel="stylesheet" href="../../administrador/admin_programas_formacion/admin_actualiza_programa.css" />
