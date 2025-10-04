@@ -73,14 +73,14 @@
 html, body {
     margin: 0;
     padding: 0;
-    height: 100%;
-    overflow-x: hidden;
-    font-family: Arial, sans-serif;
-    background: var(--gray-900);;
-    color: var(--black);
-    display: flex;
+    min-height: 100vh;             /* Ocupa toda la altura de la ventana */
+    display: flex;                  /* Flex para apilar verticalmente */
     flex-direction: column;
+    font-family: Arial, sans-serif;
+    background: var(--gray-900);
+    color: var(--black);
 }
+
 
 /* Fuente iconografica */
 @font-face {
@@ -95,23 +95,22 @@ html {
 }
 
 .barra-superior-govco {
-  background-color: #3366cc;
-  width: 100%;
-  height: 2.5rem;
-  text-align: center;
+    background-color: #3366cc;
+    width: 100%;
+    height: 2.5rem;
+    text-align: center;
 }
 
 .barra-superior-govco a {
-  content: url(https://cdn.www.gov.co/assets/images/logo.svg);
-  height: 1.875rem;
-  width: 8.5rem;
+    content: url(https://cdn.www.gov.co/assets/images/logo.svg);
+    height: 1.875rem;
+    width: 8.5rem;
 }
 
 .barra-superior-govco a:focus-visible {
   outline: max(0.125rem, 0.15em) solid #FFFFFF;
   border-radius: 0.313rem;
 }
-
 
 @media (max-width: 991px) {
   .barra-superior-govco {
@@ -127,8 +126,8 @@ h1 {
     color: var(--black);
 }
 
+/* Encabezado con flex para alinear texto y logo */
 
-/* Encabezado */
 header {
     display: flex;
     justify-content: center;
@@ -151,8 +150,7 @@ img.img {
 }
 
 
-
-
+/* Etiquetas */
 label {
     color: #0d3c77;
     font-size: 1.1em;
@@ -167,13 +165,12 @@ label {
 }
 
 .tabla-contenedor {
-    max-width: 95%;                
-    margin: 20px auto;             
-    padding: 20px;                 
-    background: #f4f6f9;           /* gris claro igual al formulario */
-    border-radius: 12px;           
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
-    text-align: center;            
+    max-width: 95%;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f4f6f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .search-box input {
@@ -196,17 +193,16 @@ label {
 }
 
 .search-box button:hover {
-    background-color: #337ccf;
+    background-color: var(--secundary-3-400);
 }
 
-/* Detalles */
 .empresa-detalle {
     background-color: white;
     margin: 20px auto;
     padding: 20px;
     border-radius: 12px;
     max-width: 700px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .empresa-detalle ul {
@@ -272,17 +268,239 @@ label {
     color: #0d3c77;
 }
 
-/* Footer */
 footer {
-  color: var(--white);
-  font-weight: bold;
-  background-color: var(--primary-900);
-  text-align: center;
-  margin-top: auto;
-  font-size: 0.9rem;
-  box-shadow: var(--shadow);
+    color: var(--white);
+    background-color: var(--primary-900);
+    text-align: center;
+    padding: 1px;        /* Espacio interno */
+    font-weight: bold;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow);
 }
 
+.barra-gov-bottom {
+    background-color: var(--secundary-3-950);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+}
 main {
-  padding-bottom: 60px; /* espacio de respiro */
+    flex: 1;
+}
+
+/* =========================== */
+/* MEJORAS PARA RESPONSIVIDAD  */
+/* =========================== */
+
+/* Responsividad para el formulario de búsqueda */
+.search-box form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+}
+
+.search-box label {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.search-box input {
+    flex: 1;
+    min-width: 250px;
+    max-width: 400px;
+    margin: 0;
+}
+
+.search-box button {
+    margin: 5px;
+    white-space: nowrap;
+}
+
+/* Responsividad para los detalles de la empresa */
+.empresa-detalle ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.empresa-detalle li {
+    background: var(--gray-950);
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid var(--secundary-2-500);
+    margin-bottom: 0;
+}
+
+/* Responsividad para el formulario de estado */
+.form-estado {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    align-items: center;
+}
+
+.form-estado label {
+    margin: 0;
+}
+
+.form-estado select {
+    min-width: 200px;
+}
+
+/* Responsividad para la tabla */
+.tabla-contenedor {
+    overflow-x: auto;
+}
+
+.tabla-contenedor table {
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+}
+
+.tabla-contenedor th,
+.tabla-contenedor td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid var(--gray-700);
+}
+
+.tabla-contenedor th {
+    background-color: #0078c0;
+    color: var(--white);
+}
+
+.tabla-contenedor tr:nth-child(even) {
+    background-color: var(--gray-950);
+}
+
+/* Responsividad para el header */
+@media (max-width: 768px) {
+    header {
+        padding: 15px 80px 15px 15px; /* Más espacio a la derecha para el logo */
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    img.img {
+        right: 15px;
+        width: 60px;
+        margin-top: 0;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+        margin-top: 10px;
+    }
+}
+
+/* Media Queries para tablets */
+@media (max-width: 768px) {
+    .search-box form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-box input {
+        min-width: auto;
+        width: 100%;
+        max-width: none;
+        margin-bottom: 10px;
+    }
+    
+    .search-box button {
+        margin: 5px 0;
+        width: 100%;
+    }
+    
+    .empresa-detalle {
+        margin: 15px;
+        padding: 15px;
+    }
+    
+    .empresa-detalle ul {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-estado {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .form-estado select {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .tabla-contenedor {
+        margin: 10px auto;
+        padding: 10px;
+    }
+}
+
+/* Media Queries para móviles */
+@media (max-width: 480px) {
+    .search-box {
+        padding: 15px;
+    }
+    
+    .search-box input {
+        width: 100%;
+    }
+    
+    .empresa-detalle {
+        margin: 10px;
+        padding: 15px;
+        max-width: none;
+    }
+    
+    .tabla-contenedor table {
+        min-width: 700px;
+    }
+    
+    header {
+        padding: 10px 70px 10px 10px;
+        font-size: 1em;
+    }
+    
+    img.img {
+        width: 50px;
+        right: 10px;
+    }
+    
+    h1 {
+        font-size: 1.5em;
+    }
+}
+
+/* Responsividad para botones en general */
+@media (max-width: 480px) {
+    .botones button {
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    .search-box button {
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+}
+
+/* Mejora para mensajes en móviles */
+.mensaje {
+    margin: 15px 20px;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+@media (max-width: 480px) {
+    .mensaje {
+        margin: 10px 15px;
+        padding: 12px;
+    }
 }

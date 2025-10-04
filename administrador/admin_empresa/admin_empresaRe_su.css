@@ -207,13 +207,11 @@ header {
 }
 
 img.img {
-    position: absolute;      /* POSICIÓN ABSOLUTA RELATIVA AL HEADER */
-    top: 49%;               /* CENTRAR VERTICAL */
-    right: 20px;            /* SEPARACIÓN A LA DERECHA */
-    transform: translateY(-50%); /* CENTRAR EXACTO */
+    position: absolute; /* POSICIÓN ABSOLUTA RELATIVA AL HEADER */
+    top: 50px; /* CENTRAR VERTICAL */
+    right: 10px; /* SEPARACIÓN A LA DERECHA */
     width: 65px;
     height: auto;
-    margin-top: -13.4rem;
 }
 /* Responsive */
 @media (max-width: 768px) {

@@ -78,7 +78,7 @@ $conexion = null;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listar Programas</title>
     <!-- Enlace al archivo CSS personalizado -->
-    <link rel="stylesheet" href="../../administrador/admin_programas_formacion/admin_listar_programa.css" />
+    <link rel="stylesheet" href="listar_programa.css" />
     <!-- Favicon del sistema -->
     <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon" />
 </head>
