@@ -125,14 +125,11 @@ $conexion->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listar Administradores</title>
-    <!-- Hoja de estilos personalizada -->
-    <link rel="stylesheet" href="listar_admin_SU_v2.css">
-    <!-- Favicon de la página -->
     <link rel="shortcut icon" href="../../img/Logotipo_Datasena.png" type="image/x-icon">
+    <link rel="stylesheet" href="../../administrador/admin_empresa/admin_listar_empresa_su_v2.css">
 
 </head>
 <body>
-
 <!-- ==================================================================== 
      BARRA SUPERIOR DEL GOBIERNO COLOMBIANO
      ==================================================================== -->
@@ -143,7 +140,7 @@ $conexion->close();
 <!-- ==================================================================== 
      ENCABEZADO DE LA PÁGINA
      ==================================================================== -->
-<header>
+<header class="encabezado">
     <h1>DATASENA</h1>
     <img src="../../img/logo-sena.png" alt="Logo SENA" class="img">
 </header>
@@ -253,7 +250,7 @@ $conexion->close();
      PIE DE PÁGINA
      ==================================================================== -->
 <footer>
-    <p style="font-size:0.8em;">&copy; 2025 Todos los derechos reservados - Proyecto SENA</p>
+    <a>&copy; 2025 Todos los derechos reservados - Proyecto SENA</a>
 </footer>
 
 <!-- BARRA INFERIOR DEL GOBIERNO -->

@@ -1,13 +1,14 @@
 <?php
 session_start();
 
-// Validar que esté logueado y que sea superadministrador
+// Validar que esté logueado y que sea empresa
 if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'empresa') {
     header("Location: ../inicio_sesion.html");
     exit();
 }
+
 // -------------------------
-// Inicialización de variables (evita warnings)
+// Inicialización de variables
 // -------------------------
 $empresa = $nit = $sector = $tamano = $ubicacion = "";
 $empleados = $contrataciones = $contrato_frec = $tiene_proceso = "";
@@ -20,9 +21,25 @@ $recomendaciones = [];
 $errores = [];
 
 // -------------------------
+// Conexión a la base de datos (directa)
+// -------------------------
+try {
+    $host = 'localhost';
+    $dbname = 'datasena_db'; // ajusta según tu base de datos
+    $username = 'root'; // usuario MySQL
+    $password = ''; // contraseña MySQL
+    
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Error de conexión a la base de datos: " . $e->getMessage());
+}
+
+// -------------------------
 // Procesar POST
 // -------------------------
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Recoger datos del formulario
     $empresa          = trim($_POST['empresa'] ?? '');
     $nit              = trim($_POST['nit'] ?? '');
     $sector           = $_POST['sector'] ?? '';
@@ -40,6 +57,162 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $infraestructura  = $_POST['infraestructura'] ?? '';
     $apoyo_selec      = $_POST['apoyo_seleccion'] ?? '';
     $beneficios       = $_POST['beneficios'] ?? '';
+
+    // Validaciones básicas
+    if (empty($empresa)) $errores[] = "El nombre de la empresa es obligatorio";
+    if (empty($nit)) $errores[] = "El NIT es obligatorio";
+    if (empty($perfiles_neces)) $errores[] = "Debe seleccionar al menos un perfil necesario";
+
+    // Si no hay errores, procesar el diagnóstico
+    if (empty($errores)) {
+        try {
+            // Convertir array de perfiles a texto para guardar en la base de datos
+            $perfiles_neces_texto = implode(', ', $perfiles_neces);
+            
+            // Guardar el diagnóstico en la base de datos
+            $stmt = $pdo->prepare("INSERT INTO diagnostico_empresarial 
+                (empresa, nit, sector, tamano, ubicacion, empleados, contrataciones, 
+                 contrato_frecuente, tiene_proceso, perfiles_definidos, publicacion, 
+                 aprendices, programa_apoyo, perfiles_necesarios, infraestructura, apoyo_seleccion, beneficios) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            
+            $stmt->execute([
+                $empresa, $nit, $sector, $tamano, $ubicacion, $empleados, $contrataciones,
+                $contrato_frec, $tiene_proceso, $perfiles_def, $publicacion, $aprendices,
+                $programa_apoyo, $perfiles_neces_texto, $infraestructura, $apoyo_selec, $beneficios
+            ]);
+
+            // Buscar programas que coincidan con los perfiles seleccionados
+            if (!empty($perfiles_neces)) {
+                // Crear un array para mapear perfiles a términos de búsqueda
+                $terminos_busqueda = [];
+                foreach ($perfiles_neces as $perfil) {
+                    // Mapear perfiles a términos relacionados con programas
+                    switch ($perfil) {
+                        case 'Programación':
+                        case 'Desarrollo de software':
+                            $terminos_busqueda[] = 'programación';
+                            $terminos_busqueda[] = 'software';
+                            $terminos_busqueda[] = 'desarrollo';
+                            break;
+                        case 'Textiles':
+                            $terminos_busqueda[] = 'textil';
+                            $terminos_busqueda[] = 'confección';
+                            break;
+                        case 'Mecánica':
+                            $terminos_busqueda[] = 'mecánica';
+                            $terminos_busqueda[] = 'mecánico';
+                            break;
+                        case 'Logística':
+                            $terminos_busqueda[] = 'logística';
+                            break;
+                        case 'Contabilidad':
+                            $terminos_busqueda[] = 'contabilidad';
+                            $terminos_busqueda[] = 'contable';
+                            break;
+                        case 'Electricidad':
+                            $terminos_busqueda[] = 'electricidad';
+                            $terminos_busqueda[] = 'eléctrico';
+                            break;
+                        case 'Electrónica':
+                            $terminos_busqueda[] = 'electrónica';
+                            $terminos_busqueda[] = 'electrónico';
+                            break;
+                        case 'Gestión empresarial':
+                            $terminos_busqueda[] = 'gestión';
+                            $terminos_busqueda[] = 'empresarial';
+                            $terminos_busqueda[] = 'administración';
+                            break;
+                        case 'Diseño gráfico':
+                            $terminos_busqueda[] = 'diseño';
+                            $terminos_busqueda[] = 'gráfico';
+                            break;
+                        case 'Soporte técnico':
+                            $terminos_busqueda[] = 'soporte';
+                            $terminos_busqueda[] = 'técnico';
+                            break;
+                        case 'Seguridad y salud en el trabajo':
+                            $terminos_busqueda[] = 'seguridad';
+                            $terminos_busqueda[] = 'salud';
+                            $terminos_busqueda[] = 'trabajo';
+                            break;
+                        case 'Administración':
+                            $terminos_busqueda[] = 'administración';
+                            $terminos_busqueda[] = 'administrativo';
+                            break;
+                        case 'Ambiental':
+                            $terminos_busqueda[] = 'ambiental';
+                            $terminos_busqueda[] = 'medio ambiente';
+                            break;
+                        case 'Telecomunicaciones':
+                            $terminos_busqueda[] = 'telecomunicaciones';
+                            break;
+                        case 'Redes de datos':
+                            $terminos_busqueda[] = 'redes';
+                            $terminos_busqueda[] = 'datos';
+                            break;
+                        case 'Diseño de productos':
+                            $terminos_busqueda[] = 'diseño';
+                            $terminos_busqueda[] = 'producto';
+                            break;
+                        case 'Gestión documental':
+                            $terminos_busqueda[] = 'gestión';
+                            $terminos_busqueda[] = 'documental';
+                            break;
+                        case 'Servicio al cliente':
+                            $terminos_busqueda[] = 'servicio';
+                            $terminos_busqueda[] = 'cliente';
+                            break;
+                        case 'Diseño industrial':
+                            $terminos_busqueda[] = 'diseño';
+                            $terminos_busqueda[] = 'industrial';
+                            break;
+                        case 'Producción multimedia':
+                            $terminos_busqueda[] = 'multimedia';
+                            $terminos_busqueda[] = 'producción';
+                            break;
+                        case 'Diseño web':
+                            $terminos_busqueda[] = 'web';
+                            $terminos_busqueda[] = 'diseño';
+                            break;
+                        case 'Tecnología en automatización':
+                            $terminos_busqueda[] = 'automatización';
+                            $terminos_busqueda[] = 'tecnología';
+                            break;
+                        default:
+                            $terminos_busqueda[] = strtolower($perfil);
+                    }
+                }
+                
+                // Eliminar duplicados
+                $terminos_busqueda = array_unique($terminos_busqueda);
+                
+                // Construir consulta LIKE para buscar programas
+                $conditions = [];
+                $params = [];
+                
+                foreach ($terminos_busqueda as $termino) {
+                    $conditions[] = "nombre_programa LIKE ?";
+                    $params[] = "%$termino%";
+                }
+                
+                $sql_conditions = implode(" OR ", $conditions);
+                $sql = "SELECT * FROM programas 
+                        WHERE ($sql_conditions) 
+                        AND activacion = 'activo'
+                        ORDER BY nombre_programa";
+                
+                $stmt_programas = $pdo->prepare($sql);
+                $stmt_programas->execute($params);
+                $recomendaciones = $stmt_programas->fetchAll(PDO::FETCH_ASSOC);
+            }
+
+            $mensaje_exito = true;
+
+        } catch (PDOException $e) {
+            $errores[] = "Error al guardar el diagnóstico: " . $e->getMessage();
+        }
+    }
 }
 ?>
 
@@ -62,7 +235,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <header>DATASENA    
     <img src="../../img/logo-sena.png" class="logo-img" alt="Logo SENA" />  
 </header>
-
 
 <main class="form-container">
     <h2>Formulario de Diagnóstico Empresarial</h2>
@@ -95,19 +267,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <label>Sector:</label>
         <select name="sector" required>
-            <option <?= ($sector=="Agroindustria"?"selected":"") ?>>Agroindustria</option>
-            <option <?= ($sector=="Comercio"?"selected":"") ?>>Comercio</option>
-            <option <?= ($sector=="Tecnología"?"selected":"") ?>>Tecnología</option>
-            <option <?= ($sector=="Servicios"?"selected":"") ?>>Servicios</option>
-            <option <?= ($sector=="Otros"?"selected":"") ?>>Otros</option>
+            <option value="">Seleccione un sector</option>
+            <option value="Agroindustria" <?= ($sector=="Agroindustria"?"selected":"") ?>>Agroindustria</option>
+            <option value="Comercio" <?= ($sector=="Comercio"?"selected":"") ?>>Comercio</option>
+            <option value="Tecnología" <?= ($sector=="Tecnología"?"selected":"") ?>>Tecnología</option>
+            <option value="Servicios" <?= ($sector=="Servicios"?"selected":"") ?>>Servicios</option>
+            <option value="Otros" <?= ($sector=="Otros"?"selected":"") ?>>Otros</option>
         </select>
 
         <label>Tamaño:</label>
         <select name="tamano" required>
-            <option <?= ($tamano=="Microempresa (1-10)"?"selected":"") ?>>Microempresa (1-10)</option>
-            <option <?= ($tamano=="Pequeña empresa (11-50)"?"selected":"") ?>>Pequeña empresa (11-50)</option>
-            <option <?= ($tamano=="Mediana empresa (51-200)"?"selected":"") ?>>Mediana empresa (51-200)</option>
-            <option <?= ($tamano=="Grande (>200)"?"selected":"") ?>>Grande (>200)</option>
+            <option value="">Seleccione el tamaño</option>
+            <option value="Microempresa (1-10)" <?= ($tamano=="Microempresa (1-10)"?"selected":"") ?>>Microempresa (1-10)</option>
+            <option value="Pequeña empresa (11-50)" <?= ($tamano=="Pequeña empresa (11-50)"?"selected":"") ?>>Pequeña empresa (11-50)</option>
+            <option value="Mediana empresa (51-200)" <?= ($tamano=="Mediana empresa (51-200)"?"selected":"") ?>>Mediana empresa (51-200)</option>
+            <option value="Grande (>200)" <?= ($tamano=="Grande (>200)"?"selected":"") ?>>Grande (>200)</option>
         </select>
 
         <label>Ubicación:</label>
@@ -121,42 +295,48 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <label>Tipo contrato frecuente:</label>
         <select name="contrato_frecuente" required>
-            <option <?= ($contrato_frec=="Fijo"?"selected":"") ?>>Fijo</option>
-            <option <?= ($contrato_frec=="Indefinido"?"selected":"") ?>>Indefinido</option>
-            <option <?= ($contrato_frec=="Prestación de servicios"?"selected":"") ?>>Prestación de servicios</option>
-            <option <?= ($contrato_frec=="Aprendices SENA"?"selected":"") ?>>Aprendices SENA</option>
+            <option value="">Seleccione tipo de contrato</option>
+            <option value="Fijo" <?= ($contrato_frec=="Fijo"?"selected":"") ?>>Fijo</option>
+            <option value="Indefinido" <?= ($contrato_frec=="Indefinido"?"selected":"") ?>>Indefinido</option>
+            <option value="Prestación de servicios" <?= ($contrato_frec=="Prestación de servicios"?"selected":"") ?>>Prestación de servicios</option>
+            <option value="Aprendices SENA" <?= ($contrato_frec=="Aprendices SENA"?"selected":"") ?>>Aprendices SENA</option>
         </select>
 
         <label>¿Tiene proceso de selección formal?</label>
         <select name="tiene_proceso" required>
-            <option <?= ($tiene_proceso=="Sí"?"selected":"") ?>>Sí</option>
-            <option <?= ($tiene_proceso=="No"?"selected":"") ?>>No</option>
+            <option value="">Seleccione una opción</option>
+            <option value="Sí" <?= ($tiene_proceso=="Sí"?"selected":"") ?>>Sí</option>
+            <option value="No" <?= ($tiene_proceso=="No"?"selected":"") ?>>No</option>
         </select>
 
         <label>¿Perfiles definidos?</label>
         <select name="perfiles_definidos" required>
-            <option <?= ($perfiles_def=="Sí"?"selected":"") ?>>Sí</option>
-            <option <?= ($perfiles_def=="No"?"selected":"") ?>>No</option>
+            <option value="">Seleccione una opción</option>
+            <option value="Sí" <?= ($perfiles_def=="Sí"?"selected":"") ?>>Sí</option>
+            <option value="No" <?= ($perfiles_def=="No"?"selected":"") ?>>No</option>
         </select>
 
         <label>Medios publicación vacantes:</label>
         <select name="publicacion" required>
-            <option <?= ($publicacion=="Redes sociales"?"selected":"") ?>>Redes sociales</option>
-            <option <?= ($publicacion=="Servicio Público de Empleo"?"selected":"") ?>>Servicio Público de Empleo</option>
-            <option <?= ($publicacion=="Referidos"?"selected":"") ?>>Referidos</option>
-            <option <?= ($publicacion=="Otras"?"selected":"") ?>>Otras</option>
+            <option value="">Seleccione medio de publicación</option>
+            <option value="Redes sociales" <?= ($publicacion=="Redes sociales"?"selected":"") ?>>Redes sociales</option>
+            <option value="Servicio Público de Empleo" <?= ($publicacion=="Servicio Público de Empleo"?"selected":"") ?>>Servicio Público de Empleo</option>
+            <option value="Referidos" <?= ($publicacion=="Referidos"?"selected":"") ?>>Referidos</option>
+            <option value="Otras" <?= ($publicacion=="Otras"?"selected":"") ?>>Otras</option>
         </select>
 
         <label>¿Vincular aprendices?</label>
         <select name="aprendices" required>
-            <option <?= ($aprendices=="Sí"?"selected":"") ?>>Sí</option>
-            <option <?= ($aprendices=="No"?"selected":"") ?>>No</option>
+            <option value="">Seleccione una opción</option>
+            <option value="Sí" <?= ($aprendices=="Sí"?"selected":"") ?>>Sí</option>
+            <option value="No" <?= ($aprendices=="No"?"selected":"") ?>>No</option>
         </select>
 
         <label>¿Programa de apoyo?</label>
         <select name="programa_apoyo" required>
-            <option <?= ($programa_apoyo=="Sí"?"selected":"") ?>>Sí</option>
-            <option <?= ($programa_apoyo=="No"?"selected":"") ?>>No</option>
+            <option value="">Seleccione una opción</option>
+            <option value="Sí" <?= ($programa_apoyo=="Sí"?"selected":"") ?>>Sí</option>
+            <option value="No" <?= ($programa_apoyo=="No"?"selected":"") ?>>No</option>
         </select>
 
         <!-- Select múltiple con Select2 -->
@@ -170,7 +350,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         "Servicio al cliente","Diseño industrial","Producción multimedia","Diseño web",
                         "Tecnología en automatización"];
             foreach ($opciones as $op): ?>
-                <option value="<?= htmlspecialchars($op) ?>" <?= in_array($op,$perfiles_neces)?"selected":"" ?>>
+                <option value="<?= htmlspecialchars($op) ?>" <?= in_array($op, $perfiles_neces) ? "selected" : "" ?>>
                     <?= htmlspecialchars($op) ?>
                 </option>
             <?php endforeach; ?>
@@ -178,20 +358,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         <label>¿Tiene infraestructura para formar?</label>
         <select name="infraestructura" required>
-            <option <?= ($infraestructura=="Sí"?"selected":"") ?>>Sí</option>
-            <option <?= ($infraestructura=="No"?"selected":"") ?>>No</option>
+            <option value="">Seleccione una opción</option>
+            <option value="Sí" <?= ($infraestructura=="Sí"?"selected":"") ?>>Sí</option>
+            <option value="No" <?= ($infraestructura=="No"?"selected":"") ?>>No</option>
         </select>
 
         <label>¿Requiere apoyo en selección?</label>
         <select name="apoyo_seleccion" required>
-            <option <?= ($apoyo_selec=="Sí"?"selected":"") ?>>Sí</option>
-            <option <?= ($apoyo_selec=="No"?"selected":"") ?>>No</option>
+            <option value="">Seleccione una opción</option>
+            <option value="Sí" <?= ($apoyo_selec=="Sí"?"selected":"") ?>>Sí</option>
+            <option value="No" <?= ($apoyo_selec=="No"?"selected":"") ?>>No</option>
         </select>
 
         <label>¿Desea orientación tributaria?</label>
         <select name="beneficios" required>
-            <option <?= ($beneficios=="Sí"?"selected":"") ?>>Sí</option>
-            <option <?= ($beneficios=="No"?"selected":"") ?>>No</option>
+            <option value="">Seleccione una opción</option>
+            <option value="Sí" <?= ($beneficios=="Sí"?"selected":"") ?>>Sí</option>
+            <option value="No" <?= ($beneficios=="No"?"selected":"") ?>>No</option>
         </select>
 
         <!-- Botones -->
@@ -203,18 +386,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <!-- Bloque de resultados -->
 <?php if (!empty($recomendaciones)): ?>
     <div class="form-container">
-        <h3>🎓 Programas recomendados:</h3>
-        <ul>
-            <?php foreach ($recomendaciones as $prog): ?>
-                <li><strong><?= $prog['nombre_programa'] ?></strong> - 
-                    <?= $prog['tipo_programa'] ?> 
-                    (<?= $prog['duracion_programa'] ?>)
-                </li>
+        <h3>🎓 Programas SENA recomendados según sus perfiles:</h3>
+        <p><strong>Perfiles seleccionados:</strong> <?= htmlspecialchars(implode(', ', $perfiles_neces)) ?></p>
+        
+        <div class="programas-grid">
+            <?php foreach ($recomendaciones as $programa): ?>
+                <div class="programa-card">
+                    <h4><?= htmlspecialchars($programa['nombre_programa']) ?></h4>
+                    <p><strong>Tipo:</strong> <?= htmlspecialchars($programa['tipo_programa']) ?></p>
+                    <p><strong>Número de ficha:</strong> <?= htmlspecialchars($programa['numero_ficha']) ?></p>
+                    <p><strong>Duración:</strong> <?= htmlspecialchars($programa['duracion_programa']) ?> horas</p>
+                    <p><strong>Estado:</strong> <span class="estado-activo"><?= htmlspecialchars($programa['activacion']) ?></span></p>
+                </div>
             <?php endforeach; ?>
-        </ul>
+        </div>
     </div>
-<?php elseif ($mensaje_exito): ?>
-    <p class="mensaje info">ℹ️ No se encontraron programas que coincidan con los perfiles ingresados.<p>
+<?php elseif ($mensaje_exito && empty($recomendaciones)): ?>
+    <div class="form-container">
+        <p class="mensaje info">ℹ️ No se encontraron programas activos que coincidan con los perfiles seleccionados.</p>
+    </div>
 <?php endif; ?>
 
 <footer>

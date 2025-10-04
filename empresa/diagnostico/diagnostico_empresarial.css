@@ -236,3 +236,26 @@ html {
     height: auto;       /* Mantener proporción */
     margin: 0;          /* Quitamos margen innecesario */
 }
+.programas-grid {
+    display: grid;
+    gap: 20px;
+}
+
+.programa-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.programa-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.estado-activo {
+    color: #28a745;
+    font-weight: bold;
+}
